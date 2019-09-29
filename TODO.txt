@@ -2,3 +2,4 @@
 
 
 // Todo implement user / userDetail / role notions (voir les commentaires en dessous du tuto)
+// Todo process URL => retourné le TOKEN 
