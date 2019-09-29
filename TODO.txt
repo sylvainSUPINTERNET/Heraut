@@ -1,0 +1,4 @@
+// TODO => https://dev.to/keysh/spring-security-with-jwt-3j76
+
+
+// Todo implement user / userDetail / role notions (voir les commentaires en dessous du tuto)

@@ -2,6 +2,8 @@ package fr.heraut.api.filter;
 
 import fr.heraut.api.security.SecurityConstant;
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.Key;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,10 +46,11 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         String token = request.getHeader(SecurityConstant.TOKEN_HEADER);
         if (!StringUtils.isEmpty(token) && token.startsWith(SecurityConstant.TOKEN_PREFIX)) {
             try {
-                byte[] signingKey = SecurityConstant.JWT_SECRET.getBytes();
+                byte[] keyBytes = Decoders.BASE64.decode(SecurityConstant.JWT_SECRET);
+                Key k = Keys.hmacShaKeyFor(keyBytes);
 
                 Jws<Claims> parsedToken = Jwts.parser()
-                        .setSigningKey(signingKey)
+                        .setSigningKey(k)
                         .parseClaimsJws(token.replace("Bearer ", ""));
 
                 String username = parsedToken

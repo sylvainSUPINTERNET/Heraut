@@ -6,13 +6,12 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class SecurityConstant {
 
-    public static final String AUTH_LOGIN_URL = "/api/auth";
+    public static final String AUTH_LOGIN_URL = "/api/v1/auth";
 
     // Signing key for HS512 algorithm
     // You can use the page http://www.allkeysgenerator.com/ to generate all kinds of keys
 
-    @Value("{jwt.secret}")
-    public static String JWT_SECRET;
+    public static String JWT_SECRET = "n2r5u8xkAmDxGeKaPdSgVkYp3s6v9ysBdEvHrMbQeThWmZq4t7wezZCxFFJANcRf";
 
     // JWT token defaults
     public static final String TOKEN_HEADER = "Authorization";
