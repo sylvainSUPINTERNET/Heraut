@@ -22,23 +22,13 @@ public class ApiApplication implements CommandLineRunner {
 	UserRepository users;
 
 	// TODO -> https://www.codementor.io/hantsy/protect-rest-apis-with-spring-security-and-jwt-ms5uu3zd6
-
+	// TODO -> https://www.baeldung.com/role-and-privilege-for-spring-security-registration
 	public static void main(String[] args) {
 		SpringApplication.run(ApiApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
-
-		list.add(new SimpleGrantedAuthority("ROLE_USER"));
-		/*
-		this.users.save(User.builder()
-				.username("admin")
-				.password(new BCryptPasswordEncoder().encode("password"))
-				.roles(Arrays.asList("ROLE_ADMIN"))
-				.build()
-		);*/
 
 	}
 }
