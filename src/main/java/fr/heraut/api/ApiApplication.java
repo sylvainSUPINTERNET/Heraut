@@ -4,14 +4,22 @@ import fr.heraut.api.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 @SpringBootApplication
 public class ApiApplication implements CommandLineRunner {
 
+	@Autowired
+	UserRepository users;
 
 	// TODO -> https://www.codementor.io/hantsy/protect-rest-apis-with-spring-security-and-jwt-ms5uu3zd6
 
@@ -21,6 +29,16 @@ public class ApiApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+
+		list.add(new SimpleGrantedAuthority("ROLE_USER"));
+		/*
+		this.users.save(User.builder()
+				.username("admin")
+				.password(new BCryptPasswordEncoder().encode("password"))
+				.roles(Arrays.asList("ROLE_ADMIN"))
+				.build()
+		);*/
 
 	}
 }

@@ -1,12 +1,9 @@
 package fr.heraut.api.controllers;
 
-import fr.heraut.api.models.Vehicle;
 import fr.heraut.api.repositories.VehicleRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.servlet.http.HttpServletRequest;
 
 import static org.springframework.http.ResponseEntity.ok;
 

@@ -20,7 +20,7 @@ import java.util.List;
 public class JwtTokenProvider {
 
     //@Value("${security.jwt.token.secret-key:secret}")
-    private String secretKey = "n2r5u8xkAmDxGeKaPdSgVkYp3s6v9ysBdEvHrMbQeThWmZq4t7wezZCxFFJANcRf    ";
+    private String secretKey = "n2r5u8xkAmDxGeKaPdSgVkYp3s6v9ysBdEvHrMbQeThWmZq4t7wezZCxFFJANcRf";
 
     //@Value("${security.jwt.token.expire-length:3600000}")
     private long validityInMilliseconds = 3600000; // 1h
