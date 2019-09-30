@@ -35,12 +35,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+
                 // has role !== has authority but both work in this case
                 .antMatchers("/auth/signin").permitAll()
+                .antMatchers("/auth/register").permitAll()
+
+
+                // EXEMPLE SERVICES
                 .antMatchers(HttpMethod.GET, "/vehicles/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/vehicles/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/v1/vehicles/**").permitAll()
+
+                // USER SERVICES
+                .antMatchers(HttpMethod.GET, "/v1/me").hasAnyAuthority("ADMIN", "USER")
+                .antMatchers(HttpMethod.PUT, "/v1/granted").hasAuthority("ADMIN")
+
                 .anyRequest().authenticated()
+
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));
         //@formatter:on

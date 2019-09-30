@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,7 +40,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        
+
         return this.roles.stream().map(SimpleGrantedAuthority::new).collect(toList());
     }
 
@@ -53,10 +54,21 @@ public class User implements UserDetails {
         return this.username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public List<String> getRoles() {
         return roles;
     }
 
+    public Long getId() {
+        return id;
+    }
 
     @Override
     public boolean isAccountNonExpired() {

@@ -1,4 +1,4 @@
-package fr.heraut.api.controllers;
+package fr.heraut.api.controllers.User;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,7 +16,7 @@ import static org.springframework.http.ResponseEntity.ok;
 @RestController()
 class UserInfoController {
 
-    @GetMapping("/me")
+    @GetMapping("/v1/me")
     public ResponseEntity currentUser(@AuthenticationPrincipal UserDetails userDetails){
         Map<Object, Object> model = new HashMap<>();
         model.put("username", userDetails.getUsername());

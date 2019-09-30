@@ -1,13 +1,11 @@
 package fr.heraut.api.JWT;
 
-import fr.heraut.api.services.ApiUserDetailsService;
+import fr.heraut.api.services.User.ApiUserDetailsService;
 import io.jsonwebtoken.*;
-import lombok.Value;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -37,6 +35,7 @@ public class JwtTokenProvider {
 
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("roles", roles);
+
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);

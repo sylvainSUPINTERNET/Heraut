@@ -1,8 +1,10 @@
-package fr.heraut.api.controllers;
+package fr.heraut.api.controllers.Authentication;
 
 import fr.heraut.api.JWT.JwtTokenProvider;
 import fr.heraut.api.POJO.AuthenticationRequest;
+import fr.heraut.api.models.User;
 import fr.heraut.api.repositories.UserRepository;
+import fr.heraut.api.services.Authentication.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,14 +28,28 @@ import static org.springframework.http.ResponseEntity.ok;
 @RequestMapping("/auth")
 public class AuthenticationController {
 
-    @Autowired
+    private final
     AuthenticationManager authenticationManager;
 
-    @Autowired
+    private final
+    UserRepository userRepository;
+
+    private final
+    RegisterService registerService;
+
+    private final
     JwtTokenProvider jwtTokenProvider;
 
-    @Autowired
+    private final
     UserRepository users;
+
+    public AuthenticationController(AuthenticationManager authenticationManager, UserRepository userRepository, JwtTokenProvider jwtTokenProvider, UserRepository users, RegisterService registerService) {
+        this.authenticationManager = authenticationManager;
+        this.userRepository = userRepository;
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.users = users;
+        this.registerService = registerService;
+    }
 
     @PostMapping("/signin")
     public ResponseEntity signin(@RequestBody AuthenticationRequest data) {
@@ -49,5 +66,12 @@ public class AuthenticationController {
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username/password supplied");
         }
+    }
+
+
+    @PostMapping("/register")
+    public ResponseEntity test(@RequestBody User user) {
+        // encode le password
+        return registerService.generateUser(user);
     }
 }

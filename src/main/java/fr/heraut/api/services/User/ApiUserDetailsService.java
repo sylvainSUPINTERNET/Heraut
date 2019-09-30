@@ -1,4 +1,4 @@
-package fr.heraut.api.services;
+package fr.heraut.api.services.User;
 
 import fr.heraut.api.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,6 +8,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ApiUserDetailsService implements UserDetailsService {
+
+
+    // TODO -> exemple transactionnal jpa OPERATION
+    //   Employee employee = em.find(Employee.class, 1);
+    //
+    //  em.getTransaction().begin();
+    //  em.remove(employee);
+    //  em.getTransaction().commit();
 
     private UserRepository users;
 

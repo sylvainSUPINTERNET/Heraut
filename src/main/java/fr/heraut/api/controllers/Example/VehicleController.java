@@ -1,4 +1,4 @@
-package fr.heraut.api.controllers;
+package fr.heraut.api.controllers.Example;
 
 import fr.heraut.api.repositories.VehicleRepository;
 import org.springframework.http.ResponseEntity;
