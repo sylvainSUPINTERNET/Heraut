@@ -1,6 +1,7 @@
 package fr.heraut.api.services.Authentication;
 
 
+import fr.heraut.api.config.Roles;
 import fr.heraut.api.models.User;
 import fr.heraut.api.repositories.UserRepository;
 import fr.heraut.api.services.Authentication.Format.RegisterError;
@@ -17,8 +18,7 @@ import java.util.Optional;
 @Service
 public class RegisterService {
 
-    @Value("${api.role.user}")
-    String ROLE_USER;
+    Roles apiRoles;
 
     private final
     UserRepository userRepository;
@@ -29,10 +29,11 @@ public class RegisterService {
     private final RegisterError registerError;
 
 
-    RegisterService(UserRepository userRepository, RegisterSuccess registerSuccess, RegisterError registerError) {
+    RegisterService(UserRepository userRepository, RegisterSuccess registerSuccess, RegisterError registerError, Roles apiRoles) {
         this.userRepository = userRepository;
         this.registerSuccess = registerSuccess;
         this.registerError = registerError;
+        this.apiRoles = apiRoles;
     }
 
 
@@ -62,7 +63,7 @@ public class RegisterService {
                         return registerError.formatError("AUTHENTICATION_REGISTER_ERROR_USERNAME_FIELDS_ALREADY_EXIST");
                     } else {
                         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-                        user.setRoles(Arrays.asList(this.ROLE_USER));
+                        user.setRoles(Arrays.asList(apiRoles.getROLE_USER()));
                         Long id = userRepository
                                 .save(user)
                                 .getId();
