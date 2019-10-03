@@ -3,6 +3,8 @@ package fr.heraut.api.JWT;
 import fr.heraut.api.services.User.ApiUserDetailsService;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -75,7 +77,8 @@ public class JwtTokenProvider {
 
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            throw new JwtException("Invalid token");
+            //throw new JwtException("Invalid token");
+            return false;
         }
     }
 

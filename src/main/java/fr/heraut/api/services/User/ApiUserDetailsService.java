@@ -24,8 +24,9 @@ public class ApiUserDetailsService implements UserDetailsService {
     }
 
     @Override
+    // USERNAME EST L'EMAIL DE L'utilisateur ici !
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return this.users.findByUsername(username)
+        return this.users.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Username: " + username + " not found"));
     }
 }

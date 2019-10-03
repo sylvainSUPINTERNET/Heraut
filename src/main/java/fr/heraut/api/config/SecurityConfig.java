@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 
                 // has role !== has authority but both work in this case
-                .antMatchers("/auth/signin").permitAll()
+                .antMatchers("/auth/login").permitAll()
                 .antMatchers("/auth/register").permitAll()
 
 

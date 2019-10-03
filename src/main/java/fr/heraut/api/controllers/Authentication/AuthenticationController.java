@@ -51,20 +51,22 @@ public class AuthenticationController {
         this.registerService = registerService;
     }
 
-    @PostMapping("/signin")
+    @PostMapping("/login")
+    // ATTENTION => username est en fait l'email de l'utilisateur dans l'authentication
     public ResponseEntity signin(@RequestBody AuthenticationRequest data) {
 
         try {
-            String username = data.getUsername();
+            String username = data.getEmail();
+
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
-            String token = jwtTokenProvider.createToken(username, this.users.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username " + username + "not found")).getRoles());
+            String token = jwtTokenProvider.createToken(username, this.users.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Username " + username + "not found")).getRoles());
 
             Map<Object, Object> model = new HashMap<>();
-            model.put("username", username);
+            model.put("email", username);
             model.put("token", token);
             return ok(model);
         } catch (AuthenticationException e) {
-            throw new BadCredentialsException("Invalid username/password supplied");
+            throw new BadCredentialsException("Invalid Email/password supplied");
         }
     }
 

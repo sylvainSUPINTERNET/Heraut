@@ -23,6 +23,7 @@ public class RegisterSuccess {
         model2.put("roles", user.getRoles());
         model2.put("authorities", user.getAuthorities());
         model2.put("username", user.getUsername());
+        model2.put("email", user.getEmail());
         model2.put("isAccountNonExpired", user.isAccountNonExpired());
         model2.put("isAccountNonLocked", user.isAccountNonLocked());
         model2.put("isCredentialsNonExpired", user.isCredentialsNonExpired());
@@ -30,6 +31,7 @@ public class RegisterSuccess {
 
         Map<Object, Object> model = new HashMap<>();
         model.put("http_status_code", HttpStatus.OK.value());
+        model.put("error", false);
         model.put("data", model2);
 
 
