@@ -1,4 +1,4 @@
-package fr.heraut.api.services.Authentication.Format;
+package fr.heraut.api.services.ResponseFormat;
 
 
 import fr.heraut.api.i18n.ErrorsMessages;
@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class is used to return basic error properly for API
+ */
 @Service
 public class GenericError {
 
@@ -18,15 +21,16 @@ public class GenericError {
         this.errorsMessages = errorsMessages;
     }
 
-    public ResponseEntity formatError(String MESSAGE_KEY) {
+    public ResponseEntity formatError(String MESSAGE_KEY, String lang) {
 
-        Map<Object, Object> model2 = new HashMap<>();
-        model2.put("message", errorsMessages.getTranslation("FR").get(MESSAGE_KEY));
+
+        Map<Object, Object> mainMessage = new HashMap<>();
+        mainMessage.put("message", errorsMessages.getTranslation(lang).get(MESSAGE_KEY));
 
         Map<Object, Object> model = new HashMap<>();
         model.put("http_status_code", HttpStatus.BAD_REQUEST);
         model.put("error", true);
-        model.put("data", model2);
+        model.put("data", mainMessage);
 
         return ResponseEntity.badRequest().body(model);
 

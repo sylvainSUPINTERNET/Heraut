@@ -4,10 +4,8 @@ package fr.heraut.api.services.Authentication;
 import fr.heraut.api.config.Roles;
 import fr.heraut.api.models.User;
 import fr.heraut.api.repositories.UserRepository;
-import fr.heraut.api.services.Authentication.Format.RegisterError;
-import fr.heraut.api.services.Authentication.Format.RegisterSuccess;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
+import fr.heraut.api.services.ResponseFormat.RegisterError;
+import fr.heraut.api.services.ResponseFormat.RegisterSuccess;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -47,20 +45,20 @@ public class RegisterService {
 
     public ResponseEntity generateUser(User user) {
         if (user.getPassword() == null || user.getUsername() == null || user.getEmail() == null) {
-            return registerError.formatError("AUTHENTICATION_REGISTER_ERROR_MISSING_FIELDS");
+            return registerError.formatError("AUTHENTICATION_REGISTER_ERROR_MISSING_FIELDS", "FR");
         } else {
             if (user.getPassword().isEmpty() || user.getUsername().isEmpty() || user.getEmail().isEmpty()) {
                 // return error
-                return registerError.formatError("AUTHENTICATION_REGISTER_ERROR_EMPTY_FIELDS");
+                return registerError.formatError("AUTHENTICATION_REGISTER_ERROR_EMPTY_FIELDS","FR");
 
             } else {
                 Optional<User> userWithSameEmail = userRepository.findByEmail(user.getEmail());
                 if (userWithSameEmail.isPresent()) {
-                    return registerError.formatError("AUTHENTICATION_REGISTER_ERROR_EMAIL_FIELDS_ALREADY_EXIST");
+                    return registerError.formatError("AUTHENTICATION_REGISTER_ERROR_EMAIL_FIELDS_ALREADY_EXIST","FR");
                 } else {
                     Optional<User> userWithSameUsername = userRepository.findByUsername(user.getUsername());
                     if (userWithSameUsername.isPresent()) {
-                        return registerError.formatError("AUTHENTICATION_REGISTER_ERROR_USERNAME_FIELDS_ALREADY_EXIST");
+                        return registerError.formatError("AUTHENTICATION_REGISTER_ERROR_USERNAME_FIELDS_ALREADY_EXIST","FR");
                     } else {
                         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
                         user.setRoles(Arrays.asList(apiRoles.getROLE_USER()));

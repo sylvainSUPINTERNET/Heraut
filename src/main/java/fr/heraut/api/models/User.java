@@ -70,6 +70,24 @@ public class User implements UserDetails {
         return roles;
     }
 
+    /**
+     * Beware we using List and set role in authentication with Arrays.asList that create a FIXED SIZE ARRAY (so to modify send again a list)
+     * @param roles
+     */
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+
     public Long getId() {
         return id;
     }

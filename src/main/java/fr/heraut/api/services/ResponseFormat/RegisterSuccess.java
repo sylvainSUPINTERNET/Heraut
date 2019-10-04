@@ -1,4 +1,4 @@
-package fr.heraut.api.services.Authentication.Format;
+package fr.heraut.api.services.ResponseFormat;
 
 import fr.heraut.api.models.User;
 import org.springframework.http.HttpStatus;

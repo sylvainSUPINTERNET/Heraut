@@ -42,13 +42,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
                 // EXEMPLE SERVICES
-                .antMatchers(HttpMethod.GET, "/vehicles/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET, "/vehicles/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/vehicles/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/v1/vehicles/**").permitAll()
 
                 // USER SERVICES
-                .antMatchers(HttpMethod.GET, "/v1/me").hasAnyAuthority("ADMIN", "USER")
-                .antMatchers(HttpMethod.PUT, "/v1/granted").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET, "/v1/me").hasAnyRole("ADMIN", "USER")
+                .antMatchers(HttpMethod.PUT, "/v1/granted/**").hasRole("ADMIN")
 
                 .anyRequest().authenticated()
 

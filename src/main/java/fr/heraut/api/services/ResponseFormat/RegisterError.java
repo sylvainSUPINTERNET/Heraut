@@ -1,4 +1,4 @@
-package fr.heraut.api.services.Authentication.Format;
+package fr.heraut.api.services.ResponseFormat;
 
 import fr.heraut.api.i18n.ErrorsMessages;
 import org.springframework.http.HttpStatus;
@@ -17,10 +17,10 @@ public class RegisterError {
         this.errorsMessages = errorsMessages;
     }
 
-    public ResponseEntity formatError(String MESSAGE_KEY) {
+    public ResponseEntity formatError(String MESSAGE_KEY, String lang) {
 
         Map<Object, Object> model2 = new HashMap<>();
-        model2.put("message", errorsMessages.getTranslation("FR").get(MESSAGE_KEY));
+        model2.put("message", errorsMessages.getTranslation(lang).get(MESSAGE_KEY));
 
         Map<Object, Object> model = new HashMap<>();
         model.put("http_status_code", HttpStatus.BAD_REQUEST);
