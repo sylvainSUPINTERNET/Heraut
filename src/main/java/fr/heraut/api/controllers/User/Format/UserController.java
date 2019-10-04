@@ -4,6 +4,7 @@ package fr.heraut.api.controllers.User.Format;
 import fr.heraut.api.models.User;
 import fr.heraut.api.repositories.UserRepository;
 import fr.heraut.api.services.ResponseFormat.GenericError;
+import fr.heraut.api.services.ResponseFormat.GenericSuccess;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,17 +21,19 @@ public class UserController {
     UserRepository userRepository;
 
     GenericError genericError;
+    GenericSuccess genericSuccess;
 
 
-    UserController(UserRepository userRepository){
+    UserController(UserRepository userRepository, GenericSuccess genericSuccess, GenericError genericError){
         this.userRepository = userRepository;
+        this.genericError = genericError;
+        this.genericSuccess = genericSuccess;
     }
 
     @GetMapping
-    public List<User> usersList () {
-        // TODO -> faire quelque chose de générique avec pagination + sorting params + error generic + response generic
-        return userRepository
-                .findAll();
+    public ResponseEntity usersList () {
+        return genericSuccess.formatSuccess(userRepository
+                .findAll());
     }
 
 
