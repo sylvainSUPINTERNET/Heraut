@@ -55,6 +55,11 @@ public class User implements UserDetails {
 
 
     // ATTENTION getUsername est overidé pour renvoyer le mail et non l'user email
+
+    /**
+     * ATTENTION cette fonction override getUsername de UserDetails dans models.User returns l'email (username est en réalité dans le systeme l'email de l'user)
+     * @return
+     */
     @Override
     public String getUsername() {
         return this.email;

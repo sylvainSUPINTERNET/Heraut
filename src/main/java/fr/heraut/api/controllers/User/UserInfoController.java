@@ -22,7 +22,7 @@ class UserInfoController {
     @GetMapping("/me")
     public ResponseEntity currentUser(@AuthenticationPrincipal UserDetails userDetails){
         Map<Object, Object> model = new HashMap<>();
-        model.put("username", userDetails.getUsername());
+        model.put("username", userDetails.getUsername()); // ATTENTION username est overide dans models.User pour retourner email et pas username pour matché avec le system d'authentication qui remplace aussi username par email
         model.put("roles", userDetails.getAuthorities()
                 .stream()
                 .map(a -> ((GrantedAuthority) a).getAuthority())
