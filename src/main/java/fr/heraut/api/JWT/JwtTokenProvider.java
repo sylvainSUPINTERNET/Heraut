@@ -34,7 +34,6 @@ public class JwtTokenProvider {
     }
 
     public String createToken(String username, List<String> roles) {
-
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("roles", roles);
 
@@ -50,6 +49,7 @@ public class JwtTokenProvider {
                 .compact();
     }
 
+    // ATTENTION -> username c'est l'email dans notre authentication system
     public Authentication getAuthentication(String token) {
         UserDetails userDetails = this.apiUserDetailsService.loadUserByUsername(getUsername(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());

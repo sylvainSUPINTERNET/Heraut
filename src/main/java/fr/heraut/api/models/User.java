@@ -53,10 +53,19 @@ public class User implements UserDetails {
         return this.password;
     }
 
+
+    // ATTENTION getUsername est overidé pour renvoyer le mail et non l'user email
     @Override
     public String getUsername() {
+        return this.email;
+    }
+
+    // ATTENTION le getUser de UserDetails returns l'email, ici on return le vrai username
+    public String getUsernameEntity() {
         return this.username;
     }
+
+
 
     public void setUsername(String username) {
         this.username = username;
