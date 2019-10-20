@@ -34,6 +34,14 @@ public class User implements UserDetails {
     @NotEmpty
     private String password;
 
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    private List<Announces> announces = new ArrayList<>();
+
+
 
     @Email
     private String email;

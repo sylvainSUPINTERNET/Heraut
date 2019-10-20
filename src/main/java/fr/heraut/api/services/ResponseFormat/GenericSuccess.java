@@ -19,7 +19,6 @@ public class GenericSuccess {
         model.put("http_status_code", HttpStatus.OK);
         model.put("error", false);
         model.put("data", object);
-
         return ResponseEntity.ok(model);
 
 

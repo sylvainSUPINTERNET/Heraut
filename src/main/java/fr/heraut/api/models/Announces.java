@@ -40,7 +40,7 @@ public class Announces implements Serializable {
     @NotNull
     private String zipCode;
 
-    @Column(columnDefinition="tinyint(1) default 1")
+    @Column(columnDefinition = "boolean default true")
     Boolean active;
 
     @CreationTimestamp

@@ -39,11 +39,11 @@ public class UserController {
         // TODO : WIP
         System.out.println("queryPARAMS : " + queryParams);
         Pageable firstPageWithTwoElements = PageRequest.of(0, 3);
-
+        System.out.println(userRepository.findAll());
         // TODO -> doc / help : https://www.baeldung.com/spring-data-jpa-pagination-sorting
         // TODO -> pagination + query params management
-        return genericSuccess.formatSuccess(userRepository
-                .findAll(firstPageWithTwoElements));
+        return genericSuccess
+                .formatSuccess(userRepository.findAll(firstPageWithTwoElements));
     }
 
 
