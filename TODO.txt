@@ -2,4 +2,36 @@
 
 
 // Todo implement user / userDetail / role notions (voir les commentaires en dessous du tuto)
-// Todo process URL => retourné le TOKEN 
+// Todo process URL => retourné le TOKEN
+
+
+
+Docker :
+
+
+docker build -t petsbnb/api .
+
+docker run -p 4999:4999 petsbnb/api
+
+
+maven :
+mvn clean install -DskipTests
+
+
+WIP -> docker-compose mysql
+
+
+full tuto (link replace by depend_on car deprecated + cmd maven)
+https://springbootdev.com/2017/11/30/docker-spring-boot-and-spring-data-jpa-mysql-rest-api-example-with-docker-without-docker-compose/
+
+
+In order
+
+mvn clean install -DskipTests
+
+// build image and name it spring-jpa-app
+docker build -f Dockerfile -t spring-jpa-app .
+
+
+// docker-compose (define from which image we build)
+docker-compose up

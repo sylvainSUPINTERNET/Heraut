@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  mysql-docker-container:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=heraut
+      - MYSQL_PASSWORD=root
+      - MYSQL_USER=root
+    ports:
+      - 2012:3306 # <host-port>:<container-port> means we can access to 127.0.0.1:2012 (thats database from docker on local machin)
+    volumes:
+      - /data/mysql
+  spring-boot-jpa-app:
+    restart: always
+    image: spring-jpa-app
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql-docker-container
+    ports:
+      - 4999:4999 # same as ports above, the api is accessible at 127.0.0.1:4999 (for postman)
+    volumes:
+      - /data/spring-boot-app
