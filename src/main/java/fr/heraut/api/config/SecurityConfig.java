@@ -55,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // ANNOUNCES SERVICES
                 .antMatchers(HttpMethod.POST, "/v1/announces").permitAll()
-
+                .antMatchers(HttpMethod.GET, "/v1/announces").permitAll()
                 .anyRequest().authenticated()
 
                 .and()

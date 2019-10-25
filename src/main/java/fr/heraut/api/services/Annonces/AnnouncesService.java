@@ -18,10 +18,17 @@ public class AnnouncesService {
     }
 
 
+
+
     public ResponseEntity create(Announces announces){
+        announces.setActive(true);
         announcesRepository
                 .save(announces);
          return ok(announces);
+    }
+
+    public ResponseEntity count(){
+        return ok(announcesRepository.countByActive());
     }
 
 
