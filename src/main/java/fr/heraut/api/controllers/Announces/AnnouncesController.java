@@ -50,4 +50,9 @@ public class AnnouncesController {
         return "oK";
     }
 
+    @GetMapping("/{announceUuid}")
+    public ResponseEntity getOne(@PathVariable(name="announceUuid") String announceUuid){
+        return this.announcesService.getOne(announceUuid);
+    }
+
 }

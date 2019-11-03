@@ -27,6 +27,23 @@ public class ErrorsMessages {
             dict.put("ROLE_AUTHORITY_ERROR_USER_NOT_FOUND_FOR_ID", "Pas d'utilisateur pour cette id.");
             dict.put("ROLE_AUTHORITY_ERROR_USER_UPDATE_ROLE", "Ce rôle n'est pas autorisé.");
 
+            // SERVICES
+            dict.put("SERVICES_BY_ID_NOT_FOUND","Le service pour cette id n'existe pas");
+            dict.put("SERVICES_FIND_ALL_EMPTY", "Aucun services dans la base de données");
+
+            // ANNOUNCES
+            dict.put("ANNOUNCE_FIND_BY_UUID", "Pas d'annonce pour cette uuid");
+
+
+            //AnimalsType
+            dict.put("ANIMALS_TYPE_EMPTY", "Aucun animalsType dans la base de données");
+            dict.put("ANIMALS_TYPE_BY_ID", "Aucun animalsType pour cette id");
+
+            // EQUIPMENTS
+            dict.put("EQUIPMENTS_FIND_BY_ID", "Aucun equipments pour cette id");
+            dict.put("EQUIPMENTS_FIND_ALL", "Aucun equipments en base de données");
+
+
         } else {
             // User and Authentication
             dict.put("AUTHENTICATION_REGISTER_ERROR_EMPTY_FIELDS", "Fields are empty.");
@@ -38,6 +55,23 @@ public class ErrorsMessages {
             dict.put("ROLE_AUTHORITY_ERROR_EXCEPTION_USER_ID_PARAM", "Id user given in URL is invalid.");
             dict.put("ROLE_AUTHORITY_ERROR_USER_NOT_FOUND_FOR_ID", "User not found for this id.");
             dict.put("ROLE_AUTHORITY_ERROR_USER_UPDATE_ROLE", "This role is not allow.");
+
+
+            // SERVICES
+            dict.put("SERVICES_BY_ID_NOT_FOUND","The service for this id does not exist.");
+            dict.put("SERVICES_FIND_ALL_EMPTY", "No services in database.");
+
+            // ANNOUNCES
+            dict.put("ANNOUNCE_FIND_BY_UUID", "No announce for this uuid.");
+
+            //AnimalsType
+            dict.put("ANIMALS_TYPE_EMPTY", "No animalsType in database");
+            dict.put("ANIMALS_TYPE_BY_ID", "No animalsType for this id");
+
+            // EQUIPMENTS
+            dict.put("EQUIPMENTS_FIND_BY_ID", "No equipments for this id");
+            dict.put("EQUIPMENTS_FIND_ALL", "No equipments in database");
+
 
         }
 

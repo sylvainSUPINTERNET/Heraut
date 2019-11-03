@@ -33,8 +33,21 @@ public class GenericError {
         model.put("data", mainMessage);
 
         return ResponseEntity.badRequest().body(model);
+    }
+
+    public ResponseEntity formatErrorForException(String message, Throwable cause) {
+        Map<Object, Object> model = new HashMap<>();
+        Map<Object, Object> mainMessage = new HashMap<>();
+
+        mainMessage.put("message", message);
+        mainMessage.put("cause", cause);
 
 
+        model.put("http_status_code", HttpStatus.BAD_REQUEST);
+        model.put("error", true);
+        model.put("data", mainMessage);
+
+        return ResponseEntity.badRequest().body(model);
     }
 
 

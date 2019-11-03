@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -12,6 +13,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name="announces")
@@ -28,8 +32,8 @@ public class Announces implements Serializable {
     @NotBlank(message = "Description can't be blank")
     private String description;
 
-
-    // todo -> UUID string (auto generate by API)
+    @Column
+    private String uuid;
 
     @Column
     @NotNull
@@ -41,11 +45,31 @@ public class Announces implements Serializable {
 
     @Column
     @NotNull
-    private String zipCode;
+    private String dept;
 
-    @Column(columnDefinition = "boolean default true")
+    @Column
     Boolean active;
 
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    private List<Services> services = new ArrayList<>();
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    private List<AnimalsType> animalsTypes = new ArrayList<>();
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    private List<Equipments> equipments = new ArrayList<>();
 
 
     public void setActive(Boolean isActive){
@@ -77,5 +101,11 @@ public class Announces implements Serializable {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.active = true;
+        this.uuid = UUID.randomUUID().toString();
+    }
 
 }

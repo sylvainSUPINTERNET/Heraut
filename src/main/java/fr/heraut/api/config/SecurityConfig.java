@@ -54,11 +54,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/v1/users/**").hasAnyRole("ADMIN", "USER")
 
                 // ANNOUNCES SERVICES
-                .antMatchers(HttpMethod.POST, "/v1/announces").permitAll()
-                .antMatchers(HttpMethod.GET, "/v1/announces").permitAll()
+                .antMatchers(HttpMethod.POST, "/v1/announces/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/v1/announces/**").permitAll()
+
+                // Services
+                .antMatchers(HttpMethod.GET, "/v1/services/**").permitAll()
+
+                // AnimalsType
+                .antMatchers(HttpMethod.GET, "/v1/animalsType/**").permitAll()
+
+
+                //EQUIPMENTS
+                .antMatchers(HttpMethod.GET, "/v1/equipments/**").permitAll()
+
                 .anyRequest().authenticated()
 
                 .and()
+
                 .apply(new JwtConfigurer(jwtTokenProvider));
         //@formatter:on
     }
