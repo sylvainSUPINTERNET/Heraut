@@ -1,6 +1,11 @@
 ### Docker
 
 
+Setup quick :
+
+> make image_api && docker-compose up
+
+
 > ./build-auto-docker.sh <your_image_name>
 
 (root of project)
