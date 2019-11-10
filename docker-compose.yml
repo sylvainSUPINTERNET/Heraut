@@ -6,15 +6,17 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=heraut
-      - MYSQL_PASSWORD=root
-      - MYSQL_USER=root
+      # already root user by default so just set the pass to avoid bug
+      #- MYSQL_PASSWORD=root
+      #- MYSQL_USER=root
     ports:
       - 2012:3306 # <host-port>:<container-port> means we can access to 127.0.0.1:2012 (thats database from docker on local machin)
     volumes:
-      - /data/mysql
+      #- /data/mysql
+      - ./seed:/docker-entrypoint-initdb.d
   spring-boot-jpa-app:
     restart: always
-    image: spring-jpa-app
+    image: petsbnb_api
     build:
       context: ./
       dockerfile: Dockerfile

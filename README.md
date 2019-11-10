@@ -1,14 +1,16 @@
 ### Docker
 
 
-(root of project)
+> ./build-auto-docker.sh <your_image_name>
 
+(root of project)
+OR
 
 > $ mvn clean install -DskipTests
 
 > $ docker build -f Dockerfile -t spring-jpa-app . // build image based on Dockerfile, named spring-jpa-app . ( . means the project is copied in this image)
 
-> $ docker-compose up
+> $ docker-compose up (run it twice else error ...)
 
 
 **Note**
