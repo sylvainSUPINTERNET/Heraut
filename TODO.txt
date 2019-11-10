@@ -33,5 +33,9 @@ mvn clean install -DskipTests
 docker build -f Dockerfile -t spring-jpa-app .
 
 
+// create cluster
+https://versusmind.eu/blog/choisir-kubernetes-comme-orchestrateur
+
+
 // docker-compose (define from which image we build)
 docker-compose up

@@ -4,8 +4,8 @@ services:
   mysql-docker-container:
     image: mysql:5.7
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=heraut
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
       # already root user by default so just set the pass to avoid bug
       #- MYSQL_PASSWORD=root
       #- MYSQL_USER=root
@@ -19,7 +19,8 @@ services:
       #- ./seed/prod:/docker-entrypoint-initdb.d
   spring-boot-jpa-app:
     restart: always
-    image: petsbnb_api
+    # these variables refers to the .env file
+    image: ${DOCKER_REPOSITORY}:${TAG_DEV}${VERSION}
     build:
       context: ./
       dockerfile: Dockerfile
