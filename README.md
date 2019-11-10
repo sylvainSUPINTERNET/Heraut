@@ -20,6 +20,8 @@
     
 **Deploy image to docker repository**  : 
 
+https://hub.docker.com/repository/docker/sylvainneung/petsbnb (private)
+
     $ make docker_deploy_registry_dev
   
 **Incomming**
