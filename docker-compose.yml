@@ -13,7 +13,10 @@ services:
       - 2012:3306 # <host-port>:<container-port> means we can access to 127.0.0.1:2012 (thats database from docker on local machin)
     volumes:
       #- /data/mysql
-      - ./seed:/docker-entrypoint-initdb.d
+      # For test
+      - ./seed/dev:/docker-entrypoint-initdb.d
+      # For prod
+      #- ./seed/prod:/docker-entrypoint-initdb.d
   spring-boot-jpa-app:
     restart: always
     image: petsbnb_api
