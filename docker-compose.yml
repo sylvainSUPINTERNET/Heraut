@@ -1,7 +1,22 @@
 version: '3'
 
 services:
+  nginx:
+    container_name: api-gateway
+    #image: nginx-api
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 4200:4200
+      - 433:433
+    depends_on:
+      - spring-boot-jpa-app
+    links:
+      - spring-boot-jpa-app
   mysql-docker-container:
+    container_name: mysql-docker-container
     image: mysql:5.7
     environment:
       - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
@@ -18,6 +33,7 @@ services:
       # For prod
       #- ./seed/prod:/docker-entrypoint-initdb.d
   spring-boot-jpa-app:
+    container_name: spring-boot-jpa-app
     restart: always
     # these variables refers to the .env file
     image: ${DOCKER_REPOSITORY}:${TAG_DEV}${VERSION}

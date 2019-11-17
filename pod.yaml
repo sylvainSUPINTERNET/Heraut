@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: petsbnb-api
+  labels:
+    app: petsbnbApi
+spec:
+  containers:
+    - name: db
+      image: mysql:5.7
+      ports:
+        - containerPort: 3306
+    - name: spring-boot-jpa-app
+      image: sylvainneung/petsbnb:dev0.0.1-api
+      ports:
+        - containerPort: 4999

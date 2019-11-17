@@ -39,5 +39,31 @@ https://hub.docker.com/repository/docker/sylvainneung/petsbnb (private)
 
 > - dd/mm/yyyy_dump.sql
 
+## Kubernetes
+
+
+
+**Install hyperkit**
+
+> brew uninstall hyperkit
+
+
+**fix error** 
+> rm $(which hyperkit)
+
+> brew install hyperkit
+
+> hyperkit -v
+
+
+**Create pod**
+
+<code>kubectl api-versions</code>
+
+<code>kubectl create -f pod.yaml</code>
+
+<code>kubectl get pods</code>
+
+
 ## Note
 - **Authentication** : For authentication system, the username is actually the email 
