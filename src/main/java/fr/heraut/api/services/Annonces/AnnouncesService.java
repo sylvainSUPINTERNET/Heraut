@@ -26,6 +26,7 @@ public class AnnouncesService {
 
 
     public ResponseEntity create(Announces announces){
+        System.out.println(announces);
         announcesRepository
                 .save(announces);
          return ok(announces);

@@ -1,9 +1,9 @@
+// docker react app
+
+// Swagger 2 setup : https://openclassrooms.com/fr/courses/4668056-construisez-des-microservices/5123565-documentez-votre-microservice-avec-swagger-2
+
+// makefile -> cmd to generate image on Docker Hub for each micro services implemented (currently we only manage the base API)
 
 
-//  TODO -> dockerize react app + remove CORS config + use nginx instead + Spring Security root -> using nginx route instead localhost (8080 not 4999)
-
-
-
-
-
+// Github CI CD + TEST JUnit ou Spring-test
 

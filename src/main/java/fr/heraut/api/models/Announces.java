@@ -44,8 +44,14 @@ public class Announces implements Serializable {
     private String streetAddress;
 
     @Column
-    @NotNull
+    @NotNull(message = "dept can't be null")
+    @NotBlank(message = "dept is mandatory")
     private String dept;
+
+    @Column
+    @NotNull(message = "city can't be null")
+    @NotBlank(message = "city is mandatory")
+    private String city;
 
     @Column
     Boolean active;

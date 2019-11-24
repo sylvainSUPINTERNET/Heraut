@@ -54,18 +54,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/v1/users/**").hasAnyRole("ADMIN", "USER")
 
                 // ANNOUNCES SERVICES
-                .antMatchers(HttpMethod.POST, "/v1/announces/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/v1/announces/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/v1/announces/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers(HttpMethod.GET, "/v1/announces/**").hasAnyRole("ADMIN", "USER")
 
                 // Services
-                .antMatchers(HttpMethod.GET, "/v1/services/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/v1/services/**").hasAnyRole("ADMIN", "USER")
 
                 // AnimalsType
-                .antMatchers(HttpMethod.GET, "/v1/animalsType/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/v1/animalsType/**").hasAnyRole("ADMIN", "USER")
 
 
                 //EQUIPMENTS
-                .antMatchers(HttpMethod.GET, "/v1/equipments/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/v1/equipments/**").hasAnyRole("ADMIN", "USER")
 
                 .anyRequest().authenticated()
 

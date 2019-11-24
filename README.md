@@ -39,6 +39,16 @@ https://hub.docker.com/repository/docker/sylvainneung/petsbnb (private)
 
 > - dd/mm/yyyy_dump.sql
 
+
+
+**Connection locally**
+
+127.0.0.1:2012 
+
+login : root 
+
+pass : root
+
 ## Kubernetes
 
 

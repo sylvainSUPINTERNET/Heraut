@@ -33,6 +33,7 @@ public class ApiApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        System.out.println("Update ?");
         System.out.println(" --- ATTENTION : pour le system d'authentication JWT + token spring security (userDetails) username EST l'email st");
 
     }
