@@ -46,3 +46,15 @@ services:
       - 4999:4999 # same as ports above, the api is accessible at 127.0.0.1:4999 (for postman)
     volumes:
       - /data/spring-boot-app
+  messagerie-service:
+    container_name: messagerie-service
+    environment:
+      - PORT=3200
+      - HOST=0.0.0.0
+    ports:
+      - 3200:3200
+    build:
+      context: ./microservices/messagerie-service/
+      dockerfile: Dockerfile
+    restart: always
+

@@ -1,3 +1,9 @@
 
 
-//  TODO -> dockerize react app + remove CORS config + use nginx instead
+//  TODO -> dockerize react app + remove CORS config + use nginx instead + Spring Security root -> using nginx route instead localhost (8080 not 4999)
+
+
+
+
+
+
