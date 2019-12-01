@@ -1,4 +1,12 @@
-## PetsBNB - API
+## PetsBNB - API - Microservices
+
+**Note**
+
+Make sure that you have the petsbnb_rework (application project) directory at the same root of this project for using the docker-compose.yml 
+
+OR
+
+just change the volume path to make it correspond to your setup
 
 ### Start (Docker)
 
@@ -6,8 +14,6 @@
 
 **Important**
 > Edit the **.env** file with your correct credentials / repository etc ...
-
-
 
 
 **Build image**  : 
@@ -23,12 +29,13 @@
 https://hub.docker.com/repository/docker/sylvainneung/petsbnb (private)
 
     $ make docker_deploy_registry_dev
+    
+**Utils**
+
+    $ make docker_clear
+
   
-**Incomming**
-// TODO  : Setup with kubernetes to allow microservice architecture
-
-
-
+  
 ## Database 
 
 **Dumps** : 
@@ -49,31 +56,37 @@ login : root
 
 pass : root
 
-## Kubernetes
+
+## Nginx Proxy & Reverse Proxy
+
+**Why ?**
+We using Nginx as Proxy for API and reverse proxy for the application (don't use CORS anymore, hide the api / services) ans also as load balancer
+
+Combinate with Docker containers, we also allow to make a microservice architecture, robust with an infinite scale capacity (limited by the hardwares).
 
 
+**Nginx port**
+ 
+    localhost:4200 (every requests)
+    
+**Nginx locations**
+    
+   
+   _Application_
+     
+     localhost:4200/ 
 
-**Install hyperkit**
-
-> brew uninstall hyperkit
-
-
-**fix error** 
-> rm $(which hyperkit)
-
-> brew install hyperkit
-
-> hyperkit -v
-
-
-**Create pod**
-
-<code>kubectl api-versions</code>
-
-<code>kubectl create -f pod.yaml</code>
-
-<code>kubectl get pods</code>
-
-
-## Note
+    
+   
+   _API_
+     
+     localhost:4200/api/ 
+     
+     
+   _Services_
+     
+     localhost:4200/service-<service_name>/
+     
+     
+## Important
 - **Authentication** : For authentication system, the username is actually the email 

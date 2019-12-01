@@ -1,12 +1,12 @@
 package fr.heraut.api.models;
 
+import fr.heraut.api.repositories.AnimalsTypeRepository;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -18,13 +18,14 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name="announces")
+@Table(name = "announces")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Announces implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @Lob
@@ -56,32 +57,76 @@ public class Announces implements Serializable {
     @Column
     Boolean active;
 
+    /*
     @OneToMany(
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
+            //orphanRemoval = true,
             fetch = FetchType.LAZY
     )
     private List<Services> services = new ArrayList<>();
+     */
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "announces_services",
+            joinColumns = {@JoinColumn(name = "announces_id")},
+            inverseJoinColumns = {@JoinColumn(name = "services_id")}
+    )
+    private List<Services> services = new ArrayList<>();
+
+    /*
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
     private List<AnimalsType> animalsTypes = new ArrayList<>();
+     */
 
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "announces_animalsType",
+            joinColumns = {@JoinColumn(name = "announces_id")},
+            inverseJoinColumns = {@JoinColumn(name = "animalsType_id")}
+    )
+    private List<AnimalsType> animalsTypes = new ArrayList<>();
+
+
+    /*
     @OneToMany(
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
+            //orphanRemoval = true,
             fetch = FetchType.LAZY
+    )
+    private List<Equipments> equipments = new ArrayList<>();
+     */
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "announces_equipments",
+            joinColumns = {@JoinColumn(name = "announces_id")},
+            inverseJoinColumns = {@JoinColumn(name = "equipments_id")}
     )
     private List<Equipments> equipments = new ArrayList<>();
 
 
-    public void setActive(Boolean isActive){
+
+    public void setAnimalsTypes(ArrayList<AnimalsType> animalsTypes) {
+        this.animalsTypes = animalsTypes;
+    }
+
+    public List<AnimalsType> getAnimalsType() {
+        return this.animalsTypes;
+    }
+
+    public void setActive(Boolean isActive) {
         this.active = isActive;
     }
 
+    public Long getId(){
+        return this.id;
+    }
     // TODO
     // Lon (from API map ?)
     // Lat (from API map ?) auto complete by the calcul from streetAddress + zipCode given)

@@ -1,6 +1,20 @@
 version: '3'
 
 services:
+  ################################
+  #   Setup react js container
+  ################################
+  web:
+    container_name: "petsbnb_webapp"
+    build:
+      context: ../petsbnb_rework # make sure you downloaded the project and put the directory at the same root of this project
+      dockerfile: Dockerfile
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+    volumes:
+      - ../petsbnb_rework/:/app
   nginx:
     container_name: api-gateway
     #image: nginx-api
@@ -17,7 +31,7 @@ services:
       - spring-boot-jpa-app
   mysql-docker-container:
     container_name: mysql-docker-container
-    image: mysql:5.7
+    image: wangxian/alpine-mysql #mysql:5.7
     environment:
       - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
       - MYSQL_DATABASE=${DB_NAME}

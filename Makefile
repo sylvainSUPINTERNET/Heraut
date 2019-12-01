@@ -21,6 +21,7 @@ docker_password=${DOCKER_PASSWORD}
 folder_scripts=./build_scripts/
 image_api_script = build-docker-image-api.sh
 deploy_image_api_script = deploy-registry-docker-image-api.sh
+docker_clear_script = docker-clear.sh
 
 
 
@@ -67,3 +68,9 @@ docker_deploy_registry_prod:
 ## preprod
 docker_deploy_registry_preprod:
 	$(folder_scripts)$(deploy_image_api_script) $(docker_password) $(docker_id) $(image_repository) $(version_preprod)$(version_nb)
+
+
+
+## Utils
+docker_clear:
+	$(folder_scripts)$(docker_clear_script)

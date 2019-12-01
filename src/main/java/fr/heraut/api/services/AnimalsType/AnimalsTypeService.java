@@ -1,12 +1,14 @@
 package fr.heraut.api.services.AnimalsType;
 
 import fr.heraut.api.models.AnimalsType;
+import fr.heraut.api.models.Equipments;
 import fr.heraut.api.repositories.AnimalsTypeRepository;
 import fr.heraut.api.services.ResponseFormat.GenericError;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import static org.springframework.http.ResponseEntity.ok;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +34,7 @@ public class AnimalsTypeService {
             return ok(animalsTypes);
         }
     }
+
 
     public ResponseEntity findOne(String id){
 

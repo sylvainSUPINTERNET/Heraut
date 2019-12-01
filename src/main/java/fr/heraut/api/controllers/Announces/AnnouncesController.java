@@ -1,5 +1,6 @@
 package fr.heraut.api.controllers.Announces;
 
+import fr.heraut.api.POJO.AnnouncesAnimalsType;
 import fr.heraut.api.models.Announces;
 import fr.heraut.api.services.Annonces.AnnouncesService;
 import fr.heraut.api.services.Annonces.QueryParamsAnnounces;
@@ -49,6 +50,12 @@ public class AnnouncesController {
 
         return "oK";
     }
+
+    @PostMapping("/animalstype/{announceUuid}")
+    public ResponseEntity addAnimalsType(@RequestBody AnnouncesAnimalsType announcesAnimalsType, @PathVariable(name="announceUuid") String announceUuid){
+        return this.announcesService.addAnimalsType(announcesAnimalsType, announceUuid);
+    }
+
 
     @GetMapping("/{announceUuid}")
     public ResponseEntity getOne(@PathVariable(name="announceUuid") String announceUuid){

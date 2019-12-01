@@ -1,3 +1,4 @@
+/*
 package fr.heraut.api.config;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -13,10 +14,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Value("${app.url.allowOrigin}")
     String CorsOriginUrl;
 
-    /**
-     * Resolve CORS issue
-     * @param registry
-     */
+    //Resolve CORS issue
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/v1/**")
@@ -27,3 +25,4 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowCredentials(false).maxAge(3600);
     }
 }
+*/
