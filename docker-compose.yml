@@ -31,7 +31,7 @@ services:
       - spring-boot-jpa-app
   mysql-docker-container:
     container_name: mysql-docker-container
-    image: wangxian/alpine-mysql #mysql:5.7
+    image: mysql:5.7
     environment:
       - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
       - MYSQL_DATABASE=${DB_NAME}
