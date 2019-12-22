@@ -34,6 +34,10 @@ public class ErrorsMessages {
             // ANNOUNCES
             dict.put("ANNOUNCE_FIND_BY_UUID", "Pas d'annonce pour cette uuid");
 
+            // ANNOUNCES with query params
+            dict.put("ANNOUNCE_FIND_BY_QUERY_PARAMS", "Aucunes annonces trouvées");
+
+
 
             //AnimalsType
             dict.put("ANIMALS_TYPE_EMPTY", "Aucun animalsType dans la base de données");
@@ -63,6 +67,9 @@ public class ErrorsMessages {
 
             // ANNOUNCES
             dict.put("ANNOUNCE_FIND_BY_UUID", "No announce for this uuid.");
+
+            // ANNOUNCES with query params
+            dict.put("ANNOUNCE_FIND_BY_QUERY_PARAMS", "No announces found");
 
             //AnimalsType
             dict.put("ANIMALS_TYPE_EMPTY", "No animalsType in database");

@@ -46,9 +46,25 @@ public class GenericError {
         model.put("http_status_code", HttpStatus.BAD_REQUEST);
         model.put("error", true);
         model.put("data", mainMessage);
-
         return ResponseEntity.badRequest().body(model);
     }
+
+    public ResponseEntity formatErrorWithHttpVerb(String MESSAGE_KEY, String lang, HttpStatus httpStatus) {
+
+
+        Map<Object, Object> mainMessage = new HashMap<>();
+        mainMessage.put("message", errorsMessages.getTranslation(lang).get(MESSAGE_KEY));
+
+        Map<Object, Object> model = new HashMap<>();
+        model.put("http_status_code", httpStatus.value());
+        model.put("error", true);
+        model.put("data", mainMessage);
+
+        return ResponseEntity.status(httpStatus).body(model);
+    }
+
+
+
 
 
 }

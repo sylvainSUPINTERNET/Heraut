@@ -4,12 +4,14 @@ import fr.heraut.api.POJO.AnnouncesAnimalsType;
 import fr.heraut.api.models.Announces;
 import fr.heraut.api.services.Annonces.AnnouncesService;
 import fr.heraut.api.services.Annonces.QueryParamsAnnounces;
+import fr.heraut.api.services.ResponseFormat.GenericError;
+import fr.heraut.api.services.ResponseFormat.GenericSuccess;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
+import java.util.HashMap;
 
 
 @RestController
@@ -17,10 +19,14 @@ import javax.validation.Valid;
 public class AnnouncesController {
 
     AnnouncesService announcesService;
+    GenericError genericError;
+    GenericSuccess genericSuccess;
 
 
-    AnnouncesController(AnnouncesService announcesService){
+    AnnouncesController(AnnouncesService announcesService, GenericError genericError, GenericSuccess genericSuccess){
         this.announcesService = announcesService;
+        this.genericError = genericError;
+        this.genericSuccess = genericSuccess;
     }
 
     @PostMapping
@@ -30,25 +36,35 @@ public class AnnouncesController {
 
     @GetMapping
     // we can also use MultiMap (like users list controlelr)
-    public String list(QueryParamsAnnounces queryParamsAnnounces){
-        int totalPage = 0;
-        System.out.println("is that called ?");
-        System.out.println("ID >>>>> " + queryParamsAnnounces.getId());
-        System.out.println("ZIPCODE >>>>>> " + queryParamsAnnounces.getZipCode());
-        System.out.println("PAGE >>>> " + queryParamsAnnounces.getPage());
+    public ResponseEntity list(QueryParamsAnnounces queryParamsAnnounces){
+
         ResponseEntity responseEntity = this.announcesService.count();
+
         if(responseEntity.getStatusCode() == HttpStatus.OK) {
             Object count = responseEntity.getBody();
-            totalPage = (int) count;
-        }
-
-        if(totalPage == 0){
-            return "error no announces yet.";
         } else {
-            System.out.println("BODY > " + totalPage );
+            return genericError
+                    .formatErrorWithHttpVerb("ANNOUNCE_FIND_BY_QUERY_PARAMS","FR",HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        return "oK";
+        //QueryParams
+
+        System.out.println("is that called ?");
+        System.out.println("service ID >>>>> " + queryParamsAnnounces.getService());
+        System.out.println("animalType ID >>>>> " + queryParamsAnnounces.getAnimal());
+        System.out.println("ZIPCODE >>>>>> " + queryParamsAnnounces.getZipCode()); // (name number)
+        System.out.println("PAGE >>>> " + queryParamsAnnounces.getPage());
+
+        //TODO change method getAll and make a custom query to deal with every query params
+
+
+        int page = Integer.parseInt(queryParamsAnnounces.getPage());
+
+
+        return this
+                .announcesService
+                .getAll(page);
+
     }
 
     @PostMapping("/animalstype/{announceUuid}")

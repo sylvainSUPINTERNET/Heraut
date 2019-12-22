@@ -8,6 +8,12 @@ import fr.heraut.api.models.Announces;
 import fr.heraut.api.repositories.AnimalsTypeRepository;
 import fr.heraut.api.repositories.AnnouncesRepository;
 import fr.heraut.api.services.ResponseFormat.GenericError;
+import fr.heraut.api.services.ResponseFormat.GenericSuccess;
+import org.omg.PortableInterceptor.INACTIVE;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +30,16 @@ public class AnnouncesService {
     AnnouncesRepository announcesRepository;
     AnimalsTypeRepository animalsTypeRepository;
     GenericError genericError;
+    GenericSuccess genericSuccess;
 
+    @Value("${pagination.announces.result.per.page}")
+    String resultPerPage;
 
-    AnnouncesService(AnnouncesRepository announcesRepository, GenericError genericError, AnimalsTypeRepository animalsTypeRepository){
+    AnnouncesService(AnnouncesRepository announcesRepository, GenericError genericError, AnimalsTypeRepository animalsTypeRepository, GenericSuccess genericSuccess){
         this.announcesRepository = announcesRepository;
         this.genericError = genericError;
         this.animalsTypeRepository = animalsTypeRepository;
+        this.genericSuccess = genericSuccess;
     }
 
 
@@ -55,6 +65,20 @@ public class AnnouncesService {
         } else {
             return ResponseEntity.badRequest().body(genericError.formatError("ANNOUNCE_FIND_BY_UUID","FR"));
         }
+    }
+
+    /**
+     * Get all but also manage pagination query param only)
+     * @param page
+     * @return
+     */
+    public ResponseEntity getAll(int page){
+        // e.g for sort :         Pageable pageable = PageRequest.of(0, 20, Sort.by("firstName"));
+        // Pageable pageable = PageRequest.of(0, 20, Sort.by("fistName").ascending().and(Sort.by("lastName").descending());
+
+        Pageable pageable = PageRequest.of(page,  Integer.parseInt(resultPerPage));
+
+            return ResponseEntity.ok().body(genericSuccess.formatSuccess(announcesRepository.findAll(pageable)));
     }
 
 

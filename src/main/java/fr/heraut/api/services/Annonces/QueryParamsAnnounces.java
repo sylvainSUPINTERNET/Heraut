@@ -8,25 +8,34 @@ import java.awt.print.Pageable;
 
 @ComponentScan
 public class QueryParamsAnnounces {
-    String id;
     String zipCode;
+    String service;
+    String animal;
     String page;
-
 
     QueryParamsAnnounces(){}
 
-    QueryParamsAnnounces(String queryParamsId, String zipCode, String page){
-        this.id = queryParamsId;
+    QueryParamsAnnounces(String zipCode, String service, String animal, String page){
         this.zipCode = zipCode;
+        this.service = service;
+        this.animal = animal;
         this.page = page;
     }
 
-    public String getId() {
-        return id;
+    public String getService() {
+        return service;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setService(String serviceId) {
+        this.service = serviceId;
+    }
+
+    public String getAnimal() {
+        return animal;
+    }
+
+    public void setAnimal(String animalTypeId) {
+        this.animal = animalTypeId;
     }
 
     public String getZipCode() {
