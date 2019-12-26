@@ -33,6 +33,7 @@ public class ErrorsMessages {
 
             // ANNOUNCES
             dict.put("ANNOUNCE_FIND_BY_UUID", "Pas d'annonce pour cette uuid");
+            dict.put("ANNOUNCE_LIST_BAD_QUERY_PARAMS", "Query params invalide");
 
             // ANNOUNCES with query params
             dict.put("ANNOUNCE_FIND_BY_QUERY_PARAMS", "Aucunes annonces trouvées");
@@ -67,6 +68,8 @@ public class ErrorsMessages {
 
             // ANNOUNCES
             dict.put("ANNOUNCE_FIND_BY_UUID", "No announce for this uuid.");
+            dict.put("ANNOUNCE_LIST_BAD_QUERY_PARAMS", "Query params invalid");
+
 
             // ANNOUNCES with query params
             dict.put("ANNOUNCE_FIND_BY_QUERY_PARAMS", "No announces found");

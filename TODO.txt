@@ -7,3 +7,53 @@
 
 // Github CI CD + TEST JUnit ou Spring-test
 
+
+
+
+
+// QUERY filter
+
+/// jpa :https://www.baeldung.com/spring-data-jpa-query
+
+// E.G QUERY sql : SELECT * FROM announces as a INNER JOIN announces_animals_type as aat ON aat.announces_id = 1 WHERE a.id = 1;
+
+
+// si on remplace le premier 1 par a.id et on vire le where -> on va recuperer a chaque fois toute les data de l'annonces + announces animals type
+
+// donc nous on va juste faire une query :
+// il va falloir faire une double jointure
+//@Query("SELECT u FROM Announces u INNER JOIN AnimalsType at on at.announced_id = u.id WHERE at.id = <param> AND at....")
+//Collection<Announces> findAllAnnouncesFiltered();
+
+
+
+
+//  select by query params
+SELECT
+	ann.id as announce_id,
+    ann.active as active,
+    ann.city as city,
+	ann.created_at as created_at,
+    ann.dept as dept,
+    ann.description as description,
+    ann.street_address as street_address,
+    ann.title as title,
+    ann.updated_at as updated_at,
+    ann.uuid as uuid,
+    link_services.id as link_services_id,
+	link_services.name as link_services_name,
+	link_animals_type.id as link_animals_type_id,
+    link_animals_type.name as link_animals_type_name
+    FROM announces as ann
+INNER JOIN services as link_services
+ON link_services.id = 1
+INNER JOIN animals_type as link_animals_type
+ON link_animals_type.id = 1
+WHERE ann.dept = 75;
+//
+
+
+// LAST (filter) (e.g for announces by animals type);
+SELECT * FROM announces as ann JOIN announces_animals_type as aat on ann.id = aat.announces_id WHERE aat.animals_type_id = 1;
+
+

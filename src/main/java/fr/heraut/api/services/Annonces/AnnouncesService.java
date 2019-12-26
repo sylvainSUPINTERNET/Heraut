@@ -14,15 +14,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.ok;
+
 
 @Service
 public class AnnouncesService {
@@ -31,6 +36,9 @@ public class AnnouncesService {
     AnimalsTypeRepository animalsTypeRepository;
     GenericError genericError;
     GenericSuccess genericSuccess;
+
+    EntityManager em;
+
 
     @Value("${pagination.announces.result.per.page}")
     String resultPerPage;
@@ -82,6 +90,83 @@ public class AnnouncesService {
     }
 
 
+    // Params : AnimalType Service Dept
+    public ResponseEntity getAnnouncesBySearchQuery(String servicesIdStr, String animalsTypeIdStr, String dept, String pageNb){
+        int page = Integer.parseInt(pageNb); // already checked by RequestParam (require dtrue by defualt) else return 400
+
+        // filters
+        long servicesId = 0;
+        long animalsTypeId = 0;
+        String department = "";
+
+        if(!servicesIdStr.isEmpty()){
+            try {
+                servicesId = Long.parseLong(servicesIdStr);
+            } catch (NumberFormatException ignored){
+                return badRequest().body("bad request servicesId");
+            }
+        }
+
+        if(!animalsTypeIdStr.isEmpty()){
+            try {
+                animalsTypeId = Long.parseLong(animalsTypeIdStr);
+            } catch (NumberFormatException ignored){
+                return badRequest().body("bad request animalsTypeId");
+            }
+        }
+
+        if(!dept.isEmpty()) {
+            department = dept;
+        }
+
+
+        Pageable pageable = PageRequest.of(page,  Integer.parseInt(resultPerPage));
+
+        // filters :
+
+
+        //services + animals + dept ( + page)
+        if(servicesId != 0 && animalsTypeId != 0 && !department.equals("")) {
+            return ok(this.announcesRepository.findAllByQueryAnimalsTypeServiceDeptAndPopulate(servicesId,animalsTypeId,dept,pageable));
+        }
+
+        // animals + dept ( + page)
+        else if(servicesId == 0 && animalsTypeId != 0 && !department.equals("")) {
+            return ok(this.announcesRepository.findAllByQueryAnimalsTypeDeptAndPopulate(animalsTypeId,dept,pageable));
+        }
+
+        // services + dept  ( + page)
+        else if(servicesId != 0 && animalsTypeId == 0 && !department.equals("")){
+            return ok(this.announcesRepository.findAllByQueryServiceDeptAndPopulate(servicesId,dept,pageable));
+        }
+
+        // services + animals ( + page )
+        else if(servicesId != 0 && animalsTypeId != 0 && department.equals("")){
+            return ok(this.announcesRepository.findAllByQueryServiceAnimalsTypeAndPopulate(servicesId,animalsTypeId, pageable));
+        }
+
+        // services
+        else if(servicesId != 0 && animalsTypeId == 0 && department.equals("")){
+            return ok(announcesRepository.findAllByQueryServiceAndPopulate(servicesId, pageable));
+        }
+        // animals
+        else if(servicesId == 0 && animalsTypeId != 0 && department.equals("")){
+            return ok(this.announcesRepository.findAllByQueryAnimalTypeAndPopulate(animalsTypeId,pageable));
+        }
+
+        // dept
+        else if(servicesId == 0 && animalsTypeId == 0 && !department.equals("")){
+            return ok(this.announcesRepository.findAllByQueryDeptAndPopulate(department, pageable));
+        }
+
+        // page only
+        else if(servicesId == 0 && animalsTypeId == 0 && department.equals("")) {
+            return ok(this.announcesRepository.findAll(pageable));
+        } else {
+            // error
+            return badRequest().body(genericError.formatErrorWithHttpVerb("ANNOUNCE_LIST_BAD_QUERY_PARAMS","FR", HttpStatus.BAD_REQUEST));
+        }
+    }
 
     public ResponseEntity addAnimalsType(AnnouncesAnimalsType announcesAnimalsType, String uuid){
 

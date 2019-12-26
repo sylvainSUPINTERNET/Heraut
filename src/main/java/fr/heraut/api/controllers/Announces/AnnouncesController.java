@@ -6,6 +6,7 @@ import fr.heraut.api.services.Annonces.AnnouncesService;
 import fr.heraut.api.services.Annonces.QueryParamsAnnounces;
 import fr.heraut.api.services.ResponseFormat.GenericError;
 import fr.heraut.api.services.ResponseFormat.GenericSuccess;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -76,6 +77,15 @@ public class AnnouncesController {
     @GetMapping("/{announceUuid}")
     public ResponseEntity getOne(@PathVariable(name="announceUuid") String announceUuid){
         return this.announcesService.getOne(announceUuid);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity searchAnnounces(
+            @RequestParam(value = "services", required = false, defaultValue = "") String servicesId,
+            @RequestParam(value="animals", required = false, defaultValue = "") String animalsTypeId,
+            @RequestParam(value = "department", required = false, defaultValue = "") String dept,
+            @RequestParam("page") String page){
+        return this.announcesService.getAnnouncesBySearchQuery(servicesId,animalsTypeId,dept,page);
     }
 
 }
