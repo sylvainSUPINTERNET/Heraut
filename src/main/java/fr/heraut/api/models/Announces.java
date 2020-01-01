@@ -1,19 +1,19 @@
 package fr.heraut.api.models;
 
-import fr.heraut.api.repositories.AnimalsTypeRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
 import java.util.UUID;
 
@@ -55,6 +55,19 @@ public class Announces implements Serializable {
     private String city;
 
     @Column
+    private BigDecimal farePerHour;
+
+    @Column
+    private BigDecimal farePerDay;
+
+    @Column
+    private BigDecimal farePerMonth;
+
+    @Column
+    private String currency;
+
+
+    @Column
     Boolean active;
 
     /*
@@ -65,6 +78,7 @@ public class Announces implements Serializable {
     )
     private List<Services> services = new ArrayList<>();
      */
+
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -120,6 +134,38 @@ public class Announces implements Serializable {
         return this.animalsTypes;
     }
 
+    public BigDecimal getFarePerHour() {
+        return farePerHour;
+    }
+
+    public void setFarePerHour(BigDecimal farePerHour) {
+        this.farePerHour = farePerHour;
+    }
+
+    public BigDecimal getFarePerDay() {
+        return farePerDay;
+    }
+
+    public void setFarePerDay(BigDecimal farePerDays) {
+        this.farePerDay = farePerDays;
+    }
+
+    public BigDecimal getFarePerMonth() {
+        return farePerMonth;
+    }
+
+    public void setFarePerMonth(BigDecimal farePerMonth) {
+        this.farePerMonth = farePerMonth;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
     public void setActive(Boolean isActive) {
         this.active = isActive;
     }
@@ -153,10 +199,13 @@ public class Announces implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+
+
     @PrePersist
     protected void onCreate() {
         this.active = true;
         this.uuid = UUID.randomUUID().toString();
+        this.currency = Currency.getInstance("EUR").getDisplayName();
     }
 
 }

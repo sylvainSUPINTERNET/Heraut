@@ -1,3 +1,41 @@
+// TODO (2020 list)
+
+// add relation announces <-> user https://docs.jboss.org/hibernate/orm/4.1/manual/en-US/html/ch07.html#collections-bidirectional
+
+// one users has many announces
+
+
+// +> announces_pictures table -> one announce has many pictures 1 / N
+// id
+// name String
+// extension String
+// createdAt Datetime (current timestamp)
+// visible (boolean)
+// uuid -> auto generated
+
+// add routes postman / local
+// allows routes /v1/announces/pictures (post)
+// allows routes /v1/announces/pictures/{uuid} (get)
+
+
+// +> controller -> post -> create picture
+//               -> get -> display pictures by id
+
+
+// create service for upload
+// set rules and limit MB for upload in application.yml (to avoid surprises ...)
+
+// Update le dump file dans dev
+
+
+
+
+
+
+
+
+
+
 // docker react app
 
 // Swagger 2 setup : https://openclassrooms.com/fr/courses/4668056-construisez-des-microservices/5123565-documentez-votre-microservice-avec-swagger-2
