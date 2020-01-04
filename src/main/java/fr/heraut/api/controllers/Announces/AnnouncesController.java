@@ -9,9 +9,13 @@ import fr.heraut.api.services.ResponseFormat.GenericSuccess;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.HashMap;
 
 
@@ -31,8 +35,15 @@ public class AnnouncesController {
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody @Valid Announces announces){
-        return this.announcesService.create(announces);
+    public ResponseEntity create(@Valid @RequestBody Announces announces, Principal principal, Errors errors){
+        System.out.println(" -- - - - - -- - - -- - - - -- ");
+        System.out.println(" -- - - - - -- - - -- - - - -- ");
+        System.out.println(errors);
+        System.out.println(" -- - - - - -- - - -- - - - -- ");
+        System.out.println(" -- - - - - -- - - -- - - - -- ");
+
+
+        return this.announcesService.create(announces, principal);
     }
 
     @GetMapping

@@ -1,5 +1,9 @@
 package fr.heraut.api.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +23,6 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "announces")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Announces implements Serializable {
@@ -125,6 +128,69 @@ public class Announces implements Serializable {
     private List<Equipments> equipments = new ArrayList<>();
 
 
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getStreetAddress() {
+        return streetAddress;
+    }
+
+    public void setStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
+    }
+
+    public String getDept() {
+        return dept;
+    }
+
+    public void setDept(String dept) {
+        this.dept = dept;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
 
     public void setAnimalsTypes(ArrayList<AnimalsType> animalsTypes) {
         this.animalsTypes = animalsTypes;
@@ -199,7 +265,13 @@ public class Announces implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    public User getUser() {
+        return user;
+    }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @PrePersist
     protected void onCreate() {

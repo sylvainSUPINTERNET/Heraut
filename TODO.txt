@@ -1,3 +1,45 @@
+// TODO tresi mportant ET URGENT
+// Bug stack overflow sur le post d'une annonce du à la notion de relation
+// Pour eviter ça
+: https://auth0.com/blog/automatically-mapping-dto-to-entity-on-spring-boot-apis/
+
+// utiliser le pattern DTO : 1 DTO (Data Transfer Object / models) PUIS  dans le service appeler le DTO en retour plutôt que la classe même de l'entité
+
+// announces
+// -> add field user_id (one user has many announces)
+// si il est pas compte PRO il a le droit qu'à une annonce
+
+
+// TODO -> creation booking - bill - payment
+// TODO -> WIP
+// Bookings
+- PRIMARY KEY id Long
+- uuid (auto generer à la creation)
+- creationAt (auto timestamp)
+- updatedAt (default null)
+- status ( submit / confirmed / cancel) String -> contants (definir dans application.yml) ou constante dans le service liée à Bookings
+- statusUpdatedAt Datetime
+- service_id (one booking has one service / bidirectionnel ) FK
+- announce_id (many booking has one announce / bidirectionnel) FK
+- bill_id (one reservation has one bill) FK
+
+
+// Bills
+- PRIMARY key id Long
+- uuid (auto generer à la creation)
+- creationAt (auto timestamp)
+- updatedAt (default null)
+- booking_id FK ()
+- user id FK
+
+
+// -> Announces has many bookings
+// -> one booking has many bills
+// -> one user has many bills
+
+
+
+
 // TODO (2020 list)
 
 // add relation announces <-> user https://docs.jboss.org/hibernate/orm/4.1/manual/en-US/html/ch07.html#collections-bidirectional

@@ -1,5 +1,9 @@
 package fr.heraut.api.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,15 +15,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
 @Entity
 @Table(name="users")
-@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,11 +35,16 @@ public class User implements UserDetails {
     @NotEmpty
     private String password;
 
+
+    @JsonManagedReference
     @OneToMany(
+            mappedBy = "user",
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.LAZY
+            orphanRemoval = true
     )
+    //@JsonManagedReference is the forward part of reference – the one that gets serialized normally.
+    //@JsonBackReference is the back part of reference – it will be omitted from serialization.
+    // ref : https://www.baeldung.com/jackson-bidirectional-relationships-and-infinite-recursion
     private List<Announces> announces = new ArrayList<>();
 
 
@@ -132,5 +138,23 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void addAnnounces(Announces announces) {
+        this.announces.add(announces);
+        //announces.setUser(this);
+    }
+
+    public void removeAnnounces(Announces announces) {
+        this.announces.remove(announces);
+        //announces.setUser(null);
+    }
+
+    public List<Announces> getAnnounces() {
+        return announces;
+    }
+
+    public void setAnnounces(List<Announces> announces) {
+        this.announces = announces;
     }
 }
