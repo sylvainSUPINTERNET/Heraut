@@ -67,6 +67,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //EQUIPMENTS
                 .antMatchers(HttpMethod.GET, "/v1/equipments/**").hasAnyRole("ADMIN", "USER")
 
+                //SWAGGER DOCUMENTATION - DEV only url -> localhost:4200/api/v2/api-docs
+                //.antMatchers(HttpMethod.GET, "/v2/api-docs**").permitAll()
+                //.antMatchers(HttpMethod.POST, "/v2/api-docs**").permitAll()
+                //.antMatchers(HttpMethod.PUT, "/v2/api-docs**").permitAll()
+                //.antMatchers(HttpMethod.DELETE, "/v2/api-docs**").permitAll()
+
                 .anyRequest().authenticated()
 
                 .and()
