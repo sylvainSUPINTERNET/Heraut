@@ -1,18 +1,18 @@
 // todo 18/01/2020
 // model reservation
 // id
-// sender_id (user id personne qui emet la reservation (Many reservation has one user_id)
-// announce_id (many reservation has one announce) -> permet aussi de recuperer l'id de l'utilisateur
-// total
-// currency
+// OK sender_id (user id personne qui emet la reservation (Many reservation has one user_id) many booking has one user / one user has many booking
+// announce_id (many reservation has one announce) -> permet aussi de recuperer l'id de l'utilisateur // One announce has many booking
+// totalPrice // OK
+// currency // ok
 // coupon_id  -> custom system stripe does not support one off charge coupon ... IMPLEMENTER APRES (secondaire)
-// createdAt
-// updatedAt
-// active
-// isConfirmed
-// animalsType_id
-// service_id
-// animalsCapacity (nb d'animaux a herberger)
+// createdAt // ok
+// updatedAt // ok
+// active // ok
+// isConfirmed // ok
+// animalsType_id // many to many
+// service_id // many to many
+// animalsCapacity (nb d'animaux a herberger) // ok
 
 
 

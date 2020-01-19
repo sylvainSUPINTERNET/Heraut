@@ -16,10 +16,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Currency;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "announces")
@@ -83,6 +80,7 @@ public class Announces implements Serializable {
      */
 
 
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "announces_services",
@@ -131,6 +129,19 @@ public class Announces implements Serializable {
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
+
+
+    @JsonManagedReference
+    @OneToMany(mappedBy="announces")
+    private Collection<Booking> bookings;
+
+    public Collection<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(Collection<Booking> bookings) {
+        this.bookings = bookings;
+    }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;

@@ -48,6 +48,9 @@ public class ErrorsMessages {
             dict.put("EQUIPMENTS_FIND_BY_ID", "Aucun equipments pour cette id");
             dict.put("EQUIPMENTS_FIND_ALL", "Aucun equipments en base de données");
 
+            // BOOKINGS
+            dict.put("BOOKING_FIND_BY_UUID", "Aucune réservation.");
+
 
         } else {
             // User and Authentication
@@ -81,6 +84,9 @@ public class ErrorsMessages {
             // EQUIPMENTS
             dict.put("EQUIPMENTS_FIND_BY_ID", "No equipments for this id");
             dict.put("EQUIPMENTS_FIND_ALL", "No equipments in database");
+
+            // BOOKINGS
+            dict.put("BOOKING_FIND_BY_UUID", "No booking found.");
 
 
         }

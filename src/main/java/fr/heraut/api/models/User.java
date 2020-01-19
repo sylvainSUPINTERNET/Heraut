@@ -35,6 +35,10 @@ public class User implements UserDetails {
     @NotEmpty
     private String password;
 
+    @JsonManagedReference
+    @OneToMany(mappedBy="user")
+    private Collection<Booking> bookings ;
+
 
     @JsonManagedReference
     @OneToMany(
@@ -156,5 +160,13 @@ public class User implements UserDetails {
 
     public void setAnnounces(List<Announces> announces) {
         this.announces = announces;
+    }
+
+    public Collection<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(Collection<Booking> bookings) {
+        this.bookings = bookings;
     }
 }
