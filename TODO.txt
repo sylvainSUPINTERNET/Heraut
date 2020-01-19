@@ -1,3 +1,21 @@
+// todo 18/01/2020
+// model reservation
+// id
+// sender_id (user id personne qui emet la reservation (Many reservation has one user_id)
+// announce_id (many reservation has one announce) -> permet aussi de recuperer l'id de l'utilisateur
+// total
+// currency
+// coupon_id  -> custom system stripe does not support one off charge coupon ... IMPLEMENTER APRES (secondaire)
+// createdAt
+// updatedAt
+// active
+// isConfirmed
+// animalsType_id
+// service_id
+// animalsCapacity (nb d'animaux a herberger)
+
+
+
 // TODO tresi mportant ET URGENT
 // Bug stack overflow sur le post d'une annonce du à la notion de relation
 // Pour eviter ça

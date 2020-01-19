@@ -200,6 +200,22 @@ public class Announces implements Serializable {
         return this.animalsTypes;
     }
 
+    public List<Equipments> getEquipments() {
+        return equipments;
+    }
+
+    public void setEquipments(List<Equipments> equipments) {
+        this.equipments = equipments;
+    }
+
+    public List<Services> getServices() {
+        return services;
+    }
+
+    public void setServices(List<Services> services) {
+        this.services = services;
+    }
+
     public BigDecimal getFarePerHour() {
         return farePerHour;
     }
