@@ -37,7 +37,7 @@ jobs:
           command: sudo apt-get install mysql-client
       - run:
           name: Test mysql-client
-          command: mysql -u root -p
+          command: mysql -u root -p root
 
           # - run:
       #    name: Import seed/ci/data.sql
