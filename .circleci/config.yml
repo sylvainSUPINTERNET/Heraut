@@ -42,8 +42,6 @@ jobs:
           name: Import seed/ci/data.sql
           command: |
             ls -al
-            mysql -h 127.0.0.1 -u user -ppassw0rd test_db < seed/ci/data.sql
-            mysql -h 127.0.0.1 -u user -ppassw0rd --execute="SELECT * FROM test_db.Users"
 
       # Download and cache dependencies
       - restore_cache:
