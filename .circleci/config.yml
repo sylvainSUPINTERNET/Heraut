@@ -17,14 +17,6 @@ jobs:
           MYSQL_HOST: 127.0.0.1
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: heraut
-  
-
-        command: |
-          --character-set-server=utf8mb4
-          --collation-server=utf8mb4_unicode_ci
-          --skip-character-set-client-handshake
-          --general_log
-          --general_log_file=/var/log/mysql/queries.log
 
     working_directory: ~/repo
 
@@ -37,11 +29,11 @@ jobs:
       - run:
           name: Wait for db
           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 10s
-      - run:
-          name: Import seed/ci/data.sql
-          command: |
-            ls -al
-            mysql -u root -p root
+     # - run:
+      #    name: Import seed/ci/data.sql
+       #   command: |
+        #    ls -al
+         #   mysql -u root -p root
 
       # Download and cache dependencies
       - restore_cache:
@@ -58,4 +50,4 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
       # run tests!
-      - run: mvn integration-test
+      - run: mvn test
