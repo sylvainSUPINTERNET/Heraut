@@ -13,12 +13,10 @@ jobs:
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/postgres:9.4
-      - image: circleci/mysql:8.0.4 #circleci/mysql:5.7-ram #circleci/mysql:8.0.4
+      - image: mysql:5.7 #circleci/mysql:5.7-ram #circleci/mysql:8.0.4
         environment:
-          MYSQL_ROOT_PASSWORD: rootpw
-          MYSQL_DATABASE: test_db
-          MYSQL_USER: user
-          MYSQL_PASSWORD: passw0rd
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: heraut
 
     working_directory: ~/repo
 
@@ -41,12 +39,9 @@ jobs:
             done
             echo Failed waiting for MySQL && exit 1
       - run:
-          name: Install MySQL CLI; Import seed/ci/data.sql
+          name: Import seed/ci/data.sql
           command: |
-
             ls -al
-            sudo apt-get update &&
-            sudo apt-get install mysql-client &&
             mysql -h 127.0.0.1 -u user -ppassw0rd test_db < seed/ci/data.sql
             mysql -h 127.0.0.1 -u user -ppassw0rd --execute="SELECT * FROM test_db.Users"
 
