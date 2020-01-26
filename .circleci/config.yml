@@ -29,7 +29,15 @@ jobs:
       - run:
           name: Wait for db
           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 10s
-     # - run:
+
+      - run:
+          name: apt-get install mysql-client
+          command: sudo apt-get install mysql-client
+      - run:
+          name: Test mysql-client
+          command: mysql -u root -p 
+
+          # - run:
       #    name: Import seed/ci/data.sql
        #   command: |
         #    ls -al
