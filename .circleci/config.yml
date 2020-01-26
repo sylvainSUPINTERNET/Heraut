@@ -45,8 +45,7 @@ jobs:
           command: |
 
             ls -al
-            sudo apt-get update
-            sudo apt-get install mysql-client
+            sudo apt-get install defaut-mysql-client
             mysql -h 127.0.0.1 -u user -ppassw0rd test_db < seed/ci/data.sql
             mysql -h 127.0.0.1 -u user -ppassw0rd --execute="SELECT * FROM test_db.Users"
 
