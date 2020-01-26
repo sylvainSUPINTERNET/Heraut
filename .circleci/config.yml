@@ -41,7 +41,7 @@ jobs:
             done
             echo Failed waiting for MySQL && exit 1
       - run:
-          name: Install MySQL CLI; Import ./seed/ci/data.sql
+          name: Install MySQL CLI; Import seed/ci/data.sql
           command: |
 
             ls -al
