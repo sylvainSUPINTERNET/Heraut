@@ -15,10 +15,10 @@ jobs:
       # - image: circleci/postgres:9.4
       - image: circleci/mysql:8.0.4
         environment:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: heraut
-          MYSQL_USER: root
-          MYSQL_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: rootpw
+          MYSQL_DATABASE: test_db
+          MYSQL_USER: user
+          MYSQL_PASSWORD: passw0rd
 
     working_directory: ~/repo
 
@@ -41,11 +41,11 @@ jobs:
             done
             echo Failed waiting for MySQL && exit 1
       - run:
-          name: Install MySQL CLI; Import dummy data; run an example query
+          name: Install MySQL CLI; Import ./seed/ci/data.sql
           command: |
             sudo apt-get install default-mysql-client
-            mysql -h 127.0.0.1 -u user -p root heraut < seed/ci/data.sql
-            mysql -h 127.0.0.1 -u user -p root --execute="SELECT * FROM heraut.Users"
+            mysql -h 127.0.0.1 -u user -ppassw0rd test_db < seed/ci/data.sql
+            mysql -h 127.0.0.1 -u user -ppassw0rd --execute="SELECT * FROM test_db.Users"
 
       # Download and cache dependencies
       - restore_cache:
