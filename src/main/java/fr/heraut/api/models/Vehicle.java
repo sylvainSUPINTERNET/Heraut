@@ -10,8 +10,6 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="vehicles")
-@Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Vehicle implements Serializable {

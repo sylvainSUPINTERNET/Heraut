@@ -1,8 +1,10 @@
+CREATE DATABASE  IF NOT EXISTS `heraut` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `heraut`;
 -- MySQL dump 10.13  Distrib 8.0.16, for macos10.14 (x86_64)
 --
--- Host: localhost    Database: heraut
+-- Host: 127.0.0.1    Database: heraut
 -- ------------------------------------------------------
--- Server version	5.7.23
+-- Server version	5.7.29
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,7 +28,7 @@ CREATE TABLE `animals_type` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,7 +37,7 @@ CREATE TABLE `animals_type` (
 
 LOCK TABLES `animals_type` WRITE;
 /*!40000 ALTER TABLE `animals_type` DISABLE KEYS */;
-INSERT INTO `animals_type` VALUES (1,'chien'),(2,'chat'),(3,'rongeur'),(4,'reptile'),(5,'oiseaux'),(6,'insectes');
+INSERT INTO `animals_type` VALUES (1,'Félins'),(2,'Canins'),(3,'Rongeurs'),(4,'Oiseaux'),(5,'Reptiles'),(6,'Autres'),(7,'Poissons');
 /*!40000 ALTER TABLE `animals_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,7 +66,7 @@ CREATE TABLE `announces` (
   `user_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKhrk61v9pg80cuogbbjiknubcb` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +75,7 @@ CREATE TABLE `announces` (
 
 LOCK TABLES `announces` WRITE;
 /*!40000 ALTER TABLE `announces` DISABLE KEYS */;
-INSERT INTO `announces` VALUES (1,_binary '','Paris','2020-01-27 08:08:27','euro','75','my descezaeaz useeerrrr ADMINe',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-27 08:08:27','db33d8b3-b138-4963-85d8-abea0a7cbcc3',1),(2,_binary '','Paris','2020-01-27 08:31:39','euro','75','my descezaeaz useeerrrr ADMINe',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-27 08:31:39','dba77f99-d075-4d8d-8108-cff06c1d4f48',1),(3,_binary '','Paris','2020-01-27 09:25:52','euro','75','my descezaeaz useeerrrr ADMINe',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-27 09:25:52','1e4be04d-3264-4548-9e5e-14b20e17084a',1),(4,_binary '','Paris','2020-01-27 09:25:53','euro','75','my descezaeaz useeerrrr ADMINe',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-27 09:25:53','278b8076-3568-43bb-8d57-3ce25f0c1586',1),(5,_binary '','Paris','2020-01-27 09:25:54','euro','75','my descezaeaz useeerrrr ADMINe',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-27 09:25:54','53edadf6-9c7b-4f89-a80a-a9cbafa454c2',1),(6,_binary '','Paris','2020-01-27 09:25:55','euro','75','my descezaeaz useeerrrr ADMINe',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-27 09:25:55','74ed2965-3676-4f10-96af-aafb4beb0b46',1),(7,_binary '','Paris','2020-01-27 09:25:56','euro','75','my descezaeaz useeerrrr ADMINe',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-27 09:25:56','08ef2623-1522-4207-9523-2a247de801b7',1),(8,_binary '','Paris','2020-01-27 09:25:56','euro','75','my descezaeaz useeerrrr ADMINe',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-27 09:25:56','4fccc7b6-8148-4ed4-8ce4-e730310c3591',1);
+INSERT INTO `announces` VALUES (1,_binary '','Paris','2020-01-04 22:20:38','euro','75','my descezaeaze',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-04 22:20:38','73f51978-bb03-4159-b33d-b1e070b6862e',1),(2,_binary '','Paris','2020-01-04 22:20:50','euro','75','my descezaeaze',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-04 22:20:50','6903f193-6bf6-4bc6-a897-7810976ac497',1),(3,_binary '','Paris','2020-01-04 22:21:19','euro','75','my descezaeaze',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-04 22:21:19','4889a32b-ac3e-4847-bc5c-3ce624dd913c',1),(4,_binary '','Paris','2020-01-04 22:23:45','euro','75','my descezaeaz useeerrrr test e',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-04 22:23:45','47390bab-dba0-4efd-808f-cf04d5c68e00',2),(5,_binary '','Paris','2020-01-04 22:25:11','euro','75','my descezaeaz useeerrrr ADMINe',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-04 22:25:11','185a2600-ad16-4b64-a15b-06a0a3edf821',1),(6,_binary '','Paris','2020-01-04 22:25:12','euro','75','For real test HERE',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-04 22:25:12','2079f1b3-6ca1-43b1-80da-e4ecc1292599',1),(7,_binary '','Paris','2020-01-04 22:25:13','euro','75','my descezaeaz useeerrrr ADMINe',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-04 22:25:13','65b80d87-3188-45dd-a764-9591bab52be1',1),(8,_binary '','Paris','2020-01-04 22:25:14','euro','75','my descezaeaz useeerrrr ADMINe',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-04 22:25:14','cbe718df-f306-4d88-ba44-25c10c47ec7f',1),(9,_binary '','Paris','2020-01-04 22:25:14','euro','75','my descezaeaz useeerrrr ADMINe',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-04 22:25:14','1abc4b28-a84d-43c5-a3f2-8e9a9686956a',1),(10,_binary '','Paris','2020-01-04 22:25:15','euro','75','my descezaeaz useeerrrr ADMINe',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-04 22:25:15','1ef3f191-8c83-4b2e-a9a9-cfe9eaf72679',1),(11,_binary '','Paris','2020-01-04 22:25:16','euro','75','my descezaeaz useeerrrr ADMINe',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-04 22:25:16','1811a844-e6d7-450b-986a-774aebb3fa0f',1),(12,_binary '','Paris','2020-01-04 22:25:16','euro','75','my descezaeaz useeerrrr ADMINe',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-04 22:25:16','ae98921c-f6bd-47ed-9026-2a732f412cfc',1),(13,_binary '','Paris','2020-01-04 22:25:18','euro','75','my descezaeaz useeerrrr ADMINe',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-04 22:25:18','5082a8d7-48b8-4243-b07b-72646ea4234a',1),(14,_binary '','Paris','2020-01-04 22:25:19','euro','75','my descezaeaz useeerrrr ADMINe',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-04 22:25:19','3bf6a738-e52e-4427-a860-ae856dcd5578',1),(15,_binary '','Paris','2020-01-04 22:25:20','euro','75','my descezaeaz useeerrrr ADMINe',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-04 22:25:20','3c70289b-cc29-48cd-8d15-6b6a5262b701',1),(16,_binary '','Paris','2020-01-04 22:25:20','euro','75','my descezaeaz useeerrrr ADMINe',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-04 22:25:20','a9174d00-5441-4cd0-83f8-1eac860dcad1',1),(17,_binary '','Paris','2020-01-04 22:25:21','euro','75','my descezaeaz useeerrrr ADMINe',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-04 22:25:21','b626a12f-64b4-4dbc-a1d0-bebd61caf7e1',1),(18,_binary '','Paris','2020-01-04 22:25:21','euro','75','my descezaeaz useeerrrr ADMINe',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-04 22:25:21','aac89549-5198-4b6e-8ea6-545fa61f4bc3',1),(19,_binary '','Paris','2020-01-04 22:25:22','euro','75','my descezaeaz useeerrrr ADMINe',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-04 22:25:22','56900e96-140c-4586-a2c0-8a8e45dd1558',1),(20,_binary '','Paris','2020-01-04 22:25:23','euro','75','my descezaeaz useeerrrr ADMINe',20.00,5.99,25.00,'eazoelaopzle aze ae a','thats firstazeaeae fheo','2020-01-04 22:25:23','3f5d82fe-65c1-411b-bfe2-1050f5d967a6',1);
 /*!40000 ALTER TABLE `announces` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,6 +100,7 @@ CREATE TABLE `announces_animals_type` (
 
 LOCK TABLES `announces_animals_type` WRITE;
 /*!40000 ALTER TABLE `announces_animals_type` DISABLE KEYS */;
+INSERT INTO `announces_animals_type` VALUES (6,1),(6,2);
 /*!40000 ALTER TABLE `announces_animals_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,6 +125,7 @@ CREATE TABLE `announces_equipments` (
 
 LOCK TABLES `announces_equipments` WRITE;
 /*!40000 ALTER TABLE `announces_equipments` DISABLE KEYS */;
+INSERT INTO `announces_equipments` VALUES (6,1),(6,2);
 /*!40000 ALTER TABLE `announces_equipments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -146,6 +150,7 @@ CREATE TABLE `announces_services` (
 
 LOCK TABLES `announces_services` WRITE;
 /*!40000 ALTER TABLE `announces_services` DISABLE KEYS */;
+INSERT INTO `announces_services` VALUES (6,1),(6,2),(6,3),(6,4);
 /*!40000 ALTER TABLE `announces_services` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -162,10 +167,7 @@ CREATE TABLE `booking` (
   `capacity_animals` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `currency` varchar(255) DEFAULT NULL,
-  `end_at` datetime DEFAULT NULL,
   `is_confirmed` bit(1) DEFAULT NULL,
-  `is_paid` bit(1) DEFAULT NULL,
-  `start_at` datetime DEFAULT NULL,
   `total_price` decimal(19,2) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `uuid` varchar(255) DEFAULT NULL,
@@ -174,7 +176,7 @@ CREATE TABLE `booking` (
   PRIMARY KEY (`id`),
   KEY `FKi4vm6w3btnc6ss48gl4ef5ely` (`announces_id`),
   KEY `FK7udbel7q86k041591kj6lfmvw` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -183,58 +185,58 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES (1,_binary '',0,'2020-01-27 09:28:37','euro','2016-01-26 20:34:55',_binary '\0',_binary '\0','2016-01-25 20:34:55',100.00,'2020-01-27 09:28:37','5a5579e6-2fb2-45ab-a229-2ce77c3006dc',2,1),(2,_binary '',0,'2020-01-27 09:29:07','euro','2016-01-26 20:34:55',_binary '\0',_binary '\0','2016-01-25 20:34:55',100.00,'2020-01-27 09:29:07','5dab4ec6-4ba4-41be-877a-e788d870f211',1,1),(3,_binary '',0,'2020-01-27 09:29:08','euro','2016-01-26 20:34:55',_binary '\0',_binary '\0','2016-01-25 20:34:55',100.00,'2020-01-27 09:29:08','b4636d95-8b4e-4fcd-87a9-b949c68c5f35',1,1),(4,_binary '',0,'2020-01-27 09:30:18','euro','2016-01-26 20:34:55',_binary '\0',_binary '\0','2016-01-25 20:34:55',100.00,'2020-01-27 09:30:18','40177d48-dc6c-4096-9501-33f8599285bf',1,1),(5,_binary '',0,'2020-01-27 09:30:20','euro','2016-01-26 20:34:55',_binary '\0',_binary '\0','2016-01-25 20:34:55',100.00,'2020-01-27 09:30:20','56fddfdc-0dd1-4a81-b7fb-b752288f14ee',1,1),(6,_binary '',0,'2020-01-27 09:30:30','euro','2016-01-26 20:34:55',_binary '\0',_binary '\0','2016-01-25 20:34:55',100.00,'2020-01-27 09:30:30','fa878e5d-3375-40e3-bb95-46558c9e784d',1,1),(7,_binary '',0,'2020-01-27 09:30:55','euro','2016-01-26 20:34:55',_binary '\0',_binary '\0','2016-01-25 20:34:55',100.00,'2020-01-27 09:30:55','a395622c-8c50-469e-988d-ea15f9e9b8ce',1,1),(8,_binary '',0,'2020-01-27 09:42:26','euro','2016-01-26 20:34:55',_binary '\0',_binary '\0','2016-01-25 20:34:55',100.00,'2020-01-27 09:42:26','8b9f6221-2902-4a39-9eb1-5368e9c13774',1,1),(9,_binary '',0,'2020-01-27 09:43:45','euro','2016-01-26 20:34:55',_binary '\0',_binary '\0','2016-01-25 20:34:55',100.00,'2020-01-27 09:43:45','d642407f-cc4e-4370-9655-3e619ecb9d44',1,1),(10,_binary '',0,'2020-01-27 09:43:47','euro','2016-01-26 20:34:55',_binary '\0',_binary '\0','2016-01-25 20:34:55',100.00,'2020-01-27 09:43:47','74f84028-478f-4aa6-8b89-28edc0e8e728',1,1),(11,_binary '',0,'2020-01-27 09:43:49','euro','2016-01-26 20:34:55',_binary '\0',_binary '\0','2016-01-25 20:34:55',100.00,'2020-01-27 09:43:49','b3828ccd-70ea-4552-aae2-092bc5419cae',1,1);
+INSERT INTO `booking` VALUES (1,_binary '',10,'2020-01-04 22:20:38','EUR',_binary '',100.00,'2020-01-04 22:20:38','1234',1,1);
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `bookings_animals_types`
+-- Table structure for table `booking_animals_types`
 --
 
-DROP TABLE IF EXISTS `bookings_animals_types`;
+DROP TABLE IF EXISTS `booking_animals_types`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `bookings_animals_types` (
+CREATE TABLE `booking_animals_types` (
   `booking_id` bigint(20) NOT NULL,
-  `animals_type_id` bigint(20) NOT NULL,
-  KEY `FK8lrrd4pv1f5mdoyxvno8ikb9u` (`animals_type_id`),
-  KEY `FKlrmul67eh9gjgviunhsss9co2` (`booking_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `animals_types_id` bigint(20) NOT NULL,
+  UNIQUE KEY `UK_t85w1gjh7gj47w8720nk4lrt1` (`animals_types_id`),
+  KEY `FK6fcb8dr5a6v37h8lfsen5qurd` (`booking_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `bookings_animals_types`
+-- Dumping data for table `booking_animals_types`
 --
 
-LOCK TABLES `bookings_animals_types` WRITE;
-/*!40000 ALTER TABLE `bookings_animals_types` DISABLE KEYS */;
-INSERT INTO `bookings_animals_types` VALUES (8,1),(9,1),(10,1),(11,1);
-/*!40000 ALTER TABLE `bookings_animals_types` ENABLE KEYS */;
+LOCK TABLES `booking_animals_types` WRITE;
+/*!40000 ALTER TABLE `booking_animals_types` DISABLE KEYS */;
+INSERT INTO `booking_animals_types` VALUES (1,1),(1,2);
+/*!40000 ALTER TABLE `booking_animals_types` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `bookings_services`
+-- Table structure for table `booking_services`
 --
 
-DROP TABLE IF EXISTS `bookings_services`;
+DROP TABLE IF EXISTS `booking_services`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `bookings_services` (
+CREATE TABLE `booking_services` (
   `booking_id` bigint(20) NOT NULL,
-  `service_id` bigint(20) NOT NULL,
-  KEY `FKhx3qgb3cbqptycdppoaq10h82` (`service_id`),
-  KEY `FKj4evdpolo3djlxes006ejj02` (`booking_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `services_id` bigint(20) NOT NULL,
+  UNIQUE KEY `UK_j27ml1fvhqodwja7bf1kqej93` (`services_id`),
+  KEY `FK96s1e9neeevdkrc0uir5rbsgx` (`booking_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `bookings_services`
+-- Dumping data for table `booking_services`
 --
 
-LOCK TABLES `bookings_services` WRITE;
-/*!40000 ALTER TABLE `bookings_services` DISABLE KEYS */;
-INSERT INTO `bookings_services` VALUES (8,1),(9,1),(10,1),(11,1);
-/*!40000 ALTER TABLE `bookings_services` ENABLE KEYS */;
+LOCK TABLES `booking_services` WRITE;
+/*!40000 ALTER TABLE `booking_services` DISABLE KEYS */;
+INSERT INTO `booking_services` VALUES (1,1),(1,2);
+/*!40000 ALTER TABLE `booking_services` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -248,7 +250,7 @@ CREATE TABLE `equipments` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -257,7 +259,7 @@ CREATE TABLE `equipments` (
 
 LOCK TABLES `equipments` WRITE;
 /*!40000 ALTER TABLE `equipments` DISABLE KEYS */;
-INSERT INTO `equipments` VALUES (1,'gamelle'),(2,'niche'),(3,'jardin'),(4,'croquettes spéciales'),(5,'douche');
+INSERT INTO `equipments` VALUES (1,'Litière'),(2,'Niche'),(3,'Mangeoir'),(4,'Croquette special sac à merde');
 /*!40000 ALTER TABLE `equipments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -272,7 +274,7 @@ CREATE TABLE `services` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -281,7 +283,7 @@ CREATE TABLE `services` (
 
 LOCK TABLES `services` WRITE;
 /*!40000 ALTER TABLE `services` DISABLE KEYS */;
-INSERT INTO `services` VALUES (1,'soirée'),(2,'matinée'),(3,'midi'),(4,'après-midi'),(5,'soirée'),(6,'nuit'),(7,'journée'),(8,'semaine'),(9,'mois'),(10,'année');
+INSERT INTO `services` VALUES (1,'jour'),(2,'matin'),(3,'apres-midi'),(4,'soir'),(5,'mois'),(6,'semaine'),(7,'annee');
 /*!40000 ALTER TABLE `services` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -331,7 +333,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin@admin.fr','$2a$10$bIeUY.3OIvNRKgCs5UpfZ.THLpbrHQldlW41HXqiZDNUXtt//ppAi','admin'),(2,'sylvain@sylvain.fr','$2a$10$Oi.xG5sKgseHMivTGz7IxODZpci0klZlRHSqZ44SR5Fa25HT6bYRa','sylvain');
+INSERT INTO `users` VALUES (1,'admin@admin.fr','$2a$10$aAHM3lEC2trMkOdNeTpzgeloF5ekqGp.4Qet7.k8hcjGn7rovEvw2','admin'),(2,'user@user.fr','$2a$10$Klun8WbDBxzpb8u.B7qohuwKCCUGYL46fYIPUUb.cfYZS/wJamafq','user');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -367,4 +369,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-01-27 10:48:09
+-- Dump completed on 2020-01-19 20:31:58

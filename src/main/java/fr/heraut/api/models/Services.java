@@ -13,7 +13,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="services")
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Services {

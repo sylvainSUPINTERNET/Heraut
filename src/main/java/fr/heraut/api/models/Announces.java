@@ -126,12 +126,12 @@ public class Announces implements Serializable {
     private List<Equipments> equipments = new ArrayList<>();
 
 
-    @JsonBackReference
+    @JsonBackReference(value = "announceUser")
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "announceBookings")
     @OneToMany(mappedBy="announces")
     private Collection<Booking> bookings;
 

@@ -44,6 +44,7 @@ public class RegisterService {
      */
 
     public ResponseEntity generateUser(User user) {
+        System.out.println(user);
         if (user.getPassword() == null || user.getUsername() == null || user.getEmail() == null) {
             return registerError.formatError("AUTHENTICATION_REGISTER_ERROR_MISSING_FIELDS", "FR");
         } else {

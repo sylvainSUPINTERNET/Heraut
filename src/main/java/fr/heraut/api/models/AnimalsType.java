@@ -14,7 +14,6 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="animals_type")
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnimalsType implements Serializable {

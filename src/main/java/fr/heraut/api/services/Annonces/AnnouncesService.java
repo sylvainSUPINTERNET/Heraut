@@ -2,6 +2,7 @@ package fr.heraut.api.services.Annonces;
 
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import fr.heraut.api.DTO.AnnouncesGetOneDTO;
 import fr.heraut.api.POJO.AnnouncesAnimalsType;
 import fr.heraut.api.models.AnimalsType;
 import fr.heraut.api.models.Announces;
@@ -11,6 +12,7 @@ import fr.heraut.api.repositories.AnnouncesRepository;
 import fr.heraut.api.repositories.UserRepository;
 import fr.heraut.api.services.ResponseFormat.GenericError;
 import fr.heraut.api.services.ResponseFormat.GenericSuccess;
+import org.modelmapper.ModelMapper;
 import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
@@ -41,6 +43,7 @@ public class AnnouncesService {
     GenericError genericError;
     GenericSuccess genericSuccess;
     UserRepository userRepository;
+    AnnouncesGetOneDTO announcesGetOneDTO;
 
     EntityManager em;
 
@@ -48,12 +51,13 @@ public class AnnouncesService {
     @Value("${pagination.announces.result.per.page}")
     String resultPerPage;
 
-    AnnouncesService(AnnouncesRepository announcesRepository, GenericError genericError, AnimalsTypeRepository animalsTypeRepository, GenericSuccess genericSuccess, UserRepository userRepository) {
+    AnnouncesService(AnnouncesRepository announcesRepository, GenericError genericError, AnimalsTypeRepository animalsTypeRepository, GenericSuccess genericSuccess, UserRepository userRepository, AnnouncesGetOneDTO announcesGetOneDTO) {
         this.announcesRepository = announcesRepository;
         this.genericError = genericError;
         this.animalsTypeRepository = animalsTypeRepository;
         this.genericSuccess = genericSuccess;
         this.userRepository = userRepository;
+        this.announcesGetOneDTO = announcesGetOneDTO;
     }
 
 
@@ -86,7 +90,9 @@ public class AnnouncesService {
         Optional<Announces> announce = announcesRepository.findByUuid(announceUuid);
 
         if (announce.isPresent()) {
-            return ok(announce);
+            ModelMapper modelMapper = new ModelMapper();
+            AnnouncesGetOneDTO formatted = modelMapper.map(announce.get(), AnnouncesGetOneDTO.class);
+            return ok(formatted);
         } else {
             return ResponseEntity.badRequest().body(genericError.formatError("ANNOUNCE_FIND_BY_UUID", "FR"));
         }

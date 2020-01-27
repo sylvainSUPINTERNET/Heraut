@@ -11,10 +11,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Currency;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name="booking")
@@ -41,6 +38,13 @@ public class Booking implements Serializable, IModels {
     BigDecimal totalPrice;
 
     @Column
+    boolean isPaid;
+
+    private LocalDateTime startAt;
+
+    private LocalDateTime endAt;
+
+    @Column
     int capacityAnimals; // nb d'animaux a garder
 
     @JsonBackReference
@@ -48,16 +52,20 @@ public class Booking implements Serializable, IModels {
     private User user ;
 
 
-    @JsonBackReference
+    @JsonBackReference(value = "announceBookings")
     @ManyToOne(fetch = FetchType.LAZY)
     private Announces announces ;
 
-    @JsonManagedReference
-    @OneToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "bookings_services",
+            joinColumns = {@JoinColumn(name = "booking_id")},
+            inverseJoinColumns = {@JoinColumn(name = "service_id")})
     private List<Services> services = new ArrayList<>();
 
-    @JsonManagedReference
-    @OneToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "bookings_animalsTypes",
+            joinColumns = {@JoinColumn(name = "booking_id")},
+            inverseJoinColumns = {@JoinColumn(name = "animalsType_id")})
     private List<AnimalsType> animalsTypes = new ArrayList<>();
 
     public User getUser() {
@@ -112,6 +120,7 @@ public class Booking implements Serializable, IModels {
         this.active = true;
         this.uuid = UUID.randomUUID().toString();
         this.currency = Currency.getInstance("EUR").getDisplayName();
+        this.isPaid = false;
         this.isConfirmed = false;
     }
 
@@ -177,5 +186,29 @@ public class Booking implements Serializable, IModels {
 
     public void setConfirmed(Boolean confirmed) {
         isConfirmed = confirmed;
+    }
+
+    public LocalDateTime getStartAt() {
+        return startAt;
+    }
+
+    public void setStartAt(LocalDateTime startAt) {
+        this.startAt = startAt;
+    }
+
+    public LocalDateTime getEndAt() {
+        return endAt;
+    }
+
+    public void setEndAt(LocalDateTime endAt) {
+        this.endAt = endAt;
+    }
+
+    public boolean isPaid() {
+        return isPaid;
+    }
+
+    public void setPaid(boolean paid) {
+        isPaid = paid;
     }
 }

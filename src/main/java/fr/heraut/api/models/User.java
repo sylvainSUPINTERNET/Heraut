@@ -40,7 +40,7 @@ public class User implements UserDetails {
     private Collection<Booking> bookings ;
 
 
-    @JsonManagedReference
+    @JsonManagedReference("announceUser")
     @OneToMany(
             mappedBy = "user",
             cascade = CascadeType.ALL,

@@ -1,3 +1,5 @@
+// TODO -> revoir toute la CI/CD avec mysql bug
+
 // TODO -> attention booking on ne voit pas l'user id ni l'annonceid
 // utilsier le pattern DTO plus simple (avec stream si possible) voir la doc pour le DTO avec spring
 // Stream / DTO / lambda / CompletableFutur

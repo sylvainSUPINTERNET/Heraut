@@ -1,11 +1,16 @@
 package fr.heraut.api.controllers.Bookings;
 
+import fr.heraut.api.DTO.BookingCreateDTO;
+import fr.heraut.api.models.Booking;
 import fr.heraut.api.services.Bookings.BookingsService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.security.Principal;
+
+import static org.springframework.http.ResponseEntity.ok;
 
 
 @RestController
@@ -22,4 +27,22 @@ public class BookingsController {
     public ResponseEntity getOne(@PathVariable(name="bookingUuid") String bookingUuid){
         return this.bookingsService.getOne(bookingUuid);
     }
+
+    @PostMapping("/tcreate")
+    public String testcreate(@RequestBody Booking booking,Principal principal) {
+        System.out.println(" - -- -- - - -- - -  -- - ");
+        System.out.println(principal);
+        return "testcreate";
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity create(@RequestBody BookingCreateDTO bookingCreateDTO, Principal principal){
+        System.out.println("Submit new booking ?");
+        System.out.println(" -- - - - - -- - - -- - - - -- ");
+        System.out.println(" -- - - - - -- - - -- - - - -- ");
+        System.out.println(" -- - - - - -- - - -- - - - -- ");
+        System.out.println(" -- - - - - -- - - -- - - - -- ");
+        return this.bookingsService.create(bookingCreateDTO, principal);
+    }
+
 }
