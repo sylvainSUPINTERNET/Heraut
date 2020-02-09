@@ -169,4 +169,5 @@ public class User implements UserDetails {
     public void setBookings(Collection<Booking> bookings) {
         this.bookings = bookings;
     }
+
 }
