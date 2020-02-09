@@ -2,14 +2,11 @@ package fr.heraut.api.services.Annonces;
 
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import fr.heraut.api.DTO.AnnouncesCreateDTO;
 import fr.heraut.api.DTO.AnnouncesGetOneDTO;
 import fr.heraut.api.POJO.AnnouncesAnimalsType;
-import fr.heraut.api.models.AnimalsType;
-import fr.heraut.api.models.Announces;
-import fr.heraut.api.models.User;
-import fr.heraut.api.repositories.AnimalsTypeRepository;
-import fr.heraut.api.repositories.AnnouncesRepository;
-import fr.heraut.api.repositories.UserRepository;
+import fr.heraut.api.models.*;
+import fr.heraut.api.repositories.*;
 import fr.heraut.api.services.ResponseFormat.GenericError;
 import fr.heraut.api.services.ResponseFormat.GenericSuccess;
 import org.modelmapper.ModelMapper;
@@ -44,6 +41,9 @@ public class AnnouncesService {
     GenericSuccess genericSuccess;
     UserRepository userRepository;
     AnnouncesGetOneDTO announcesGetOneDTO;
+    AnnouncesCreateDTO announcesCreateDTO;
+    ServicesRepository servicesRepository;
+    EquipmentsRepository equipmentsRepository;
 
     EntityManager em;
 
@@ -51,16 +51,92 @@ public class AnnouncesService {
     @Value("${pagination.announces.result.per.page}")
     String resultPerPage;
 
-    AnnouncesService(AnnouncesRepository announcesRepository, GenericError genericError, AnimalsTypeRepository animalsTypeRepository, GenericSuccess genericSuccess, UserRepository userRepository, AnnouncesGetOneDTO announcesGetOneDTO) {
+    AnnouncesService(AnnouncesRepository announcesRepository, GenericError genericError, AnimalsTypeRepository animalsTypeRepository, GenericSuccess genericSuccess, UserRepository userRepository, AnnouncesGetOneDTO announcesGetOneDTO, ServicesRepository servicesRepository, EquipmentsRepository equipmentsRepository) {
         this.announcesRepository = announcesRepository;
         this.genericError = genericError;
         this.animalsTypeRepository = animalsTypeRepository;
         this.genericSuccess = genericSuccess;
         this.userRepository = userRepository;
         this.announcesGetOneDTO = announcesGetOneDTO;
+        this.servicesRepository = servicesRepository;
+        this.equipmentsRepository = equipmentsRepository;
     }
 
+    public ResponseEntity create(AnnouncesCreateDTO announcesCreateDTO, Principal principal){
 
+        Optional<User> optionalUser = userRepository.findByEmail(principal.getName());
+        boolean error = false;
+
+        if(optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            ArrayList<AnimalsType> animalsTypesList = new ArrayList<>();
+            ArrayList<Services> servicesList = new ArrayList<>();
+            ArrayList<Equipments> equipmentsList = new ArrayList<>();
+
+            Announces announces = new Announces();
+
+            if(!announcesCreateDTO.getAnimalsTypeIds().isEmpty()) {
+                for(Long id : announcesCreateDTO.getAnimalsTypeIds()) {
+
+                    Optional<AnimalsType> animalsTypeAnimals = animalsTypeRepository.findById(id);
+
+                    animalsTypeAnimals.ifPresent(animalsTypesList::add);
+                }
+            } else {
+                error = true;
+            }
+
+            if(!announcesCreateDTO.getServicesIds().isEmpty()){
+
+                for(Long id : announcesCreateDTO.getServicesIds()) {
+
+                    Optional<Services> services = servicesRepository.findById(id);
+
+                    services.ifPresent(servicesList::add);
+                }
+            } else {
+                error = true;
+            }
+
+            if(!announcesCreateDTO.getEquipmentsIds().isEmpty()) {
+
+                for(Long id : announcesCreateDTO.getEquipmentsIds()) {
+
+                    Optional<Equipments> equipments = equipmentsRepository.findById(id);
+
+                    equipments.ifPresent(equipmentsList::add);
+                }
+            } else {
+                error = true;
+            }
+
+            if(error){
+                return ResponseEntity.ok().body("error set");
+            } else {
+                announces.setUser(user);
+                announces.setAnimalsTypes(animalsTypesList);
+                announces.setServices(servicesList);
+                announces.setEquipments(equipmentsList);
+                announces.setCity(announcesCreateDTO.getCity());
+                announces.setDept(announcesCreateDTO.getDept());
+                announces.setDescription(announcesCreateDTO.getDescription());
+                announces.setTitle(announcesCreateDTO.getTitle());
+                announces.setFarePerDay(announcesCreateDTO.getFarePerDay());
+                announces.setFarePerMonth(announcesCreateDTO.getFarePerMonth());
+                announces.setFarePerHour(announcesCreateDTO.getFarePerHour());
+                announces.setStreetAddress(announcesCreateDTO.getStreetAddress());
+
+                announcesRepository.save(announces);
+
+                return ResponseEntity.ok().body(announces);
+            }
+
+        } else {
+            return ResponseEntity.badRequest().body("User not found");
+        }
+    }
+
+    /*
         public ResponseEntity create(Announces announces, Principal principal) {
         Optional<User> optionalUser = userRepository.findByEmail(principal.getName());
 
@@ -81,6 +157,8 @@ public class AnnouncesService {
         }
 
     }
+
+     */
 
     public ResponseEntity count() {
         return ok(announcesRepository.countByActive());

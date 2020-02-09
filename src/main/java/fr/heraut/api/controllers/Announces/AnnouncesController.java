@@ -1,5 +1,6 @@
 package fr.heraut.api.controllers.Announces;
 
+import fr.heraut.api.DTO.AnnouncesCreateDTO;
 import fr.heraut.api.POJO.AnnouncesAnimalsType;
 import fr.heraut.api.models.Announces;
 import fr.heraut.api.services.Annonces.AnnouncesService;
@@ -35,8 +36,10 @@ public class AnnouncesController {
         this.genericSuccess = genericSuccess;
     }
 
+    /*
+    //this working
     @PostMapping
-    public ResponseEntity create(@Valid @RequestBody Announces announces, Principal principal, Errors errors){
+    public ResponseEntity create(@RequestBody Announces announces, Principal principal, Errors errors){
         System.out.println(" -- - - - - -- - - -- - - - -- ");
         System.out.println(" -- - - - - -- - - -- - - - -- ");
         System.out.println(errors);
@@ -45,7 +48,14 @@ public class AnnouncesController {
 
 
         return this.announcesService.create(announces, principal);
+    }*/
+
+
+    @PostMapping
+    public ResponseEntity create(@RequestBody AnnouncesCreateDTO announcesCreateDTO, Principal principal){
+        return this.announcesService.create(announcesCreateDTO, principal);
     }
+
 
     @GetMapping
     // we can also use MultiMap (like users list controlelr)

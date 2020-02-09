@@ -1,3 +1,6 @@
+// todo -> industre createv2 (error + response + tests) + replace useless create method createv2 method
+// todo -> remove useless controller side + indus
+
 // TODO -> revoir toute la CI/CD avec mysql bug
 
 // TODO -> attention booking on ne voit pas l'user id ni l'annonceid
