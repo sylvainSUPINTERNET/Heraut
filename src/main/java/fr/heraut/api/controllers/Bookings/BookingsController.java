@@ -35,7 +35,7 @@ public class BookingsController {
         return "testcreate";
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity create(@RequestBody BookingCreateDTO bookingCreateDTO, Principal principal){
         System.out.println("Submit new booking ?");
         System.out.println(" -- - - - - -- - - -- - - - -- ");

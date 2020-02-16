@@ -67,7 +67,7 @@ public class BookingsService {
     public ResponseEntity create(BookingCreateDTO bookingCreateDTO, Principal principal) {
         Optional<User> optionalUser = userRepository.findByEmail(principal.getName());
         Optional<Announces> optionalAnnounces = announcesRepository.findById(bookingCreateDTO.getAnnounceId());
-        Optional<Services> optionalServices = servicesRepository.findById(bookingCreateDTO.getAnnounceId());
+        Optional<Services> optionalServices = servicesRepository.findById(bookingCreateDTO.getServiceId());
         Optional<AnimalsType> optionalAnimalsType = animalsTypeRepository.findById(bookingCreateDTO.getAnnounceId());
 
         if(optionalAnnounces.isPresent()) {
