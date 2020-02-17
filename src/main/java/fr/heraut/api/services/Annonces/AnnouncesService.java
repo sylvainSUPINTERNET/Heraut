@@ -1,7 +1,6 @@
 package fr.heraut.api.services.Annonces;
 
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import fr.heraut.api.DTO.AnnouncesCreateDTO;
 import fr.heraut.api.DTO.AnnouncesGetOneDTO;
 import fr.heraut.api.POJO.AnnouncesAnimalsType;
@@ -10,19 +9,14 @@ import fr.heraut.api.repositories.*;
 import fr.heraut.api.services.ResponseFormat.GenericError;
 import fr.heraut.api.services.ResponseFormat.GenericSuccess;
 import org.modelmapper.ModelMapper;
-import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
