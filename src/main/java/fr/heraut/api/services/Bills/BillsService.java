@@ -54,7 +54,7 @@ public class BillsService {
                 System.out.println("debuger");
                 System.out.println(bills.getUser().getEmail());
                 System.out.println(bills.getBooking().getId());
-                
+
                 Bills savedBill = billsRepository
                         .save(bills);
 
