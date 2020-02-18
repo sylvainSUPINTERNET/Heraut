@@ -1,3 +1,12 @@
+// TODO -> add userId in bills model + in DTO
+// TODO -> DTO for bills
+// TODO -> add DTO to BookingsDTO related to bills
+// todo -> test Bookings get => should return also an array of bills
+// TODO -> make API for bills (creation with stripe ) POST
+
+// TODO -> configurer Stripe (emailing etc)
+
+
 // todo -> industre createv2 (error + response + tests) + replace useless create method createv2 method
 // todo -> remove useless controller side + indus
 

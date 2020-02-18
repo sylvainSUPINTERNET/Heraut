@@ -40,6 +40,7 @@ public class Booking implements Serializable, IModels {
     @Column
     boolean isPaid;
 
+
     private LocalDateTime startAt;
 
     private LocalDateTime endAt;
@@ -50,6 +51,10 @@ public class Booking implements Serializable, IModels {
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     private User user ;
+
+    @JsonManagedReference(value = "bookingBills")
+    @OneToMany(mappedBy="booking")
+    private Collection<Bills> bills;
 
 
     @JsonBackReference(value = "announceBookings")
@@ -210,5 +215,14 @@ public class Booking implements Serializable, IModels {
 
     public void setPaid(boolean paid) {
         isPaid = paid;
+    }
+
+    public Collection<Bills> getBills() {
+        return bills;
+    }
+
+
+    public void setBills(Collection<Bills> bills) {
+        this.bills = bills;
     }
 }

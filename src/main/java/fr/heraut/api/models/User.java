@@ -52,6 +52,14 @@ public class User implements UserDetails {
     private List<Announces> announces = new ArrayList<>();
 
 
+    @JsonManagedReference("userBills")
+    @OneToMany(
+            mappedBy = "user_id",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Bills> bills = new ArrayList<>();
+
 
     @Email
     private String email;
@@ -169,5 +177,6 @@ public class User implements UserDetails {
     public void setBookings(Collection<Booking> bookings) {
         this.bookings = bookings;
     }
+
 
 }
