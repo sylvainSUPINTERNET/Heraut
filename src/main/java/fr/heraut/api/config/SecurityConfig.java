@@ -80,11 +80,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/v1/bills/**").hasAnyRole("ADMIN", "USER")
                 .antMatchers(HttpMethod.POST, "/v1/bills/**").hasAnyRole("ADMIN", "USER")
 
+                // PAYMENT
+                .antMatchers(HttpMethod.GET, "/v1/payment/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers(HttpMethod.POST, "/v1/payment/**").hasAnyRole("ADMIN", "USER")
+
+
 
                 // BOOKINGS
                 .antMatchers(HttpMethod.POST, "/v1/bookings/**").hasAnyRole("ADMIN", "USER")
                 .antMatchers(HttpMethod.GET, "/v1/bookings/**").hasAnyRole("ADMIN", "USER")
+
+
                 .anyRequest().authenticated()
+
 
                 .and()
 
