@@ -2,10 +2,12 @@ package fr.heraut.api.controllers.Stripe;
 
 
 import com.stripe.Stripe;
+import com.stripe.exception.*;
 import fr.heraut.api.DTO.StripeChargeCreateDTO;
 import fr.heraut.api.services.ResponseFormat.GenericError;
 import fr.heraut.api.services.ResponseFormat.GenericSuccess;
 import fr.heraut.api.services.Stripe.StripeService;
+import org.modelmapper.internal.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -56,11 +58,21 @@ public class StripeController  {
         }
 
         //create charge
-        String chargeId = stripeService.createCharge(stripeChargeCreateDTO.getEmail(), stripeChargeCreateDTO.getToken(), stripeChargeCreateDTO.getAmount()); //$9.99 USD
-
-        if (chargeId == null) {
-            return ResponseEntity.badRequest().body("Error is occured while paying, please try later");
+        try {
+            String chargeId = stripeService.createCharge(stripeChargeCreateDTO.getEmail(), stripeChargeCreateDTO.getToken(), stripeChargeCreateDTO.getAmount());
+            System.out.println("- DEBUG STRIPE - ");
+            System.out.println(chargeId);
+            if (chargeId == null) {
+                return ResponseEntity.badRequest().body("Error is occured while paying, please try later");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+
+
+
+
 
 
 

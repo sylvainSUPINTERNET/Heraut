@@ -1,2 +1,4 @@
-// TODO -> update docker database with dump file (to create)
-// TODO -> implement stripe front side
+// TODO -> add bill save (after stripe charge)
+
+
+// TODO -> clear front side for stripe implementation cleaner

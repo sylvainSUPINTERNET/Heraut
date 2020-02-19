@@ -30,6 +30,7 @@ public class StripeService {
             Charge charge = Charge.create(chargeParams);
             id = charge.getId();
         } catch (Exception ex) {
+            System.out.println("CREATE CHARGE SERVICE :  " + ex);
             ex.printStackTrace();
         }
         return id;
