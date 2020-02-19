@@ -1,9 +1,6 @@
 package fr.heraut.api.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +19,7 @@ import java.util.*;
 @Table(name = "announces")
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"bookings"})
 public class Announces implements Serializable {
 
     @Id
@@ -131,6 +129,7 @@ public class Announces implements Serializable {
     private User user;
 
 
+    @JsonIgnore
     @JsonManagedReference(value = "announceBookings")
     @OneToMany(mappedBy="announces")
     private Collection<Booking> bookings;

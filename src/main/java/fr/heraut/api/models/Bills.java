@@ -3,6 +3,7 @@ package fr.heraut.api.models;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -12,6 +13,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="bills")
+@JsonIgnoreProperties({"booking", "user_id"})
+
 public class Bills implements Serializable {
 
     @Id

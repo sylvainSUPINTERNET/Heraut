@@ -1,9 +1,6 @@
 package fr.heraut.api.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +18,7 @@ import static java.util.stream.Collectors.toList;
 
 @Entity
 @Table(name="users")
+@JsonIgnoreProperties({"bills", "bookings"})
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -179,4 +177,11 @@ public class User implements UserDetails {
     }
 
 
+    public List<Bills> getBills() {
+        return bills;
+    }
+
+    public void setBills(List<Bills> bills) {
+        this.bills = bills;
+    }
 }

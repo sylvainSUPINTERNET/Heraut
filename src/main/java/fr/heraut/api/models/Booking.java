@@ -1,5 +1,7 @@
 package fr.heraut.api.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import fr.heraut.api.shared.IModels;
 import lombok.AllArgsConstructor;

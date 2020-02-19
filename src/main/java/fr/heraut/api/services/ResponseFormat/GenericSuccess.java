@@ -20,7 +20,5 @@ public class GenericSuccess {
         model.put("error", false);
         model.put("data", object);
         return ResponseEntity.ok(model);
-
-
     }
 }
