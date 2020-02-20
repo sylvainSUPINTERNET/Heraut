@@ -1,10 +1,10 @@
 package fr.heraut.api.DTO;
 
-import fr.heraut.api.models.Announces;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -24,6 +24,7 @@ public class BookingsDTO {
     BookingsAnnounceDTO bookingAnnounces;
     List<BookingsServicesDTO> bookingServices;
     List<BookingsAnimalsTypeDTO> bookingAnimalsTypes;
+    Collection<BillBookingDTO> bills;
 
 
     public String getBookingUuid() {
@@ -144,5 +145,13 @@ public class BookingsDTO {
 
     public void setBookingIsPaid(boolean bookingIsPaid) {
         this.bookingIsPaid = bookingIsPaid;
+    }
+
+    public Collection<BillBookingDTO> getBills() {
+        return bills;
+    }
+
+    public void setBills(Collection<BillBookingDTO> bills) {
+        this.bills = bills;
     }
 }

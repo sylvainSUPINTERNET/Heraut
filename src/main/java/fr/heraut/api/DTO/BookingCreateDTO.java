@@ -17,6 +17,8 @@ public class BookingCreateDTO {
     long announceId;
     long serviceId;
     long animalsTypeId;
+    boolean isPaid;
+    boolean isConfirmed;
 
 
     BookingCreateDTO(){}
@@ -85,4 +87,19 @@ public class BookingCreateDTO {
         this.animalsTypeId = animalsTypeId;
     }
 
+    public boolean isPaid() {
+        return isPaid;
+    }
+
+    public void setPaid(boolean paid) {
+        isPaid = paid;
+    }
+
+    public boolean isConfirmed() {
+        return isConfirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        isConfirmed = confirmed;
+    }
 }

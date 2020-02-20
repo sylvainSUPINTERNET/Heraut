@@ -16,6 +16,7 @@ public class BillsCreateDTO {
     String lastCardNumbers;
     String network;
     String paymentType;
+    String country;
     long userId;
     long bookingId;
 
@@ -123,5 +124,13 @@ public class BillsCreateDTO {
 
     public void setBookingId(long bookingId) {
         this.bookingId = bookingId;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

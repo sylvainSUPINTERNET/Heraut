@@ -68,7 +68,7 @@ public class BookingsService {
         Optional<User> optionalUser = userRepository.findByEmail(principal.getName());
         Optional<Announces> optionalAnnounces = announcesRepository.findById(bookingCreateDTO.getAnnounceId());
         Optional<Services> optionalServices = servicesRepository.findById(bookingCreateDTO.getServiceId());
-        Optional<AnimalsType> optionalAnimalsType = animalsTypeRepository.findById(bookingCreateDTO.getAnnounceId());
+        Optional<AnimalsType> optionalAnimalsType = animalsTypeRepository.findById(bookingCreateDTO.getAnimalsTypeId());
 
         if(optionalAnnounces.isPresent()) {
             if(optionalServices.isPresent()) {
@@ -91,7 +91,13 @@ public class BookingsService {
                         newBooking.setEndAt(bookingCreateDTO.getBookingEndAt());
                         newBooking.setTotalPrice(bookingCreateDTO.getBookingTotalPrice());
                         newBooking.setCapacityAnimals(bookingCreateDTO.getBookingCapacityAnimals());
-
+                        newBooking.setPaid(bookingCreateDTO.isPaid());
+                        newBooking.setConfirmed(bookingCreateDTO.isConfirmed());
+                        System.out.println("debugg");
+                        System.out.println("----------------------");
+                        System.out.println(bookingCreateDTO.isConfirmed());
+                        System.out.println(bookingCreateDTO.isPaid());
+                        System.out.println("----------------------");
                         bookingsRepository.save(newBooking);
                         return ok(newBooking);
 

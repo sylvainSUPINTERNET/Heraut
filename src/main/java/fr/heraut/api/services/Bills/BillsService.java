@@ -51,6 +51,7 @@ public class BillsService {
                 bills.setLastCardNumbers(billsCreateDTO.getLastCardNumbers());
                 bills.setNetwork(billsCreateDTO.getNetwork());
                 bills.setPaymentType(billsCreateDTO.getPaymentType());
+                bills.setCountry(billsCreateDTO.getCountry());
                 System.out.println("debuger");
                 System.out.println(bills.getUser().getEmail());
                 System.out.println(bills.getBooking().getId());

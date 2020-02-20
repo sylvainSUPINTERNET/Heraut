@@ -60,6 +60,9 @@ public class Bills implements Serializable {
     @Column
     boolean active;
 
+    @Column
+    String country;
+
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     private Booking booking ;
@@ -216,6 +219,14 @@ public class Bills implements Serializable {
 
     public void setUser(User user_id) {
         this.user_id = user_id;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     @PrePersist
