@@ -57,6 +57,12 @@ public class AnnouncesController {
     }
 
 
+    @GetMapping("/account")
+    public ResponseEntity listByUserId(Principal principal){
+        return this.announcesService.getAnnouncesByUserId(principal);
+    }
+
+
     @GetMapping
     // we can also use MultiMap (like users list controlelr)
     public ResponseEntity list(QueryParamsAnnounces queryParamsAnnounces){

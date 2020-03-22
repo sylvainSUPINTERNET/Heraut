@@ -29,4 +29,6 @@ public class ApiUserDetailsService implements UserDetailsService {
         return this.users.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Username: " + username + " not found"));
     }
+
+
 }

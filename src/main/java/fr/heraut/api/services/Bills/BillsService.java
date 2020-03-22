@@ -1,15 +1,20 @@
 package fr.heraut.api.services.Bills;
 
 import fr.heraut.api.DTO.BillsCreateDTO;
+import fr.heraut.api.DTO.BillsUserIdDTO;
 import fr.heraut.api.models.Bills;
 import fr.heraut.api.models.Booking;
 import fr.heraut.api.models.User;
 import fr.heraut.api.repositories.BillsRepository;
 import fr.heraut.api.repositories.BookingsRepository;
 import fr.heraut.api.repositories.UserRepository;
+import fr.heraut.api.services.ResponseFormat.GenericError;
 import fr.heraut.api.services.ResponseFormat.GenericSuccess;
+import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 
 import javax.xml.ws.Response;
 import java.security.Principal;
@@ -22,12 +27,50 @@ public class BillsService {
     BookingsRepository bookingsRepository;
     UserRepository userRepository;
     GenericSuccess genericSuccess;
+    GenericError genericError;
+    BillsUserIdDTO billsUserIdDTO;
 
-    BillsService(BillsRepository billsRepository, UserRepository userRepository, BookingsRepository bookingsRepository, GenericSuccess genericSuccess){
+    BillsService(BillsRepository billsRepository, UserRepository userRepository, BookingsRepository bookingsRepository, GenericSuccess genericSuccess, GenericError genericError,BillsUserIdDTO billsUserIdDTO){
         this.billsRepository = billsRepository;
         this.userRepository = userRepository;
         this.bookingsRepository = bookingsRepository;
         this.genericSuccess = genericSuccess;
+        this.genericError = genericError;
+        this.billsUserIdDTO = billsUserIdDTO;
+    }
+
+    public ResponseEntity getAccountBills(Principal principal) {
+
+       Optional<User> user =  userRepository.findByEmail(principal.getName());
+       if(user.isPresent()) {
+
+           List<Bills> userBills = user.get().getBills();
+
+
+           List<BillsUserIdDTO> formatted = new ArrayList<>();
+           for(Bills bill: userBills) {
+               BillsUserIdDTO billsUserIdDTO = new BillsUserIdDTO();
+               billsUserIdDTO.setBillActive(bill.isActive());
+               billsUserIdDTO.setBillAmount(bill.getAmount());
+               billsUserIdDTO.setBillChargeId(bill.getChargeId());
+               billsUserIdDTO.setBillCreated(bill.getCreated());
+               billsUserIdDTO.setBillCurrency(bill.getCurrency());
+               billsUserIdDTO.setBillId(bill.getId());
+               billsUserIdDTO.setBillPaymentType(bill.getType());
+               billsUserIdDTO.setBillPaymentTypeCountry(bill.getCountry());
+               billsUserIdDTO.setBillPaymentTypeExpiredMonth(bill.getExpMonth());
+               billsUserIdDTO.setBillPaymentTypeExpiredYear(bill.getExpYear());
+               billsUserIdDTO.setBillPaymentTypeLastCardNumbers(bill.getLastCardNumbers());
+               billsUserIdDTO.setBillUrlReceipt(bill.getUrlReceipt());
+               billsUserIdDTO.setBillPaymentTypeName(bill.getPaymentType());
+               billsUserIdDTO.setBillPaymentTypeNetwork(bill.getNetwork());
+
+               formatted.add(billsUserIdDTO);
+           }
+           return genericSuccess.formatSuccess(formatted);
+       } else {
+           return genericError.formatErrorWithHttpVerb("","FR", HttpStatus.BAD_REQUEST);
+       }
     }
 
 
@@ -52,9 +95,6 @@ public class BillsService {
                 bills.setNetwork(billsCreateDTO.getNetwork());
                 bills.setPaymentType(billsCreateDTO.getPaymentType());
                 bills.setCountry(billsCreateDTO.getCountry());
-                System.out.println("debuger");
-                System.out.println(bills.getUser().getEmail());
-                System.out.println(bills.getBooking().getId());
 
                 Bills savedBill = billsRepository
                         .save(bills);

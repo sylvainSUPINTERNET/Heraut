@@ -34,6 +34,7 @@ public class ErrorsMessages {
             // ANNOUNCES
             dict.put("ANNOUNCE_FIND_BY_UUID", "Pas d'annonce pour cette uuid");
             dict.put("ANNOUNCE_LIST_BAD_QUERY_PARAMS", "Query params invalide");
+            dict.put("ANNOUNCE_BY_USERID", "Vous n'avez pas d'annonces pour le moment");
 
             // ANNOUNCES with query params
             dict.put("ANNOUNCE_FIND_BY_QUERY_PARAMS", "Aucunes annonces trouvées");
@@ -50,6 +51,10 @@ public class ErrorsMessages {
 
             // BOOKINGS
             dict.put("BOOKING_FIND_BY_UUID", "Aucune réservation.");
+
+
+            // BILLS
+            dict.put("BILLS_BY_USERID", "Aucune factures pour le moment");
 
 
         } else {
@@ -72,6 +77,7 @@ public class ErrorsMessages {
             // ANNOUNCES
             dict.put("ANNOUNCE_FIND_BY_UUID", "No announce for this uuid.");
             dict.put("ANNOUNCE_LIST_BAD_QUERY_PARAMS", "Query params invalid");
+            dict.put("ANNOUNCE_BY_USERID", "No announces for the moment");
 
 
             // ANNOUNCES with query params
@@ -87,6 +93,9 @@ public class ErrorsMessages {
 
             // BOOKINGS
             dict.put("BOOKING_FIND_BY_UUID", "No booking found.");
+
+            // BILLS
+            dict.put("BILLS_BY_USERID", "No bills for the moment");
 
 
         }

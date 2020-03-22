@@ -186,6 +186,18 @@ public class AnnouncesService {
     }
 
 
+    public ResponseEntity getAnnouncesByUserId(Principal principal){
+        Optional<User> user = userRepository.findByEmail(principal.getName());
+
+        if(user.isPresent()) {
+             List<Announces> announcesList = user.get().getAnnounces();
+            return genericSuccess.formatSuccess(announcesList);
+        } else {
+            // return error
+            return genericError.formatErrorWithHttpVerb("ANNOUNCE_BY_USERID","FR", HttpStatus.BAD_REQUEST);
+        }
+    }
+
     // Params : AnimalType Service Dept
     public ResponseEntity getAnnouncesBySearchQuery(String servicesIdStr, String animalsTypeIdStr, String dept, String pageNb) {
         int page = Integer.parseInt(pageNb); // already checked by RequestParam (require dtrue by defualt) else return 400
