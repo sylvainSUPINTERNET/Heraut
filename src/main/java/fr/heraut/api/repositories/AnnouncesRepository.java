@@ -12,6 +12,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -57,5 +59,8 @@ public interface AnnouncesRepository extends JpaRepository<Announces, Long> {
     // dept (JPQL query !)
     @Query("SELECT a FROM Announces a WHERE a.dept = :department AND a.active = 1 ORDER BY a.createdAt ASC")
     Page<Announces> findAllByQueryDeptAndPopulate(@Param("department") String department,Pageable pageable);
+
+    @Query(value = "SELECT * FROM announces as ann ORDER BY created_at ASC limit 5", nativeQuery = true)
+    List<Announces> findLatestAnnounces();
 
 }
