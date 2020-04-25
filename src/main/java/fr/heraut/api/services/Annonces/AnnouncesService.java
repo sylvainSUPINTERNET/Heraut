@@ -119,6 +119,7 @@ public class AnnouncesService {
                 announces.setFarePerMonth(announcesCreateDTO.getFarePerMonth());
                 announces.setFarePerHour(announcesCreateDTO.getFarePerHour());
                 announces.setStreetAddress(announcesCreateDTO.getStreetAddress());
+                announces.setPicture(null);
 
                 announcesRepository.save(announces);
 

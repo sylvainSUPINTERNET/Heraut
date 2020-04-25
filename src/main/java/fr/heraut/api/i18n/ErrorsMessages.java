@@ -56,6 +56,10 @@ public class ErrorsMessages {
             // BILLS
             dict.put("BILLS_BY_USERID", "Aucune factures pour le moment");
 
+            // UPLOAD
+            dict.put("UPLOAD_INVALID_BODY", "announceId ou file invalid");
+            dict.put("UPLOAD_NO_ANNOUNCE", "Aucune annonce trouvée");
+
 
         } else {
             // User and Authentication
@@ -97,6 +101,10 @@ public class ErrorsMessages {
             // BILLS
             dict.put("BILLS_BY_USERID", "No bills for the moment");
 
+
+            // UPLOAD
+            dict.put("UPLOAD_INVALID_BODY", "announceId or file missing");
+            dict.put("UPLOAD_NO_ANNOUNCE", "No announce found");
 
         }
 

@@ -63,6 +63,9 @@ public class Announces implements Serializable {
     @Column
     private String currency;
 
+    @Lob
+    private byte[] picture;
+
 
     @Column
     Boolean active;
@@ -296,6 +299,14 @@ public class Announces implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
     }
 
     @PrePersist

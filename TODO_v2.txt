@@ -1,3 +1,9 @@
+// add picture to announce
+// todo > service (change the current controller to accept announce / id + multipart file and update the @lob picture field in announce)
+// todo > property (lob) in model
+// todo >
+
+
 // TODO -> add bill save (after stripe charge)
 
 
