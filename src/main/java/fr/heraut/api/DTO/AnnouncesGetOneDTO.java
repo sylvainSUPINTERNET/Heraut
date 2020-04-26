@@ -1,6 +1,7 @@
 package fr.heraut.api.DTO;
 
 import fr.heraut.api.POJO.AnnouncesAnimalsType;
+import fr.heraut.api.models.User;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -20,6 +21,8 @@ public class AnnouncesGetOneDTO {
         String streetAddress ;
         String dept;
         String city;
+        UserGetOneDTO user;
+        byte[] picture;
         BigDecimal farePerHour;
         BigDecimal farePerDay;
         BigDecimal farePerMonth;
@@ -30,6 +33,14 @@ public class AnnouncesGetOneDTO {
         List<AnnouncesEquipmentsDTO> equipments;
         LocalDateTime createdAt;
         LocalDateTime updatedAt;
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
+    }
 
     public long getId() {
         return id;
@@ -165,5 +176,13 @@ public class AnnouncesGetOneDTO {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public UserGetOneDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserGetOneDTO user) {
+        this.user = user;
     }
 }
