@@ -99,6 +99,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/v1/public/**").permitAll()
 
 
+                // STORE API - AFFILIATION AMAZON
+                .antMatchers(HttpMethod.GET, "/v1/store/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/v1/store/**").permitAll()
+
+
+
                 .anyRequest().authenticated()
 
 

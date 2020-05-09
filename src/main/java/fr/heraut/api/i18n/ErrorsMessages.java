@@ -60,6 +60,16 @@ public class ErrorsMessages {
             dict.put("UPLOAD_INVALID_BODY", "announceId ou file invalid");
             dict.put("UPLOAD_NO_ANNOUNCE", "Aucune annonce trouvée");
 
+            // Store - Category
+            dict.put("CREATE_CAT_NAME", "Le champ name est vide.");
+
+            // Store - Item
+            dict.put("CREATE_NAME_STORE_ITEM_MISSING", "Le champ name est vide");
+            dict.put("CREATE_AFFILIATION_LINK_STORE_ITEM_MISSING", "Le lien d'affiliation n'est pas indiqué");
+            dict.put("CREATE_AFFILIATION_PICTURE_STORE_ITEM_MISSING", "Le lien d'affiliation image n'est pas indiqué");
+            dict.put("CREATE_DESCRIPTION_STORE_ITEM_MISSING", "La description est vide");
+            dict.put("CREATE_CATEGORY_STORE_ITEM_MISSING", "Id category invalide");
+
 
         } else {
             // User and Authentication
@@ -105,6 +115,16 @@ public class ErrorsMessages {
             // UPLOAD
             dict.put("UPLOAD_INVALID_BODY", "announceId or file missing");
             dict.put("UPLOAD_NO_ANNOUNCE", "No announce found");
+
+            // Store - Category
+            dict.put("CREATE_CAT_NAME", "The field name is empty");
+
+            // Store - Item
+            dict.put("CREATE_NAME_STORE_ITEM_MISSING", "Field name is empty");
+            dict.put("CREATE_AFFILIATION_LINK_STORE_ITEM_MISSING", "Field affiliation link is empty");
+            dict.put("CREATE_AFFILIATION_PICTURE_STORE_ITEM_MISSING", "Field affiliation picture link is empty");
+            dict.put("CREATE_DESCRIPTION_STORE_ITEM_MISSING", "Field description is empty");
+            dict.put("CREATE_CATEGORY_STORE_ITEM_MISSING", "Category id is not valid");
 
         }
 
