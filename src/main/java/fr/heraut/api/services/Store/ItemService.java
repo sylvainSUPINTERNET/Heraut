@@ -11,6 +11,7 @@ import fr.heraut.api.services.ResponseFormat.GenericError;
 import fr.heraut.api.services.ResponseFormat.GenericSuccess;
 import org.reflections.Store;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -84,7 +85,11 @@ public class ItemService {
     }
 
     public ResponseEntity getAllItemsByCat(long categoryId, String page){
-        return ResponseEntity.ok("ok");
+        int pageTarget = Integer.parseInt(page);
+        Pageable pageable = PageRequest.of(pageTarget, Integer.parseInt(resultPerPage));
+        Page<StoreItem> itemsByCat = this.storeItemRepository.findAllItemsByCategory(categoryId, pageable);
+
+        return this.genericSuccess.formatSuccess(itemsByCat);
     }
 
 

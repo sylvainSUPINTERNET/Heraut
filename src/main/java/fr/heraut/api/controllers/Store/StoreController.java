@@ -25,16 +25,13 @@ public class StoreController {
         this.itemService = itemService;
     }
 
-    // TODO :
-    // - get all items by category (Find all relation + pagination)
-
     @PostMapping("/category")
     public ResponseEntity addCategory(@RequestBody StoreCategoryCreateDTO storeCategoryCreateDTO){
         return this.categoryService.createCategory(storeCategoryCreateDTO);
     }
 
     @GetMapping("/item")
-    public ResponseEntity getItems(@RequestParam("categoryId") long categoryId, @RequestParam("page") String page){
+    public ResponseEntity getItems(@RequestParam("category") long categoryId, @RequestParam("page") String page){
         // TODO -> faire le service / repository avec pagination + relation pour recup tous les items pour la categorie
         return this.itemService.getAllItemsByCat(categoryId, page);
     }

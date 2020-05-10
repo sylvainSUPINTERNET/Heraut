@@ -41,7 +41,6 @@ public class CategoryService {
     }
 
     public ResponseEntity getAll(){
-        System.out.println(this.storeCategoryRepository.findAll());
         return genericSuccess.formatSuccess(this.storeCategoryRepository.findAll());
     }
 
