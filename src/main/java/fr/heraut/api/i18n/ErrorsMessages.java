@@ -51,6 +51,8 @@ public class ErrorsMessages {
 
             // BOOKINGS
             dict.put("BOOKING_FIND_BY_UUID", "Aucune réservation.");
+            dict.put("BOOKING_INVALID_USER_ID", "Id user invalide");
+            dict.put("BOOKING_USER_NOT_FOUND", "User n'existe pas");
 
 
             // BILLS
@@ -107,6 +109,9 @@ public class ErrorsMessages {
 
             // BOOKINGS
             dict.put("BOOKING_FIND_BY_UUID", "No booking found.");
+            dict.put("BOOKING_INVALID_USER_ID", "Id user invalid");
+            dict.put("BOOKING_USER_NOT_FOUND", "User not found");
+
 
             // BILLS
             dict.put("BILLS_BY_USERID", "No bills for the moment");

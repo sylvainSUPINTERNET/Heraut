@@ -2,12 +2,15 @@ package fr.heraut.api.services.Bookings;
 
 import fr.heraut.api.DTO.BookingCreateDTO;
 import fr.heraut.api.DTO.BookingsDTO;
+import fr.heraut.api.DTO.BookingsUserGetDTO;
 import fr.heraut.api.models.*;
 import fr.heraut.api.repositories.*;
 import fr.heraut.api.services.ResponseFormat.GenericError;
 import fr.heraut.api.services.ResponseFormat.GenericSuccess;
+import jdk.nashorn.internal.runtime.options.Option;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.jackson.JsonNodeValueReader;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +31,7 @@ public class BookingsService {
     ServicesRepository servicesRepository;
     AnimalsTypeRepository animalsTypeRepository;
     GenericSuccess genericSuccess;
+    BookingsUserGetDTO bookingsUserGetDTO;
     GenericError genericError;
 
     BookingsService(
@@ -37,7 +41,8 @@ public class BookingsService {
             UserRepository userRepository,
             AnnouncesRepository announcesRepository,
             ServicesRepository servicesRepository,
-            AnimalsTypeRepository animalsTypeRepository){
+            AnimalsTypeRepository animalsTypeRepository,
+            BookingsUserGetDTO bookingsUserGetDTO){
         this.bookingsRepository = bookingsRepository;
         this.genericError = genericError;
         this.genericSuccess = genericSuccess;
@@ -45,6 +50,7 @@ public class BookingsService {
         this.servicesRepository = servicesRepository;
         this.announcesRepository = announcesRepository;
         this.animalsTypeRepository = animalsTypeRepository;
+        this.bookingsUserGetDTO = bookingsUserGetDTO;
     }
 
     public ResponseEntity getOne(String announceUuid) {
@@ -63,6 +69,40 @@ public class BookingsService {
         }
     }
 
+    public ResponseEntity getUserBookings(String userId) {
+                try {
+                    long userIdConverted = Long.parseLong(userId);
+                    Optional<User> user = userRepository.findById(userIdConverted);
+                    if(user.isPresent()) {
+
+                        if(user.get().getBookings().size() > 0) {
+                            List<BookingsUserGetDTO> userBookings = new ArrayList<>();
+
+                            for(Booking booking: user.get().getBookings()) {
+                                BookingsUserGetDTO bugdt =  new BookingsUserGetDTO();
+                                bugdt.setBookingId(booking.getId());
+                                bugdt.setBookingCurrency(booking.getCurrency());
+                                bugdt.setBookingUuid(booking.getUuid());
+                                bugdt.setBookingEndAt(booking.getEndAt());
+                                bugdt.setBookingStartAt(booking.getStartAt());
+                                bugdt.setBookingStatus(booking.getActive());
+                                bugdt.setBookingTotalPrice(booking.getTotalPrice());
+                                bugdt.setCapacityAnimals(booking.getCapacityAnimals());
+                                userBookings.add(bugdt);
+                            }
+
+                            return genericSuccess.formatSuccess(userBookings);
+                        } else {
+                            return genericSuccess.formatSuccess(user.get().getBookings());
+                        }
+                    } else {
+                        return genericError.formatErrorWithHttpVerb("BOOKING_USER_NOT_FOUND","FR", HttpStatus.BAD_REQUEST);
+                    }
+
+                } catch(Exception e){
+                    return genericError.formatErrorWithHttpVerb("BOOKING_INVALID_USER_ID","FR", HttpStatus.BAD_REQUEST);
+                }
+    }
 
     public ResponseEntity create(BookingCreateDTO bookingCreateDTO, Principal principal) {
         Optional<User> optionalUser = userRepository.findByEmail(principal.getName());

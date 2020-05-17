@@ -45,4 +45,9 @@ public class BookingsController {
         return this.bookingsService.create(bookingCreateDTO, principal);
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity getByUserId(@PathVariable(name="userId") String userId){
+        return bookingsService.getUserBookings(userId);
+    }
+
 }
