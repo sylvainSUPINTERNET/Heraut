@@ -311,7 +311,7 @@ public class Announces implements Serializable {
 
     @PrePersist
     protected void onCreate() {
-        this.active = true;
+        this.active = false;
         this.uuid = UUID.randomUUID().toString();
         this.currency = Currency.getInstance("EUR").getDisplayName();
     }
