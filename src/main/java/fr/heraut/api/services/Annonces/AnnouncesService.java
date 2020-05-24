@@ -3,6 +3,7 @@ package fr.heraut.api.services.Annonces;
 
 import fr.heraut.api.DTO.AnnouncesCreateDTO;
 import fr.heraut.api.DTO.AnnouncesGetOneDTO;
+import fr.heraut.api.DTO.AnnouncesUpdateIsActiveAndIsActiveMultipleDTO;
 import fr.heraut.api.POJO.AnnouncesAnimalsType;
 import fr.heraut.api.models.*;
 import fr.heraut.api.repositories.*;
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import javax.xml.ws.Response;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -187,6 +189,36 @@ public class AnnouncesService {
         return ResponseEntity.ok().body(genericSuccess.formatSuccess(announcesRepository.findAll(pageable)));
     }
 
+    public ResponseEntity updateActiveAndMultipleActive(
+            AnnouncesUpdateIsActiveAndIsActiveMultipleDTO announcesUpdateIsActiveAndIsActiveMultipleDTO,
+            String announceUuid,
+            Principal principal){
+
+        Optional<Announces> optionalAnnounce = announcesRepository.findByUuid(announceUuid);
+
+        if(optionalAnnounce.isPresent()) {
+
+            String annUserEmail = optionalAnnounce.get().getUser().getEmail();
+            if(annUserEmail.equals(principal.getName())) {
+
+                if(announcesUpdateIsActiveAndIsActiveMultipleDTO.getActive() != null) {
+                    optionalAnnounce.get().setActive(announcesUpdateIsActiveAndIsActiveMultipleDTO.getActive());
+                }
+
+                if(announcesUpdateIsActiveAndIsActiveMultipleDTO.getMultipleActive() != null) {
+                    optionalAnnounce.get().setActiveMultiple(announcesUpdateIsActiveAndIsActiveMultipleDTO.getMultipleActive());
+                }
+
+                announcesRepository.save(optionalAnnounce.get());
+
+                return genericSuccess.formatSuccess(optionalAnnounce.get());
+            } else {
+                return genericError.formatErrorWithHttpVerb("ANNOUNCE_UPDATE_UNAUTHORIZED","FR", HttpStatus.UNAUTHORIZED);
+            }
+        } else {
+            return genericError.formatErrorWithHttpVerb("ANNOUNCE_FIND_BY_UUID","FR",HttpStatus.BAD_REQUEST);
+        }
+    }
 
     public ResponseEntity getAnnouncesByUserId(Principal principal){
         Optional<User> user = userRepository.findByEmail(principal.getName());

@@ -1,6 +1,7 @@
 package fr.heraut.api.controllers.Announces;
 
 import fr.heraut.api.DTO.AnnouncesCreateDTO;
+import fr.heraut.api.DTO.AnnouncesUpdateIsActiveAndIsActiveMultipleDTO;
 import fr.heraut.api.POJO.AnnouncesAnimalsType;
 import fr.heraut.api.models.Announces;
 import fr.heraut.api.services.Annonces.AnnouncesService;
@@ -115,5 +116,16 @@ public class AnnouncesController {
             @RequestParam("page") String page){
         return this.announcesService.getAnnouncesBySearchQuery(servicesId,animalsTypeId,dept,page);
     }
+
+    @PutMapping("/status/{announceUuid}")
+    public ResponseEntity updateIsActiveAndIsActiveMultiple(
+            @RequestBody AnnouncesUpdateIsActiveAndIsActiveMultipleDTO announcesUpdateIsActiveAndIsActiveMultipleDTO,
+            @PathVariable(name="announceUuid") String announceUuid,
+            Principal principal) {
+        return announcesService.updateActiveAndMultipleActive(announcesUpdateIsActiveAndIsActiveMultipleDTO, announceUuid, principal);
+    }
+
+
+
 
 }

@@ -35,6 +35,7 @@ public class ErrorsMessages {
             dict.put("ANNOUNCE_FIND_BY_UUID", "Pas d'annonce pour cette uuid");
             dict.put("ANNOUNCE_LIST_BAD_QUERY_PARAMS", "Query params invalide");
             dict.put("ANNOUNCE_BY_USERID", "Vous n'avez pas d'annonces pour le moment");
+            dict.put("ANNOUNCE_UPDATE_UNAUTHORIZED", "Non authorisé");
 
             // ANNOUNCES with query params
             dict.put("ANNOUNCE_FIND_BY_QUERY_PARAMS", "Aucunes annonces trouvées");
@@ -57,6 +58,18 @@ public class ErrorsMessages {
 
             // BILLS
             dict.put("BILLS_BY_USERID", "Aucune factures pour le moment");
+
+            // STRIPE
+            dict.put("STRIPE_ANNOUNCE_CHARGE_TOKEN_ERROR", "Token stripe non fournit");
+            dict.put("STRIPE_ANNOUNCE_CHARGE_AMOUNT_ERROR", "le montant doit être de minimum 299");
+            dict.put("STRIPE_ANNOUNCE_CHARGE_ERROR", "Une erreur est survenue lors du paiement, veuillez réessayer");
+            dict.put("STRIPE_ANNOUNCE_UUID", "Announce uuid invalide");
+
+
+            dict.put("STRIPE_BOOKING_CHARGE_TOKEN_ERROR", "Token stripe non fournit");
+            dict.put("STRIPE_BOOKING_CHARGE_AMOUNT_ERROR", "le montant doit être de minimum 500");
+            dict.put("STRIPE_BOOKING_CHARGE_ERROR", "Une erreur est survenue lors du paiement, veuillez réessayer");
+
 
             // UPLOAD
             dict.put("UPLOAD_INVALID_BODY", "announceId ou file invalid");
@@ -94,6 +107,7 @@ public class ErrorsMessages {
             dict.put("ANNOUNCE_FIND_BY_UUID", "No announce for this uuid.");
             dict.put("ANNOUNCE_LIST_BAD_QUERY_PARAMS", "Query params invalid");
             dict.put("ANNOUNCE_BY_USERID", "No announces for the moment");
+            dict.put("ANNOUNCE_UPDATE_UNAUTHORIZED", "Unauthorized");
 
 
             // ANNOUNCES with query params
@@ -112,6 +126,16 @@ public class ErrorsMessages {
             dict.put("BOOKING_INVALID_USER_ID", "Id user invalid");
             dict.put("BOOKING_USER_NOT_FOUND", "User not found");
 
+
+            // STRIPE
+            dict.put("STRIPE_ANNOUNCE_CHARGE_TOKEN_ERROR", "Stripe token not provided");
+            dict.put("STRIPE_ANNOUNCE_CHARGE_AMOUNT_ERROR", "Amount should be not less than 299");
+            dict.put("STRIPE_ANNOUNCE_CHARGE_ERROR", "Cannot proceed the payment, please retry");
+            dict.put("STRIPE_ANNOUNCE_UUID", "Announce uuid missing");
+
+            dict.put("STRIPE_BOOKING_CHARGE_TOKEN_ERROR", "Stripe token not provided");
+            dict.put("STRIPE_BOOKING_AMOUNT_ERROR", "Amount should be not less than 500");
+            dict.put("STRIPE_BOOKING_CHARGE_ERROR", "Cannot proceed the payment, please retry");
 
             // BILLS
             dict.put("BILLS_BY_USERID", "No bills for the moment");

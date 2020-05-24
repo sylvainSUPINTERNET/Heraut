@@ -70,6 +70,9 @@ public class Announces implements Serializable {
     @Column
     Boolean active;
 
+    @Column
+    Boolean isActiveMultiple;
+
     /*
     @OneToMany(
             cascade = CascadeType.ALL,
@@ -129,7 +132,6 @@ public class Announces implements Serializable {
     @JsonBackReference(value = "announceUser")
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
-
 
     @JsonIgnore
     @JsonManagedReference(value = "announceBookings")
@@ -267,6 +269,14 @@ public class Announces implements Serializable {
     public Long getId(){
         return this.id;
     }
+
+    public Boolean getActiveMultiple() {
+        return isActiveMultiple;
+    }
+
+    public void setActiveMultiple(Boolean activeMultiple) {
+        isActiveMultiple = activeMultiple;
+    }
     // TODO
     // Lon (from API map ?)
     // Lat (from API map ?) auto complete by the calcul from streetAddress + zipCode given)
@@ -309,9 +319,11 @@ public class Announces implements Serializable {
         this.picture = picture;
     }
 
+
     @PrePersist
     protected void onCreate() {
         this.active = false;
+        this.isActiveMultiple = false;
         this.uuid = UUID.randomUUID().toString();
         this.currency = Currency.getInstance("EUR").getDisplayName();
     }
