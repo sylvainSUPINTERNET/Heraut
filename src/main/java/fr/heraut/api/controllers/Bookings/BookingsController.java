@@ -50,4 +50,9 @@ public class BookingsController {
         return bookingsService.getUserBookings(userId);
     }
 
+    @GetMapping("/announce/{announceUuid}")
+    public ResponseEntity getByUserIdAndAnnounceUuid(@PathVariable(name="announceUuid") String announceUuid, Principal principal) {
+        return bookingsService.getByUserIdAndAnnounceUuid(principal, announceUuid);
+    }
+
 }

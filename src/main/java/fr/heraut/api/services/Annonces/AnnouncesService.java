@@ -18,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import javax.xml.ws.Response;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;

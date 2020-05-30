@@ -16,8 +16,10 @@ import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.ok;
@@ -42,7 +44,7 @@ public class BookingsService {
             AnnouncesRepository announcesRepository,
             ServicesRepository servicesRepository,
             AnimalsTypeRepository animalsTypeRepository,
-            BookingsUserGetDTO bookingsUserGetDTO){
+            BookingsUserGetDTO bookingsUserGetDTO) {
         this.bookingsRepository = bookingsRepository;
         this.genericError = genericError;
         this.genericSuccess = genericSuccess;
@@ -54,7 +56,7 @@ public class BookingsService {
     }
 
     public ResponseEntity getOne(String announceUuid) {
-        Optional<Booking>  booking = bookingsRepository.findByUuid(announceUuid);
+        Optional<Booking> booking = bookingsRepository.findByUuid(announceUuid);
 
         if (booking.isPresent()) {
             ModelMapper modelMapper = new ModelMapper();
@@ -69,39 +71,60 @@ public class BookingsService {
         }
     }
 
+    /**
+     * Use to define if the user has already apply for the announce
+     * @param principal
+     * @param announceUuid
+     * @return
+     */
+    public ResponseEntity getByUserIdAndAnnounceUuid(Principal principal, String announceUuid) {
+        Optional<User> user = userRepository.findByEmail(principal.getName());
+        if (user.isPresent()) {
+
+            List<Booking> bookings = user.get().getBookings()
+                    .stream()
+                    .filter(booking -> booking.getAnnounces().getUuid().equals(announceUuid))
+                    .collect(Collectors.toList());
+
+            return genericSuccess.formatSuccess(bookings);
+        } else {
+            return genericError.formatErrorWithHttpVerb("BOOKING_USER_NOT_FOUND", "FR", HttpStatus.BAD_REQUEST);
+        }
+    }
+
     public ResponseEntity getUserBookings(String userId) {
-                try {
-                    long userIdConverted = Long.parseLong(userId);
-                    Optional<User> user = userRepository.findById(userIdConverted);
-                    if(user.isPresent()) {
+        try {
+            long userIdConverted = Long.parseLong(userId);
+            Optional<User> user = userRepository.findById(userIdConverted);
+            if (user.isPresent()) {
 
-                        if(user.get().getBookings().size() > 0) {
-                            List<BookingsUserGetDTO> userBookings = new ArrayList<>();
+                if (user.get().getBookings().size() > 0) {
+                    List<BookingsUserGetDTO> userBookings = new ArrayList<>();
 
-                            for(Booking booking: user.get().getBookings()) {
-                                BookingsUserGetDTO bugdt =  new BookingsUserGetDTO();
-                                bugdt.setBookingId(booking.getId());
-                                bugdt.setBookingCurrency(booking.getCurrency());
-                                bugdt.setBookingUuid(booking.getUuid());
-                                bugdt.setBookingEndAt(booking.getEndAt());
-                                bugdt.setBookingStartAt(booking.getStartAt());
-                                bugdt.setBookingStatus(booking.getActive());
-                                bugdt.setBookingTotalPrice(booking.getTotalPrice());
-                                bugdt.setCapacityAnimals(booking.getCapacityAnimals());
-                                userBookings.add(bugdt);
-                            }
-
-                            return genericSuccess.formatSuccess(userBookings);
-                        } else {
-                            return genericSuccess.formatSuccess(user.get().getBookings());
-                        }
-                    } else {
-                        return genericError.formatErrorWithHttpVerb("BOOKING_USER_NOT_FOUND","FR", HttpStatus.BAD_REQUEST);
+                    for (Booking booking : user.get().getBookings()) {
+                        BookingsUserGetDTO bugdt = new BookingsUserGetDTO();
+                        bugdt.setBookingId(booking.getId());
+                        bugdt.setBookingCurrency(booking.getCurrency());
+                        bugdt.setBookingUuid(booking.getUuid());
+                        bugdt.setBookingEndAt(booking.getEndAt());
+                        bugdt.setBookingStartAt(booking.getStartAt());
+                        bugdt.setBookingStatus(booking.getActive());
+                        bugdt.setBookingTotalPrice(booking.getTotalPrice());
+                        bugdt.setCapacityAnimals(booking.getCapacityAnimals());
+                        userBookings.add(bugdt);
                     }
 
-                } catch(Exception e){
-                    return genericError.formatErrorWithHttpVerb("BOOKING_INVALID_USER_ID","FR", HttpStatus.BAD_REQUEST);
+                    return genericSuccess.formatSuccess(userBookings);
+                } else {
+                    return genericSuccess.formatSuccess(user.get().getBookings());
                 }
+            } else {
+                return genericError.formatErrorWithHttpVerb("BOOKING_USER_NOT_FOUND", "FR", HttpStatus.BAD_REQUEST);
+            }
+
+        } catch (Exception e) {
+            return genericError.formatErrorWithHttpVerb("BOOKING_INVALID_USER_ID", "FR", HttpStatus.BAD_REQUEST);
+        }
     }
 
     public ResponseEntity create(BookingCreateDTO bookingCreateDTO, Principal principal) {
@@ -110,9 +133,9 @@ public class BookingsService {
         Optional<Services> optionalServices = servicesRepository.findById(bookingCreateDTO.getServiceId());
         Optional<AnimalsType> optionalAnimalsType = animalsTypeRepository.findById(bookingCreateDTO.getAnimalsTypeId());
 
-        if(optionalAnnounces.isPresent()) {
-            if(optionalServices.isPresent()) {
-                if(optionalAnimalsType.isPresent()){
+        if (optionalAnnounces.isPresent()) {
+            if (optionalServices.isPresent()) {
+                if (optionalAnimalsType.isPresent()) {
                     if (optionalUser.isPresent()) {
                         User user = optionalUser.get();
                         Booking newBooking = new Booking();
