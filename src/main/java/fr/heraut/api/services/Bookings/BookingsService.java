@@ -73,6 +73,7 @@ public class BookingsService {
 
     /**
      * Use to define if the user has already apply for the announce
+     *
      * @param principal
      * @param announceUuid
      * @return
@@ -92,6 +93,41 @@ public class BookingsService {
         }
     }
 
+    public ResponseEntity myDemande(String announceUuid) {
+        Optional<Announces> announce = announcesRepository.findByUuid(announceUuid);
+        if (announce.isPresent()) {
+            return genericSuccess.formatSuccess(announce.get().getBookings());
+        } else {
+            return genericError.formatErrorWithHttpVerb("ANNOUNCE_FIND_BY_UUID", "FR", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public ResponseEntity updateConfirm(String bookingUuid) {
+        Optional<Booking> booking = bookingsRepository.findByUuid(bookingUuid);
+        if (booking.isPresent()) {
+
+            booking.get().setConfirmed(true);
+            bookingsRepository.save(booking.get());
+
+            return genericSuccess.formatSuccess(booking.get());
+        } else {
+            return genericError.formatErrorWithHttpVerb("BOOKING_FIND_BY_UUID", "FR", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public ResponseEntity reject(String bookingUuid) {
+        Optional<Booking> booking = bookingsRepository.findByUuid(bookingUuid);
+        if (booking.isPresent()) {
+            booking.get().setActive(false);
+            bookingsRepository.save(booking.get());
+            return genericSuccess.formatSuccess(booking);
+        } else {
+            return genericError.formatErrorWithHttpVerb("BOOKING_FIND_BY_UUID", "FR", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+
     public ResponseEntity getUserBookings(String userId) {
         try {
             long userIdConverted = Long.parseLong(userId);
@@ -102,6 +138,7 @@ public class BookingsService {
                     List<BookingsUserGetDTO> userBookings = new ArrayList<>();
 
                     for (Booking booking : user.get().getBookings()) {
+
                         BookingsUserGetDTO bugdt = new BookingsUserGetDTO();
                         bugdt.setBookingId(booking.getId());
                         bugdt.setBookingCurrency(booking.getCurrency());
@@ -111,6 +148,10 @@ public class BookingsService {
                         bugdt.setBookingStatus(booking.getActive());
                         bugdt.setBookingTotalPrice(booking.getTotalPrice());
                         bugdt.setCapacityAnimals(booking.getCapacityAnimals());
+                        bugdt.setConfirmed(booking.getConfirmed());
+                        bugdt.setAnnounceContactEmail(booking.getAnnounces().getUser().getUsername());
+                        bugdt.setAnnounceUuid(booking.getAnnounces().getUuid());
+                        bugdt.setActive(booking.getActive());
                         userBookings.add(bugdt);
                     }
 

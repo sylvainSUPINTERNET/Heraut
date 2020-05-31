@@ -50,9 +50,26 @@ public class BookingsController {
         return bookingsService.getUserBookings(userId);
     }
 
+    @PutMapping("/confirm/{bookingUuid}")
+    public ResponseEntity updateConfirm(@PathVariable(name= "bookingUuid") String bookingUuid){
+        return bookingsService.updateConfirm(bookingUuid);
+    }
+
+    // Get all bookings for one announce (for the logged user)
     @GetMapping("/announce/{announceUuid}")
     public ResponseEntity getByUserIdAndAnnounceUuid(@PathVariable(name="announceUuid") String announceUuid, Principal principal) {
         return bookingsService.getByUserIdAndAnnounceUuid(principal, announceUuid);
     }
 
+    @PutMapping("/rejected/{bookingUuid}")
+    public ResponseEntity reject(@PathVariable(name= "bookingUuid") String bookingUuid) {
+        return bookingsService.reject(bookingUuid);
+    }
+
+    // Get all bookings for one announce (not related to the logged user)
+    // MyDemande
+    @GetMapping("/{announceUuid}/demandes")
+    public ResponseEntity myDemandes(@PathVariable(name= "announceUuid") String announceUuid){
+        return bookingsService.myDemande(announceUuid);
+    }
 }

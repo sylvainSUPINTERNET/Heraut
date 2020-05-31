@@ -17,8 +17,44 @@ public class BookingsUserGetDTO {
     LocalDateTime bookingEndAt;
     LocalDateTime bookingStartAt;
     int capacityAnimals;
+    boolean isConfirmed;
+    String announceContactEmail;
+    String announceUuid;
+    boolean active;
 
     public BookingsUserGetDTO(){}
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean isConfirmed() {
+        return isConfirmed;
+    }
+
+    public String getAnnounceContactEmail() {
+        return announceContactEmail;
+    }
+
+    public void setAnnounceContactEmail(String announceContactEmail) {
+        this.announceContactEmail = announceContactEmail;
+    }
+
+    public String getAnnounceUuid() {
+        return announceUuid;
+    }
+
+    public void setAnnounceUuid(String announceUuid) {
+        this.announceUuid = announceUuid;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        isConfirmed = confirmed;
+    }
 
     public long getBookingId() {
         return bookingId;

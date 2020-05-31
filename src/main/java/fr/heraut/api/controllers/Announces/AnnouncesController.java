@@ -63,7 +63,6 @@ public class AnnouncesController {
         return this.announcesService.getAnnouncesByUserId(principal);
     }
 
-
     @GetMapping
     // we can also use MultiMap (like users list controlelr)
     public ResponseEntity list(QueryParamsAnnounces queryParamsAnnounces){

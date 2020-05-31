@@ -90,7 +90,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // BOOKINGS
                 .antMatchers(HttpMethod.POST, "/v1/bookings/**").hasAnyRole("ADMIN", "USER")
                 .antMatchers(HttpMethod.GET, "/v1/bookings/**").hasAnyRole("ADMIN", "USER")
-
+                .antMatchers(HttpMethod.PUT, "/v1/bookings/**").hasAnyRole("ADMIN", "USER")
 
                 // MEDIA
                 .antMatchers(HttpMethod.GET, "/v1/media/**").hasAnyRole("ADMIN", "USER")
