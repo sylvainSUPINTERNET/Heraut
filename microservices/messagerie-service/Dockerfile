@@ -23,6 +23,8 @@ COPY . .
 
 
 EXPOSE 3200
+EXPOSE 9999
+
 
 CMD [ "npm", "start" ]
 

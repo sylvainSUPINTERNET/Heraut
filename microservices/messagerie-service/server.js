@@ -1,8 +1,13 @@
 'use strict';
 
+const WebSocket = require('ws');
+const http = require('http');
 const morgan = require('morgan');
 const express = require('express');
 const app = express();
+
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ port: process.env.WS_PORT || 9999 });
 
 // Logs
 app.use(morgan('combined'));
@@ -37,10 +42,13 @@ services:
      - NODE_ENV=production
  */
 
+
 module.exports = {
     app: app,
     PORT: PORT,
-    HOST: HOST
+    HOST: HOST,
+    WSS: wss,
+    svr: server
 };
 
 

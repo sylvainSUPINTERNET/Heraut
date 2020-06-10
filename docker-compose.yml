@@ -65,8 +65,10 @@ services:
     environment:
       - PORT=3200
       - HOST=0.0.0.0
+      - WS_PORT=9999
     ports:
       - 3200:3200
+      - 9999:9999 # WS
     build:
       context: ./microservices/messagerie-service/
       dockerfile: Dockerfile
