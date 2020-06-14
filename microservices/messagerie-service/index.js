@@ -10,9 +10,16 @@ const redis = server.redisClient;
 server.app.use("/test",testRouter);
 
 
+
 // Start WS server
 server.WSS.on('connection', (ws,req) => {
     console.info("websocket connection open");
+
+
+    ws.on('close', function close() {
+        console.log('disconnected');
+    });
+
 
     ws.on('message', async (message) => {
         /*
@@ -74,8 +81,14 @@ server.WSS.on('connection', (ws,req) => {
                                 console.log("LAST INDEX", lastIndex);
                                 if(`${k}` === `${lastIndex}`) {
                                     console.log("SEND MESSAGE", response);
-                                    ws.send(JSON.stringify(response));
-                                    return;
+
+                                    server.WSS.clients.forEach(function each(client) {
+                                        if (client.readyState === server.WebSocket.OPEN) {
+                                            //ws.send(JSON.stringify(response));
+                                            client.send(JSON.stringify(response));
+                                        }
+                                    });
+
                                 }
 
                             })
@@ -95,8 +108,14 @@ server.WSS.on('connection', (ws,req) => {
 
                     redis.get(`${userId}`, (err, reply) => {
                         console.log("SEND NO ELEMENT EXIST");
-                        ws.send(JSON.stringify(reply));
+                        server.WSS.clients.forEach(function each(client) {
+                            if (client.readyState === server.WebSocket.OPEN) {
+                                //client.send(JSON.stringify(reply));
+                                client.send(JSON.stringify(reply));
+                            }
+                        });
                     });
+
 
 
 
@@ -107,6 +126,7 @@ server.WSS.on('connection', (ws,req) => {
 
     });
 });
+
 
 
 //start our server

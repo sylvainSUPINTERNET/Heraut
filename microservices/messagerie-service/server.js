@@ -62,7 +62,8 @@ module.exports = {
     HOST: HOST,
     WSS: wss,
     svr: server,
-    redisClient: client
+    redisClient: client,
+    WebSocket: WebSocket
 };
 
 
