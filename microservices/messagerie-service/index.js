@@ -64,13 +64,15 @@ server.WSS.on('connection', (ws,req) => {
                             redis.get(keys[k], (err, reply) => {
                                 console.log("SET ICI HERE")
 
-                                console.log(k);
+                                console.log(k); 
                                 if(err) throw err;
                                 let lastIndex = keys.length - 1;
                                 response = [...response, JSON.parse(reply) ];
 
                                 console.log(response);
-                                if(k === lastIndex) {
+                                console.log("GO TO SEND");
+                                console.log("LAST INDEX", lastIndex);
+                                if(`${k}` === `${lastIndex}`) {
                                     console.log("SEND MESSAGE", response);
                                     ws.send(JSON.stringify(response));
                                     return;
