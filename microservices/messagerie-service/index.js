@@ -15,7 +15,6 @@ server.WSS.on('connection', (ws,req) => {
     console.info("websocket connection open");
 
     ws.on('message', async (message) => {
-
         /*
         Community payload e.g
 
@@ -26,25 +25,78 @@ server.WSS.on('connection', (ws,req) => {
          */
 
         const msgJson = JSON.parse(message);
-        console.log("[INPUTS] : ", msgJson);
+        console.log("[INPUTS] : ");
+        console.log(msgJson);
+        console.log(typeof msgJson);
         const {source, userId, username, data} = msgJson;
         const keyTarget = `${userId}`;
 
+        // flow
+        // new user come on page
+        // -> get position
+        // send position to WS
+        // IF userId exist in redis, then update position  THEN return all keys to react to update the positionsOnMap variable
+        // IF userId does not existi n redis, just add the user THEN return all keys to react to update the positionsOnMap variable
+
+        console.log("source", source)
+
         if(source === "community") {
+            let response = [];
+
             redis.get(keyTarget, (err, reply ) => {
                 if(err) throw err;
 
                 if(reply !== null){
+                    console.log("ALREADY ONE LEMENTé");
                     let dataAtKey = JSON.parse(reply);
                     // get by key and update the value from that key
                     dataAtKey.data.lon = data.lon;
                     dataAtKey.data.lat = data.lat;
                     redis.set(`${userId}`, JSON.stringify(dataAtKey) ,redis.print);
-                    ws.send({newEntry: dataAtKey});
+
+                    console.log("SET OK  here")
+
+                    redis.keys('*', (err, keys) => {
+                        if(err) throw err;
+
+
+                        for(let k in keys){
+                            redis.get(keys[k], (err, reply) => {
+                                console.log("SET ICI HERE")
+
+                                console.log(k);
+                                if(err) throw err;
+                                let lastIndex = keys.length - 1;
+                                response = [...response, JSON.parse(reply) ];
+
+                                console.log(response);
+                                if(k === lastIndex) {
+                                    console.log("SEND MESSAGE", response);
+                                    ws.send(JSON.stringify(response));
+                                    return;
+                                }
+
+                            })
+                        }
+
+                    });
+
+
+
+
+                   // ws.send({newEntry: JSON.stringify(dataAtKey)});
                 } else {
+                    console.log("NO LEMENTé");
+
                     // Init key + value
                     redis.set(`${userId}`, JSON.stringify(msgJson) ,redis.print);
-                    ws.send({newEntry: msgJson});
+
+                    redis.get(`${userId}`, (err, reply) => {
+                        console.log("SEND NO ELEMENT EXIST");
+                        ws.send(JSON.stringify(reply));
+                    });
+
+
 
                 }
             })
