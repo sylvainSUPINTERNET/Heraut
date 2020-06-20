@@ -35,8 +35,9 @@ server.WSS.on('connection', (ws,req) => {
         console.log("[INPUTS] : ");
         console.log(msgJson);
         console.log(typeof msgJson);
-        const {source, userId, username, data} = msgJson;
+        const {source, userId, username, data, announce} = msgJson;
         const keyTarget = `${userId}`;
+        const keyTargetAnnounce = `${userId}-announce`;
 
         // flow
         // new user come on page
@@ -55,10 +56,25 @@ server.WSS.on('connection', (ws,req) => {
 
                 if(reply !== null){
                     console.log("ALREADY ONE LEMENTé");
-                    let dataAtKey = JSON.parse(reply);
+                    // TODO bug :
+                    //1 -> first msg c'est un array
+                    // 2 -> 2 message c'est plus un array ...
+                    console.log("reply already one")
+                    console.log(reply);
+                    let r = JSON.parse(reply);
+                    let dataAtKey = "";
+                    if(Array.isArray(r)) {
+                        dataAtKey = JSON.parse(reply)[0];
+                    }else{
+                        dataAtKey = JSON.parse(reply);
+                    }
+
+                    console.log("DTK",dataAtKey);
+
                     // get by key and update the value from that key
                     dataAtKey.data.lon = data.lon;
                     dataAtKey.data.lat = data.lat;
+                    dataAtKey.announce = announce;
                     redis.set(`${userId}`, JSON.stringify(dataAtKey) ,redis.print);
 
                     console.log("SET OK  here")
@@ -85,9 +101,13 @@ server.WSS.on('connection', (ws,req) => {
                                     server.WSS.clients.forEach(function each(client) {
                                         if (client.readyState === server.WebSocket.OPEN) {
                                             //ws.send(JSON.stringify(response));
+                                            console.log("ALREADY ELEMENT CLIENT RESPONSE", JSON.stringify(response))
                                             client.send(JSON.stringify(response));
                                         }
                                     });
+
+                                    ws.send(JSON.stringify({"reset_announce_form": 1}));
+
 
                                 }
 
@@ -102,27 +122,34 @@ server.WSS.on('connection', (ws,req) => {
                    // ws.send({newEntry: JSON.stringify(dataAtKey)});
                 } else {
                     console.log("NO LEMENTé");
+                    console.log("IMPEC")
+                    console.log(msgJson);
+
+                    const resp = [...[], msgJson];
 
                     // Init key + value
-                    redis.set(`${userId}`, JSON.stringify(msgJson) ,redis.print);
+                    //redis.set(`${userId}`, JSON.stringify(msgJson) ,redis.print);
+                    redis.set(`${userId}`, JSON.stringify(resp) ,redis.print);
 
                     redis.get(`${userId}`, (err, reply) => {
+                        console.log("REPLY no element ")
+                        console.log(reply)
                         console.log("SEND NO ELEMENT EXIST");
                         server.WSS.clients.forEach(function each(client) {
                             if (client.readyState === server.WebSocket.OPEN) {
                                 //client.send(JSON.stringify(reply));
-                                client.send(JSON.stringify(reply));
+                                console.log("RESPONSE NO ELEMENT", reply);
+                                client.send(reply);
                             }
                         });
+                        ws.send(JSON.stringify({"reset_announce_form": 1}));
                     });
 
-
-
-
+                    
                 }
             })
         }
-
+        
 
     });
 });
