@@ -1,6 +1,11 @@
 version: '3'
 
 services:
+  redis-server:
+    image: "redis:alpine"
+    hostname: redis
+    ports:
+      - "6379:6379"
   ################################
   #   Setup react js container
   ################################
@@ -62,11 +67,17 @@ services:
       - /data/spring-boot-app
   messagerie-service:
     container_name: messagerie-service
+    depends_on:
+      - redis-server
     environment:
       - PORT=3200
       - HOST=0.0.0.0
+      - WS_PORT=9999
+      - REDIS_SERVER_URL=redis-server # refer to the redis-server service define in docker-compose.yml
+      - REDIS_PORT=6379
     ports:
       - 3200:3200
+      - 9999:9999 # WS
     build:
       context: ./microservices/messagerie-service/
       dockerfile: Dockerfile
