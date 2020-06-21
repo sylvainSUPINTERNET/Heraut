@@ -16,7 +16,10 @@ server.WSS.on('connection', (ws,req) => {
     console.info("websocket connection open");
 
 
-    ws.on('close', function close() {
+    ws.on('close', function close(code,reason) {
+        console.log("DISCONNECT MSG code", code);
+        console.log("DISCONNECT MSG reason", reason);
+
         console.log('disconnected');
     });
 
@@ -35,7 +38,7 @@ server.WSS.on('connection', (ws,req) => {
         console.log("[INPUTS] : ");
         console.log(msgJson);
         console.log(typeof msgJson);
-        const {source, userId, username, data, announce} = msgJson;
+        const {source, userId, username, data, announce, phoneNumber} = msgJson;
         const keyTarget = `${userId}`;
         const keyTargetAnnounce = `${userId}-announce`;
 
@@ -74,7 +77,18 @@ server.WSS.on('connection', (ws,req) => {
                     // get by key and update the value from that key
                     dataAtKey.data.lon = data.lon;
                     dataAtKey.data.lat = data.lat;
-                    dataAtKey.announce = announce;
+                    console.log("ANNOUNCE ? ", announce);
+                    if(announce !== null && announce !== "") {
+                        console.log("DETECT ANNOUNCE");
+                        dataAtKey.announce = announce;
+                    }
+                    console.log("pHONE NUMBER ? ", phoneNumber);
+                    if(phoneNumber !== null && phoneNumber !== "") {
+                        console.log("DETECT phoneNumber");
+                        dataAtKey.phoneNumber = phoneNumber;
+                    }
+
+                    console.log("DATAKEY TO SET", dataAtKey);
                     redis.set(`${userId}`, JSON.stringify(dataAtKey) ,redis.print);
 
                     console.log("SET OK  here")
