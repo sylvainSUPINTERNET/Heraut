@@ -59,11 +59,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/v1/announces/**").hasAnyRole("ADMIN", "USER")
 
                 // Services
-                .antMatchers(HttpMethod.GET, "/v1/services/**").hasAnyRole("ADMIN", "USER")
+                //.antMatchers(HttpMethod.GET, "/v1/services/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers(HttpMethod.GET, "/v1/services/**").permitAll()
 
                 // AnimalsType
-                .antMatchers(HttpMethod.GET, "/v1/animalsType/**").hasAnyRole("ADMIN", "USER")
-
+                //.antMatchers(HttpMethod.GET, "/v1/animalsType/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers(HttpMethod.GET, "/v1/animalsType/**").permitAll()
 
                 //EQUIPMENTS
                 .antMatchers(HttpMethod.GET, "/v1/equipments/**").hasAnyRole("ADMIN", "USER")
