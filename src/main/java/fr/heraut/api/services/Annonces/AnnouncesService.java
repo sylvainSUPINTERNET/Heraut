@@ -185,7 +185,7 @@ public class AnnouncesService {
 
         Pageable pageable = PageRequest.of(page, Integer.parseInt(resultPerPage));
 
-        return ResponseEntity.ok().body(genericSuccess.formatSuccess(announcesRepository.findAll(pageable)));
+        return ResponseEntity.ok().body(genericSuccess.formatSuccess(announcesRepository.findAllByOrderByCreatedAtDesc(pageable)));
     }
 
     public ResponseEntity updateActiveAndMultipleActive(
