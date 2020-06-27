@@ -9,6 +9,7 @@ public class StoreItemCreateDTO {
     String affiliateLink;
     String affiliatePicture;
     Long categoryId;
+    int rating;
 
     public String getCustomName() {
         return customName;
@@ -48,5 +49,13 @@ public class StoreItemCreateDTO {
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 }
