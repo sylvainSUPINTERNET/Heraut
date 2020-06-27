@@ -86,7 +86,15 @@ Combinate with Docker containers, we also allow to make a microservice architect
    _Services_
      
      localhost:4200/service-<service_name>/
-     
+
+
+## Run tests: 
+
+Default env is local (please check the application.properties in test/java/resource)
+
+```
+$ mvn clean test
+```
      
 ## Important
 - **Authentication** : For authentication system, the username is actually the email 

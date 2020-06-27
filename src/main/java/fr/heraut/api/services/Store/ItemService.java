@@ -73,12 +73,16 @@ public class ItemService {
         }
 
 
+        storeItem.setRating(storeItemCreateDTO.getRating());
+
         Optional<StoreCategory> storeCategory = storeCategoryRepository.findById(storeItemCreateDTO.getCategoryId());
         if(storeCategory.isPresent()) {
             storeItem.setStoreCategory(storeCategory.get());
         } else {
             return genericError.formatErrorWithHttpVerb("CREATE_CATEGORY_STORE_ITEM_MISSING", "FR", HttpStatus.BAD_REQUEST);
         }
+
+
 
         storeItemRepository.save(storeItem);
         return genericSuccess.formatSuccess(storeItemCreateDTO);
