@@ -104,16 +104,9 @@ class UserTests {
             userRepository.save(userTest);
         }
 
-
-        System.out.println("-- - - - - -- --- - - - - -- --- - - - - -- --- - - - - -- --- - - - - -- -");
         for(User user : userRepository.findAll()) {
             System.out.println(user.getUsername());
         }
-
-        System.out.println("--- -- -- --- -- - BEFORE ALL --- -- -- --- -- - ");
-        System.out.println("--- -- -- --- -- - BEFORE ALL --- -- -- --- -- - ");
-        System.out.println("--- -- -- --- -- - BEFORE ALL --- -- -- --- -- - ");
-        System.out.println("--- -- -- --- -- - BEFORE ALL --- -- -- --- -- - ");
 
 
         this.setTokens();
@@ -156,6 +149,20 @@ class UserTests {
         User user = this.getUser("ROLE_ADMIN");
         System.out.println(user.getEmail());
         assertThat(user.getEmail() != null && user.getEmail() instanceof String);
+    }
+
+    @Test
+    void roleIsNotAdmin() {
+        User user = this.getUser("ROLE_USER");
+        String roleName = user.getRoles().get(0);
+        assertThat(!roleName.equals("ROLE_ADMIN"));
+    }
+
+    @Test
+    void roleIsNotUser() {
+        User user = this.getUser("ROLE_ADMIN");
+        String roleName = user.getRoles().get(0);
+        assertThat(!roleName.equals("ROLE_USER"));
     }
 
 }
