@@ -1,30 +1,22 @@
 version: '3'
 
 services:
-  redis-server:
-    image: "redis:alpine"
-    hostname: redis
-    ports:
-      - "6379:6379"
-  ################################
-  #   Setup react js container
-  ################################
   web:
     container_name: "petsbnb_webapp"
     build:
-      context: ../petsbnb_rework # make sure you downloaded the project and put the directory at the same root of this project
-      dockerfile: Dockerfile
+      context: ./petsbnb_rework # make sure you downloaded the project and put the directory at the same root of this project
+      dockerfile: DockerfileProd
     expose:
       - 3000
     ports:
       - 3000:3000
     volumes:
-      - ../petsbnb_rework/:/app
+      - ./petsbnb_rework/:/app
   nginx:
     container_name: api-gateway
     #image: nginx-api
     build:
-      context: ./nginx
+      context: ./Heraut/nginx
       dockerfile: Dockerfile
     restart: always
     ports:
@@ -34,23 +26,6 @@ services:
       - spring-boot-jpa-app
     links:
       - spring-boot-jpa-app
-  mysql-docker-container:
-    container_name: mysql-docker-container
-    image: mysql:5.7
-    environment:
-      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${DB_NAME}
-      # already root user by default so just set the pass to avoid bug
-      #- MYSQL_PASSWORD=root
-      #- MYSQL_USER=root
-    ports:
-      - 2012:3306 # <host-port>:<container-port> means we can access to 127.0.0.1:2012 (thats database from docker on local machin)
-    volumes:
-      #- /data/mysql
-      # For test
-      - ./seed/dev:/docker-entrypoint-initdb.d
-      # For prod
-      #- ./seed/prod:/docker-entrypoint-initdb.d
   spring-boot-jpa-app:
     container_name: spring-boot-jpa-app
     restart: always
@@ -77,13 +52,13 @@ services:
       - PORT=3200
       - HOST=0.0.0.0
       - WS_PORT=9999
-      - REDIS_SERVER_URL=${REDIS_SERVER_ENDPOINT} # refer to the redis-server service define in docker-compose.yml
+      - REDIS_SERVER_URL=${REDIS_SERVER_ENDPOINT}
       - REDIS_PORT=6379
     ports:
       - 3200:3200
       - 9999:9999 # WS
     build:
-      context: ./microservices/messagerie-service/
-      dockerfile: Dockerfile
+      context: ./messagerie-service/
+      dockerfile: DockerfileProd
     restart: always
 

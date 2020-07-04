@@ -54,6 +54,9 @@ docker_start_api_dev:
 docker_start_api_preprod:
 	$(folder_scripts)$(image_api_script) $(image_repository):$(version_preprod)$(version_nb) && docker-compose up
 
+docker_start_prod:
+	$(folder_scripts)$(image_api_script) $(image_repository):$(version_dev)$(version_nb) && docker-compose -f docker-compose up -d
+
 
 
 ## Deploy image on registry Docker Hub sylvainneung/petsbnb (private)
