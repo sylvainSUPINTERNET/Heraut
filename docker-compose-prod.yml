@@ -17,7 +17,7 @@ services:
     #image: nginx-api
     build:
       context: ./Heraut/nginx
-      dockerfile: Dockerfile
+      dockerfile: DockerfileProd
     restart: always
     ports:
       - 4200:4200
@@ -32,10 +32,8 @@ services:
     # these variables refers to the .env file
     image: ${DOCKER_REPOSITORY}:${TAG_DEV}${VERSION}
     build:
-      context: ./
-      dockerfile: Dockerfile
-    depends_on:
-      - mysql-docker-container
+      context: ./Heraut
+      dockerfile: DockerfileProd
     ports:
       - 4999:4999 # same as ports above, the api is accessible at 127.0.0.1:4999 (for postman)
     volumes:
@@ -46,8 +44,6 @@ services:
       - DATASOURCE_ENDPOINT=${DATASOURCE_URL}
   messagerie-service:
     container_name: messagerie-service
-    depends_on:
-      - redis-server
     environment:
       - PORT=3200
       - HOST=0.0.0.0

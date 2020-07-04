@@ -20,8 +20,10 @@ docker_password=${DOCKER_PASSWORD}
 ## Scripts
 folder_scripts=./build_scripts/
 image_api_script = build-docker-image-api.sh
+image_api_script_prod = build-docker-image-api_prod.sh
 deploy_image_api_script = deploy-registry-docker-image-api.sh
 docker_clear_script = docker-clear.sh
+docker_clear_script_prod = docker-clear-prod.sh
 
 
 
@@ -54,8 +56,9 @@ docker_start_api_dev:
 docker_start_api_preprod:
 	$(folder_scripts)$(image_api_script) $(image_repository):$(version_preprod)$(version_nb) && docker-compose up
 
+# execute this from EC2
 docker_start_prod:
-	$(folder_scripts)$(image_api_script) $(image_repository):$(version_dev)$(version_nb) && docker-compose -f docker-compose up -d
+	$(folder_scripts)$(image_api_script_prod) $(image_repository):$(version_dev)$(version_nb) && sudo docker-compose -f ../docker-compose-prod.yml up -d
 
 
 
@@ -77,3 +80,8 @@ docker_deploy_registry_preprod:
 ## Utils
 docker_clear:
 	$(folder_scripts)$(docker_clear_script)
+
+
+## Utils - prod
+docker_clear_prod:
+	$(folder_scripts)$(docker_clear_script_prod)
