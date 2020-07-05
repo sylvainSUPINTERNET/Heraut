@@ -20,7 +20,8 @@ services:
       dockerfile: DockerfileProd
     restart: always
     ports:
-      - 4200:4200
+      - 8080:8080
+      - 80:80
       - 433:433
     depends_on:
       - spring-boot-jpa-app
@@ -38,10 +39,6 @@ services:
       - 4999:4999 # same as ports above, the api is accessible at 127.0.0.1:4999 (for postman)
     volumes:
       - /data/spring-boot-app
-    environment:
-      - DATASOURCE_USERNAME=${DATASOURCE_USERNAME}
-      - DATASOURCE_PASSWORD=${DATASOURCE_PASSWORD}
-      - DATASOURCE_ENDPOINT=${DATASOURCE_URL}
   messagerie-service:
     container_name: messagerie-service
     environment:
