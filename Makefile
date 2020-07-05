@@ -20,7 +20,7 @@ docker_password=${DOCKER_PASSWORD}
 ## Scripts
 folder_scripts=./build_scripts/
 image_api_script = build-docker-image-api.sh
-image_api_script_prod = build-docker-image-api_prod.sh
+image_api_script_prod = build-docker-image-api-prod.sh
 deploy_image_api_script = deploy-registry-docker-image-api.sh
 docker_clear_script = docker-clear.sh
 docker_clear_script_prod = docker-clear-prod.sh
