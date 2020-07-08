@@ -21,6 +21,10 @@ public class ErrorsMessages {
             dict.put("AUTHENTICATION_REGISTER_ERROR_MISSING_FIELDS", "Champs invalide.");
             dict.put("AUTHENTICATION_REGISTER_ERROR_EMAIL_FIELDS_ALREADY_EXIST", "Cette adresse email est déjà utilisée.");
             dict.put("AUTHENTICATION_REGISTER_ERROR_USERNAME_FIELDS_ALREADY_EXIST", "Ce nom d'utilisateur est déjà utilisé.");
+            dict.put("GET_RESET_PASSWORD", "Token invalide");
+            dict.put("USER_FOR_RESET_NOT_FOUND", "User n'existe pas");
+            dict.put("MISSING_BODY_RESET_PASSWORD", "Email / password invalident");
+
 
             // API granted Roles / Authority
             dict.put("ROLE_AUTHORITY_ERROR_EXCEPTION_USER_ID_PARAM", "Id utilisateur invalide.");
@@ -92,6 +96,10 @@ public class ErrorsMessages {
             dict.put("AUTHENTICATION_REGISTER_ERROR_MISSING_FIELDS", "Invalid fields.");
             dict.put("AUTHENTICATION_REGISTER_ERROR_EMAIL_FIELDS_ALREADY_EXIST", "This email is already taken.");
             dict.put("AUTHENTICATION_REGISTER_ERROR_USERNAME_FIELDS_ALREADY_EXIST", "This username is already used.");
+            dict.put("GET_RESET_PASSWORD", "Invalid token");
+            dict.put("USER_FOR_RESET_NOT_FOUND", "User not exist");
+            dict.put("MISSING_BODY_RESET_PASSWORD", "Email / password invalid");
+
 
             // API granted Roles / Authority
             dict.put("ROLE_AUTHORITY_ERROR_EXCEPTION_USER_ID_PARAM", "Id user given in URL is invalid.");

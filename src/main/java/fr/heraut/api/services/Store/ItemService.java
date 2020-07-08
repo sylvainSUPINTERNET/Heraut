@@ -9,7 +9,6 @@ import fr.heraut.api.repositories.StoreCategoryRepository;
 import fr.heraut.api.repositories.StoreItemRepository;
 import fr.heraut.api.services.ResponseFormat.GenericError;
 import fr.heraut.api.services.ResponseFormat.GenericSuccess;
-import org.reflections.Store;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import javax.xml.ws.Response;
 import java.util.Optional;
 
 import static java.lang.Integer.parseInt;
