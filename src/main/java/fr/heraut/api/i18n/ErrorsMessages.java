@@ -24,6 +24,8 @@ public class ErrorsMessages {
             dict.put("GET_RESET_PASSWORD", "Token invalide");
             dict.put("USER_FOR_RESET_NOT_FOUND", "User n'existe pas");
             dict.put("MISSING_BODY_RESET_PASSWORD", "Email / password invalident");
+            dict.put("ERROR_SEND_EMAIL", "Une erreur est survenue");
+
 
 
             // API granted Roles / Authority
@@ -99,7 +101,7 @@ public class ErrorsMessages {
             dict.put("GET_RESET_PASSWORD", "Invalid token");
             dict.put("USER_FOR_RESET_NOT_FOUND", "User not exist");
             dict.put("MISSING_BODY_RESET_PASSWORD", "Email / password invalid");
-
+            dict.put("ERROR_SEND_EMAIL", "Email send has been crash, please try later");
 
             // API granted Roles / Authority
             dict.put("ROLE_AUTHORITY_ERROR_EXCEPTION_USER_ID_PARAM", "Id user given in URL is invalid.");

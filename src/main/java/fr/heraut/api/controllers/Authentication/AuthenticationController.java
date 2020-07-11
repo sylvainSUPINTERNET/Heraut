@@ -1,5 +1,6 @@
 package fr.heraut.api.controllers.Authentication;
 
+import fr.heraut.api.DTO.EmailResetPasswordDTO;
 import fr.heraut.api.DTO.UserResetPasswordDTO;
 import fr.heraut.api.JWT.JwtTokenProvider;
 import fr.heraut.api.POJO.AuthenticationRequest;
@@ -12,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +24,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.internet.MimeMessage;
 import javax.transaction.Transactional;
+import javax.validation.constraints.Email;
 import java.util.*;
 
 import static org.springframework.http.ResponseEntity.ok;
@@ -28,6 +34,9 @@ import static org.springframework.http.ResponseEntity.ok;
 @RestController
 @RequestMapping("/v1/auth")
 public class AuthenticationController {
+
+    @Autowired
+    private JavaMailSender emailSender;
 
     GenericSuccess genericSuccess;
 
@@ -50,6 +59,12 @@ public class AuthenticationController {
 
     @Value("${reset.password.tok}")
     String tokRedirect;
+
+    @Value("${spring.mail.username}")
+    String noReplyEmail;
+
+    @Value("${reset.app.url}")
+    String appUrl;
 
     public AuthenticationController(
             AuthenticationManager authenticationManager,
@@ -94,6 +109,28 @@ public class AuthenticationController {
         return registerService.generateUser(user);
     }
 
+    @PostMapping("/reset/email")
+    public ResponseEntity sendResetPasswordEmail(@RequestBody EmailResetPasswordDTO emailResetPasswordDTO){
+        try {
+            MimeMessage message = emailSender.createMimeMessage();
+            String toEncode = this.tokRedirect + "_" + emailResetPasswordDTO.getEmailVerify();
+            String paramB64 = Base64.getEncoder().encodeToString(toEncode.getBytes());
+            String redirectLink = this.appUrl+"/reset/email?tok="+paramB64;
+            boolean multipart = true;
+            MimeMessageHelper helper = new MimeMessageHelper(message, multipart, "utf-8");
+            String htmlMsg = "<h3>Réinitialiser votre mot de passe</h3><br>" +
+                    "<a href="+ redirectLink +">Je réinitialise mon mot de passe</a><br>"
+                    +"<img src='https://petsbnb.dk/images/hund-og-kat-footer.png'>";
+            message.setContent(htmlMsg, "text/html");
+            helper.setTo(emailResetPasswordDTO.getEmailVerify());
+            helper.setSubject("Petsbnb - mot de passe oublié");
+            emailSender.send(message);
+            return genericSuccess.formatSuccess(redirectLink);
+        } catch (Exception e) {
+            return genericError.formatErrorWithHttpVerb("ERROR_SEND_EMAIL","FR",HttpStatus.BAD_REQUEST);
+        }
+    }
+
     // Call when user click on the email link and get redirect to the page
     @PutMapping("/reset/password")
     public ResponseEntity updatePassword(@RequestBody UserResetPasswordDTO userResetPasswordDTO) {
@@ -124,7 +161,8 @@ public class AuthenticationController {
             byte[] byteArray = Base64.getDecoder().decode(tokenRedirect);
             String token = new String(byteArray);
 
-            String emailToVerify = token.substring(tokRedirect.length()-1);
+            String emailToVerify = token.substring(tokRedirect.length()+1);
+
             Optional<User> user = userRepository.findByEmail(emailToVerify);
             if(!user.isPresent()) {
                 return genericError.formatErrorWithHttpVerb("USER_FOR_RESET_NOT_FOUND","FR", HttpStatus.BAD_REQUEST);

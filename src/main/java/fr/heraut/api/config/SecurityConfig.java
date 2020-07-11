@@ -41,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v1/auth/login").permitAll()
                 .antMatchers("/v1/auth/register").permitAll()
                 .antMatchers("/v1/auth/reset/password").permitAll()
+                .antMatchers(HttpMethod.POST,"/v1/auth/reset/email").permitAll()
 
 
                 // EXEMPLE SERVICES
