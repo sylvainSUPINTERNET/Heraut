@@ -52,8 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // USER SERVICES
                 .antMatchers(HttpMethod.GET, "/v1/me").hasAnyRole("ADMIN", "USER")
                 .antMatchers(HttpMethod.PUT, "/v1/granted/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/v1/users").hasAnyRole("ADMIN", "USER")
-                .antMatchers(HttpMethod.GET, "/v1/users/**").hasAnyRole("ADMIN", "USER")
+                //.antMatchers(HttpMethod.GET, "/v1/users").hasAnyRole("ADMIN", "USER")
+                .antMatchers(HttpMethod.GET, "/v1/users/**").permitAll()
 
                 // ANNOUNCES SERVICES
                 .antMatchers(HttpMethod.POST, "/v1/announces/**").hasAnyRole("ADMIN", "USER")
@@ -78,7 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.antMatchers(HttpMethod.DELETE, "/v2/api-docs**").permitAll()
 
                 // USER
-                .antMatchers(HttpMethod.GET, "/v1/users/**").hasAnyRole("ADMIN", "USER")
+                //.antMatchers(HttpMethod.GET, "/v1/users/**").hasAnyRole("ADMIN", "USER")
 
                 // BILLS
                 .antMatchers(HttpMethod.GET, "/v1/bills/**").hasAnyRole("ADMIN", "USER")

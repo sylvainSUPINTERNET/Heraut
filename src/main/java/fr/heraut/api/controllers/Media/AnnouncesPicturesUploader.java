@@ -2,6 +2,7 @@ package fr.heraut.api.controllers.Media;
 
 
 import fr.heraut.api.services.Media.AnnouncesPicturesUploaderService;
+import fr.heraut.api.services.Media.UserPictureUploaderService;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.apache.tomcat.util.codec.binary.StringUtils;
 import org.springframework.http.ResponseEntity;
@@ -18,40 +19,26 @@ import java.sql.SQLException;
 public class AnnouncesPicturesUploader {
 
     public AnnouncesPicturesUploaderService announcesPicturesUploaderService;
+    public UserPictureUploaderService userPictureUploaderService;
 
 
-    AnnouncesPicturesUploader(AnnouncesPicturesUploaderService announcesPicturesUploaderServic){
+    AnnouncesPicturesUploader(AnnouncesPicturesUploaderService announcesPicturesUploaderServic, UserPictureUploaderService userPictureUploaderService){
         this.announcesPicturesUploaderService = announcesPicturesUploaderServic;
+        this.userPictureUploaderService = userPictureUploaderService;
+    }
+
+
+    @PostMapping("/user/picture")
+    public ResponseEntity handleFileUploadUser(@RequestParam("picture") MultipartFile file, @RequestParam("userId") String id,
+                                           RedirectAttributes redirectAttributes) {
+        return userPictureUploaderService.upload(id, file);
     }
 
     @PostMapping("/announce/picture")
     public ResponseEntity handleFileUpload(@RequestParam("picture") MultipartFile file, @RequestParam("announceId") String id,
                                            RedirectAttributes redirectAttributes) {
-
         return announcesPicturesUploaderService.upload(id, file);
-
-        /*
-        if(!file.isEmpty() && !id.isEmpty()){
-            try {
-                Blob blob = new javax.sql.rowset.serial.SerialBlob(file.getBytes());
-                System.out.println(blob);
-                return blob.toString();
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return "error sql";
-            } catch (IOException e) {
-                e.printStackTrace();
-                return "error bytes";
-            }
-
-
-        } else {
-            return "empty file";
-        }*/
     }
-
-
-
 
 
 }

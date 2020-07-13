@@ -25,6 +25,7 @@ public class ErrorsMessages {
             dict.put("USER_FOR_RESET_NOT_FOUND", "User n'existe pas");
             dict.put("MISSING_BODY_RESET_PASSWORD", "Email / password invalident");
             dict.put("ERROR_SEND_EMAIL", "Une erreur est survenue");
+            dict.put("USER_NOT_FOUND", "User non trouvé");
 
 
 
@@ -80,6 +81,8 @@ public class ErrorsMessages {
             // UPLOAD
             dict.put("UPLOAD_INVALID_BODY", "announceId ou file invalid");
             dict.put("UPLOAD_NO_ANNOUNCE", "Aucune annonce trouvée");
+            dict.put("UPLOAD_NO_USER", "No user non trouvé");
+            dict.put("UPLOAD_INVALID_BODY_USER", "userId ou file manquant");
 
             // Store - Category
             dict.put("CREATE_CAT_NAME", "Le champ name est vide.");
@@ -102,6 +105,8 @@ public class ErrorsMessages {
             dict.put("USER_FOR_RESET_NOT_FOUND", "User not exist");
             dict.put("MISSING_BODY_RESET_PASSWORD", "Email / password invalid");
             dict.put("ERROR_SEND_EMAIL", "Email send has been crash, please try later");
+            dict.put("USER_NOT_FOUND", "User not found");
+
 
             // API granted Roles / Authority
             dict.put("ROLE_AUTHORITY_ERROR_EXCEPTION_USER_ID_PARAM", "Id user given in URL is invalid.");
@@ -154,6 +159,9 @@ public class ErrorsMessages {
             // UPLOAD
             dict.put("UPLOAD_INVALID_BODY", "announceId or file missing");
             dict.put("UPLOAD_NO_ANNOUNCE", "No announce found");
+            dict.put("UPLOAD_NO_USER", "No user found");
+            dict.put("UPLOAD_INVALID_BODY_USER", "userId or file missing");
+
 
             // Store - Category
             dict.put("CREATE_CAT_NAME", "The field name is empty");

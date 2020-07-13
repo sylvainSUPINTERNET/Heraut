@@ -20,6 +20,7 @@ services:
       - 3000:3000
     volumes:
       - ../petsbnb_rework/:/app
+    stdin_open: true # docker run -i
   nginx:
     container_name: api-gateway
     #image: nginx-api

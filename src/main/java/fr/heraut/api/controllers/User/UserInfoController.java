@@ -2,16 +2,15 @@ package fr.heraut.api.controllers.User;
 
 import fr.heraut.api.models.User;
 import fr.heraut.api.repositories.UserRepository;
+import fr.heraut.api.services.ResponseFormat.GenericError;
+import fr.heraut.api.services.ResponseFormat.GenericSuccess;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,10 +24,15 @@ import static org.springframework.http.ResponseEntity.ok;
 
 class UserInfoController {
 
+    GenericSuccess genericSuccess;
+    GenericError genericError;
+
     UserRepository userRepository;
 
-    UserInfoController(UserRepository userRepository){
+    UserInfoController(UserRepository userRepository, GenericError genericError, GenericSuccess genericSuccess){
         this.userRepository = userRepository;
+        this.genericError = genericError;
+        this.genericSuccess = genericSuccess;
     }
 
     @GetMapping("/me")
@@ -53,5 +57,16 @@ class UserInfoController {
             }
 
     }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity getOne(@PathVariable(name="userId") long userId){
+        Optional<User> user = this.userRepository.findById(userId);
+        if(user.isPresent()){
+            return genericSuccess.formatSuccess(user.get());
+        } else {
+            return genericError.formatErrorWithHttpVerb("USER_NOT_FOUND", "FR", HttpStatus.BAD_REQUEST);
+        }
+    }
+
 
 }

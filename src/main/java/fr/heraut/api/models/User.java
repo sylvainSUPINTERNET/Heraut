@@ -37,6 +37,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy="user")
     private Collection<Booking> bookings ;
 
+    @Lob
+    private byte[] picture;
+
 
     @JsonManagedReference("announceUser")
     @OneToMany(
@@ -183,5 +186,14 @@ public class User implements UserDetails {
 
     public void setBills(List<Bills> bills) {
         this.bills = bills;
+    }
+
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
+    }
+
+    public byte[] getPicture() {
+        return picture;
     }
 }
