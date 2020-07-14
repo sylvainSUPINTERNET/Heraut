@@ -62,7 +62,7 @@ public interface AnnouncesRepository extends JpaRepository<Announces, Long> {
     @Query("SELECT a FROM Announces a WHERE a.dept = :department AND a.active = 1 ORDER BY a.createdAt DESC")
     Page<Announces> findAllByQueryDeptAndPopulate(@Param("department") String department,Pageable pageable);
 
-    @Query(value = "SELECT * FROM announces as ann ORDER BY created_at DESC limit 5", nativeQuery = true)
+    @Query(value = "SELECT * FROM announces as ann ORDER BY created_at DESC limit 4", nativeQuery = true)
     List<Announces> findLatestAnnounces();
 
 }
