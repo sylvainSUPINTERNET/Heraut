@@ -41,6 +41,7 @@ server.WSS.on('connection', (ws,req) => {
         const {source, userId, username, data, announce, phoneNumber} = msgJson;
         const keyTarget = `${userId}`;
         const keyTargetAnnounce = `${userId}-announce`;
+        const REMOVE_ANNOUNCE = "REMOVE";
 
         // flow
         // new user come on page
@@ -80,12 +81,21 @@ server.WSS.on('connection', (ws,req) => {
                     console.log("ANNOUNCE ? ", announce);
                     if(announce !== null && announce !== "") {
                         console.log("DETECT ANNOUNCE");
-                        dataAtKey.announce = announce;
+                        if(announce === REMOVE_ANNOUNCE) {
+                            dataAtKey.announce = null;
+                        } else {
+                            dataAtKey.announce = announce;
+                        }
                     }
                     console.log("pHONE NUMBER ? ", phoneNumber);
                     if(phoneNumber !== null && phoneNumber !== "") {
-                        console.log("DETECT phoneNumber");
-                        dataAtKey.phoneNumber = phoneNumber;
+                        if(phoneNumber === REMOVE_ANNOUNCE) {
+                            dataAtKey.phoneNumber = null;
+                        } else {
+                            console.log("DETECT phoneNumber");
+                            dataAtKey.phoneNumber = phoneNumber;
+                        }
+
                     }
 
                     console.log("DATAKEY TO SET", dataAtKey);
