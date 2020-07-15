@@ -62,7 +62,7 @@ public class RegisterService {
                         return registerError.formatError("AUTHENTICATION_REGISTER_ERROR_USERNAME_FIELDS_ALREADY_EXIST","FR");
                     } else {
                         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-                        user.setRoles(Arrays.asList(apiRoles.getROLE_ADMIN()));
+                        user.setRoles(Arrays.asList(apiRoles.getROLE_USER()));
                         Long id = userRepository
                                 .save(user)
                                 .getId();
