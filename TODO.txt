@@ -4,6 +4,7 @@
 // todo -> test Bookings get => should return also an array of bills
 // TODO -> make API for bills (creation with stripe ) POST
 
+
 // TODO -> configurer Stripe (emailing etc)
 
 
