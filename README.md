@@ -4,7 +4,6 @@
 
 Make sure that you have the petsbnb_rework (application project) directory at the same root of this project for using the docker-compose.yml 
 
-
 OR
 
 just change the volume path to make it correspond to your setup
